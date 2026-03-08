@@ -31,8 +31,7 @@ I'm a third year undergraduate student at **[HuaZhong University of Science and 
 
 Jinghan Yu<sup>1*</sup>, Junhao Xiao<sup>1*</sup>, **Chenyu Zhu**<sup>1</sup>, Jiaming Li<sup>1</sup>, Jia Li<sup>1</sup>, HanMing Deng<sup>1</sup>, Xirui Wang<sup>1</sup>, Guoli Jia<sup>2</sup>, Jianjun Li<sup>1</sup>, Zhiyuan Ma<sup>1†</sup>, Xiang Bai<sup>1</sup>, Bowen Zhou<sup>2,3</sup>
 
-<small><sup>1</sup>Huazhong University of Science and Technology, <sup>2</sup>Tsinghua University, <sup>3</sup>Shanghai AI Laboratory</small> <br>
-<small><sup>*</sup>Equal Contribution, <sup>†</sup>Corresponding Author</small>
+<span style="font-size: 0.75em;"><sup>1</sup>Huazhong University of Science and Technology, <sup>2</sup>Tsinghua University, <sup>3</sup>Shanghai AI Laboratory</span>
 
 [**[Project]**](https://image2env.github.io/) [**[Code]**](https://github.com/jinghan-yu/mild-executor) [**[Dataset]**](https://github.com/jinghan-yu/mild-executor) <strong><span class='show_paper_citations' data='DhtAFkwAAAAJ:ALROH1vI_8AC'></span></strong>
 - We propose I2E, a novel "Decompose-then-Action" paradigm that transforms unstructured images into discrete, manipulable object layers and employs a physics-aware Vision-Language-Action Agent to parse complex instructions into atomic actions via Chain-of-Thought reasoning, significantly outperforming state-of-the-art methods on compositional editing tasks.
