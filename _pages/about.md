@@ -27,7 +27,6 @@ I'm always open to discussions and collaborations — feel free to reach out! �
 - *2026.01*: &nbsp;🎉🎉 I2E, my first collaborative work with fellows from Tsinghua University and Shanghai AI Lab, has been submitted to ACL 2026!
 
 # 📝 Publications 
-
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">Submitted to ACL 2026</div><img src='images/I2E.png' alt="I2E" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
