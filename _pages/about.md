@@ -17,8 +17,7 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I'm a third year undergraduate student at **[HuaZhong University of Science and Technology (HUST)](https://www.hust.edu.cn/)**. I'm currently working on some exciting research projects.  My current research interests are 🎨 **Diffusion Post Training**, 🔗 **Unified Multimodal Models**, 🌐 **World Models**, and 🤖 **VLMs**. Most of my projects are available on [Github](https://github.com/Chael-Chael).
-
+I'm a third year undergraduate student at **[HuaZhong University of Science and Technology (HUST)](https://www.hust.edu.cn/)**. I'm currently working on some exciting research projects.  My current research interests are 🔗 **Unified Multimodal Models**, 🎨 **Diffusion Post Training**, 🌐 **World Models**, and 🤖 **VLMs**.
 
 # 🔥 News
 - *2026.03*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
@@ -30,7 +29,10 @@ I'm a third year undergraduate student at **[HuaZhong University of Science and 
 
 [I2E: From Image Pixels to Actionable Interactive Environments for Text-Guided Image Editing](https://arxiv.org/abs/2601.03741)
 
-Jinghan Yu, Junhao Xiao, **Chenyu Zhu**, Jiaming Li, Jia Li, HanMing Deng, Xirui Wang, Guoli Jia, Jianjun Li, Zhiyuan Ma, Xiang Bai, Bowen Zhou
+Jinghan Yu<sup>1*</sup>, Junhao Xiao<sup>1*</sup>, **Chenyu Zhu**<sup>1</sup>, Jiaming Li<sup>1</sup>, Jia Li<sup>1</sup>, HanMing Deng<sup>1</sup>, Xirui Wang<sup>1</sup>, Guoli Jia<sup>2</sup>, Jianjun Li<sup>1</sup>, Zhiyuan Ma<sup>1†</sup>, Xiang Bai<sup>1</sup>, Bowen Zhou<sup>2,3</sup>
+
+<small><sup>1</sup>Huazhong University of Science and Technology, <sup>2</sup>Tsinghua University, <sup>3</sup>Shanghai AI Laboratory</small> <br>
+<small><sup>*</sup>Equal Contribution, <sup>†</sup>Corresponding Author</small>
 
 [**[Project]**](https://image2env.github.io/) [**[Code]**](https://github.com/jinghan-yu/mild-executor) [**[Dataset]**](https://github.com/jinghan-yu/mild-executor) <strong><span class='show_paper_citations' data='DhtAFkwAAAAJ:ALROH1vI_8AC'></span></strong>
 - We propose I2E, a novel "Decompose-then-Action" paradigm that transforms unstructured images into discrete, manipulable object layers and employs a physics-aware Vision-Language-Action Agent to parse complex instructions into atomic actions via Chain-of-Thought reasoning, significantly outperforming state-of-the-art methods on compositional editing tasks.
