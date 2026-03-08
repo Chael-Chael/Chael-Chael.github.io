@@ -17,7 +17,11 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I'm a third year undergraduate student at **[HuaZhong University of Science and Technology (HUST)](https://www.hust.edu.cn/)** <img src='images/HUST.png' alt="HUST" style="height: 1.2em; vertical-align: middle;">. I'm currently working on some exciting research projects.  My current research interests are 🔗 **Unified Multimodal Models**, 🎨 **Diffusion Post Training**, 🌐 **World Models**, and 🤖 **VLMs**.
+I'm a third year undergraduate at **[HuaZhong University of Science and Technology (HUST)](https://www.hust.edu.cn/)** <img src='images/HUST.png' alt="HUST" style="height: 1.2em; vertical-align: middle;">, driven by a simple belief: *No risk, full push!* 🚀
+
+I believe that general intelligence demands more than reasoning alone — it requires the ability to **see**, **imagine**, and **create**. Language, perception, and generation are not isolated capabilities but deeply intertwined facets of a unified mind. My research explores this vision at the intersection of 🔗 **Unified Multimodal Models**, 🎨 **Diffusion Post Training**, 🌐 **World Models**, and 🤖 **MLLMs**, working toward AI systems that jointly reason and imagine across both digital and physical worlds. *I believe unified intelligence is the path to general intelligence (AGI).*
+
+I'm always open to discussions and collaborations — feel free to reach out! 💬
 
 # 🔥 News
 - *2026.03*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
