@@ -45,6 +45,7 @@ Jinghan Yu<sup>1*</sup>, Junhao Xiao<sup>1*</sup>, **Chenyu Zhu**<sup>1</sup>, J
 - *2021.09* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
 
 # 📖 Educations
+- *2020.09 - 2023.06*, Senior High School Student, Suzhou High School of JiangSu Province, Suzhou, China
 - *2023.09 - 2027.06 (now)*, Undergraduate Student, School of EIC, HuaZhong University of Science and Technology (HUST), Wuhan, China
 
 # 💻 Internships
