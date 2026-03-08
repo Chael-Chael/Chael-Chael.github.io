@@ -17,7 +17,7 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I'm a third year undergraduate student at **[HuaZhong University of Science and Technology (HUST)](https://www.hust.edu.cn/)**. I'm currently working on some exciting research projects.  My current research interests are 🔗 **Unified Multimodal Models**, 🎨 **Diffusion Post Training**, 🌐 **World Models**, and 🤖 **VLMs**.
+I'm a third year undergraduate student at **[HuaZhong University of Science and Technology (HUST)](https://www.hust.edu.cn/)** <img src='images/HUST.png' alt="HUST" style="height: 1.2em; vertical-align: middle;">. I'm currently working on some exciting research projects.  My current research interests are 🔗 **Unified Multimodal Models**, 🎨 **Diffusion Post Training**, 🌐 **World Models**, and 🤖 **VLMs**.
 
 # 🔥 News
 - *2026.03*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
