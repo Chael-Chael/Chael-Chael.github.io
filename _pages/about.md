@@ -34,7 +34,7 @@ I'm a third year undergraduate student at **[HuaZhong University of Science and 
 Jinghan Yu, Junhao Xiao, **Chenyu Zhu**, Jiaming Li, Jia Li, HanMing Deng, Xirui Wang, Guoli Jia, Jianjun Li, Zhiyuan Ma, Xiang Bai, Bowen Zhou
 
 [**Project**](https://scholar.google.com/citations?view_op=view_citation&hl=zh-CN&user=DhtAFkwAAAAJ&citation_for_view=DhtAFkwAAAAJ:ALROH1vI_8AC) <strong><span class='show_paper_citations' data='DhtAFkwAAAAJ:ALROH1vI_8AC'></span></strong>
-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
+- We propose I2E, a novel "Decompose-then-Action" paradigm that transforms unstructured images into discrete, manipulable object layers and employs a physics-aware Vision-Language-Action Agent to parse complex instructions into atomic actions via Chain-of-Thought reasoning, significantly outperforming state-of-the-art methods on compositional editing tasks.
 </div>
 </div>
 
@@ -45,12 +45,6 @@ Jinghan Yu, Junhao Xiao, **Chenyu Zhu**, Jiaming Li, Jia Li, HanMing Deng, Xirui
 - *2021.09* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
 
 # 📖 Educations
-- *2019.06 - 2022.04 (now)*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2015.09 - 2019.06*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-
-# 💬 Invited Talks
-- *2021.06*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2021.03*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet.  \| [\[video\]](https://github.com/)
+- *2023.09 - 2027.06 (now)*, Undergraduate Student, School of EIC, HuaZhong University of Science and Technology (HUST), Wuhan, China
 
 # 💻 Internships
-- *2019.05 - 2020.02*, [Lorem](https://github.com/), China.
