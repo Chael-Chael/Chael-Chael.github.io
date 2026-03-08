@@ -24,7 +24,7 @@ I believe that general intelligence demands more than reasoning alone — it req
 I'm always open to discussions and collaborations — feel free to reach out! 💬
 
 # 🔥 News
-- *2026.03*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
+- *2026.01*: &nbsp;🎉🎉 I2E, my first collaborative work with fellows from Tsinghua University and Shanghai AI Lab, has been submitted to ACL 2026!
 
 # 📝 Publications 
 
@@ -39,10 +39,11 @@ Jinghan Yu<sup>1*</sup>, Junhao Xiao<sup>1*</sup>, **Chenyu Zhu**<sup>1</sup>, J
 
 [**[Project]**](https://image2env.github.io/) [**[Code]**](https://github.com/jinghan-yu/mild-executor) [**[Dataset]**](https://github.com/jinghan-yu/mild-executor) <strong><span class='show_paper_citations' data='DhtAFkwAAAAJ:ALROH1vI_8AC'></span></strong>
 - We propose I2E, a novel "Decompose-then-Action" paradigm that transforms unstructured images into discrete, manipulable object layers and employs a physics-aware Vision-Language-Action Agent to parse complex instructions into atomic actions via Chain-of-Thought reasoning, significantly outperforming state-of-the-art methods on compositional editing tasks.
+- 🌟 <span style="color: #003391ff;">This work is a tiny step toward my vision of unified intelligence — guiding agents to reason about inter-layer relationships and manipulate objects within a structured visual environment under real-world physical constraints.</span>
 </div>
 </div>
 
-- Current work on a new framework for Diffusion RL under progress!!! Aiming for NeurIPS 2026 🚀🚀🚀.
+- Current work on a new framework for Diffusion RL under progress!!! Aiming for NeurIPS 2026 🚀.
 
 # 🎖 Honors and Awards
 - *2021.10* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
@@ -53,3 +54,4 @@ Jinghan Yu<sup>1*</sup>, Junhao Xiao<sup>1*</sup>, **Chenyu Zhu**<sup>1</sup>, J
 - *2023.09 - 2027.06 (now)*, Undergraduate Student, School of EIC, HuaZhong University of Science and Technology (HUST), Wuhan, China
 
 # 💻 Internships
+- Actively seeking internships in the field of MLLM and AIGC.
