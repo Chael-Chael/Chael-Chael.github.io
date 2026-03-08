@@ -38,7 +38,7 @@ Jinghan Yu<sup>1*</sup>, Junhao Xiao<sup>1*</sup>, **Chenyu Zhu**<sup>1</sup>, J
 </div>
 </div>
 
-- [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet](https://github.com), A, B, C, **CVPR 2020**
+- Current work on a new framework for Diffusion RL under progress!!! Aiming for NeurIPS 2026 🚀🚀🚀.
 
 # 🎖 Honors and Awards
 - *2021.10* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
