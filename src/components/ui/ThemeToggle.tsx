@@ -62,7 +62,6 @@ export function ThemeToggle() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         type="button"
-        onMouseDown={(e) => e.preventDefault()}
         onClick={() => {
           const order: Theme[] = ['system', 'light', 'dark'];
           const index = order.indexOf(theme);

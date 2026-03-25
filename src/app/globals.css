@@ -36,9 +36,8 @@
 @variant dark (&:where(.dark, .dark *));
 
 /* Default to light theme colors - no system preference detection */
-:root,
-.light {
-  /* Light theme colors */
+:root {
+  /* Default (Light) theme colors */
   --background: #fefffe;
   --foreground: #0f172a;
   
