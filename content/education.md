@@ -1,2 +1,2 @@
-- *2020.09 - 2023.06*, Senior High School Student, Suzhou High School of JiangSu Province, Suzhou, China
 - *2023.09 - 2027.06 (now)*, Undergraduate Student, School of EIC, HuaZhong University of Science and Technology (HUST), Wuhan, China
+- *2020.09 - 2023.06*, Senior High School Student, Suzhou High School of JiangSu Province, Suzhou, China
