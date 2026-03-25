@@ -57,12 +57,14 @@ export default function SelectedPublications({ publications, title, enableOnePag
                                             className="w-full h-auto object-contain"
                                             loading="lazy"
                                         />
-                                        {pub.badge && (
-                                            <div className="absolute top-2 left-2 bg-accent/90 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm backdrop-blur-sm z-10">
+                                    </div>
+                                    {pub.badge && (
+                                        <div className="mt-2 flex justify-center">
+                                            <div className="bg-accent/10 text-accent text-[10px] font-bold px-2 py-0.5 rounded border border-accent/20">
                                                 {pub.badge}
                                             </div>
-                                        )}
-                                    </div>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                             <div className="flex-grow">
