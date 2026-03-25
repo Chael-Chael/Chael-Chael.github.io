@@ -47,8 +47,10 @@ export default function About({ content, title }: AboutProps) {
                         em: ({ children }) => <em className="italic text-neutral-600 dark:text-neutral-500">{children}</em>,
                         img: ({ src, alt }) => {
                             if (alt === 'HUST') {
+                                // eslint-disable-next-line @next/next/no-img-element
                                 return <img src={src} alt={alt} className="inline h-5 align-middle mx-1" />;
                             }
+                            // eslint-disable-next-line @next/next/no-img-element
                             return <img src={src} alt={alt} className="max-w-full rounded-lg my-4" />;
                         },
                     }}
