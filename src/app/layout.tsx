@@ -135,8 +135,15 @@ export default function RootLayout({
         <link
           rel="preload"
           as="font"
-          type="font/woff2"
-          href="https://jialeliu.com/fonts/georgiab.woff2"
+          type="font/otf"
+          href="/fonts/custom/StyreneB-Regular.otf"
+          crossOrigin=""
+        />
+        <link
+          rel="preload"
+          as="font"
+          type="font/otf"
+          href="/fonts/custom/Tiempos-Regular.otf"
           crossOrigin=""
         />
         <script

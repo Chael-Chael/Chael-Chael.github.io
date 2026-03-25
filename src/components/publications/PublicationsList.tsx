@@ -3,6 +3,8 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import {
     MagnifyingGlassIcon,
     FunnelIcon,
@@ -209,6 +211,11 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 className="object-cover"
                                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                             />
+                                            {pub.badge && (
+                                                <div className="absolute top-2 left-2 bg-accent text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm z-10">
+                                                    {pub.badge}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 )}
@@ -234,9 +241,22 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     </p>
 
                                     {pub.description && (
-                                        <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-4 line-clamp-3">
-                                            {pub.description}
-                                        </p>
+                                        <div className="text-sm text-neutral-600 dark:text-neutral-500 mb-4 leading-relaxed">
+                                            <ReactMarkdown 
+                                                rehypePlugins={[rehypeRaw]}
+                                                components={{
+                                                    p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                                                    ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1 ml-2">{children}</ul>,
+                                                    ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1 ml-2">{children}</ol>,
+                                                    li: ({ children }) => <li className="mb-1">{children}</li>,
+                                                    a: ({ ...props }) => <a {...props} className="text-accent hover:underline font-medium" target="_blank" rel="noopener noreferrer" />,
+                                                    strong: ({ children }) => <strong className="font-semibold text-primary">{children}</strong>,
+                                                    em: ({ children }) => <em className="italic text-neutral-600 dark:text-neutral-500">{children}</em>,
+                                                }}
+                                            >
+                                                {pub.description}
+                                            </ReactMarkdown>
+                                        </div>
                                     )}
 
                                     <div className="flex flex-wrap gap-2 mt-auto">
@@ -258,6 +278,26 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
                                             >
                                                 {messages.publications.code}
+                                            </a>
+                                        )}
+                                        {pub.project && (
+                                            <a
+                                                href={pub.project}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
+                                            >
+                                                Project
+                                            </a>
+                                        )}
+                                        {pub.dataset && (
+                                            <a
+                                                href={pub.dataset}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
+                                            >
+                                                Dataset
                                             </a>
                                         )}
                                         {pub.abstract && (

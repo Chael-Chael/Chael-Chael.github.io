@@ -12,7 +12,7 @@ export default {
     extend: {
       fontFamily: {
         sans: [
-          'Inter',
+          'Styrene B',
           ...defaultTheme.fontFamily.sans,
         ],
       },

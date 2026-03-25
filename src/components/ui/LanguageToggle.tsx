@@ -73,7 +73,9 @@ export default function LanguageToggle({ i18n }: LanguageToggleProps) {
               <button
                 key={localeOption}
                 onClick={() => {
-                  setLocale(localeOption);
+                  if (localeOption !== 'zh') {
+                    setLocale(localeOption);
+                  }
                   setIsOpen(false);
                 }}
                 className={cn(
