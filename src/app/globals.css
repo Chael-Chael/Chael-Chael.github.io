@@ -1,4 +1,16 @@
 @import "tailwindcss";
+@config "../../tailwind.config.mjs";
+
+/* Tailwind CSS v4 Class-based Dark Mode Strategy */
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
 
 @font-face {
   font-family: "Styrene B";
@@ -32,16 +44,7 @@
   font-display: swap;
 }
 
-/* Explicitly set dark mode to use class strategy for Tailwind CSS v4 */
-:root {
-  color-scheme: light;
-}
 
-.dark {
-  color-scheme: dark;
-}
-
-@variant dark (&:where(.dark, .dark *));
 
 /* Default to light theme colors - no system preference detection */
 :root {
