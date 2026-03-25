@@ -60,13 +60,6 @@ type = "page"
 target = "publications"
 href = "/publications"
 
-
-[[navigation]]
-title = "Blog"
-type = "page"
-target = "blog"
-href = "/blog"
-
 [[navigation]]
 title = "Awards"
 type = "page"
@@ -84,3 +77,9 @@ title = "CV"
 type = "page"
 target = "cv"
 href = "/cv"
+
+[[navigation]]
+title = "Blog"
+type = "page"
+target = "blog"
+href = "/blog"

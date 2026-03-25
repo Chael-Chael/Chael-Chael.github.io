@@ -12,9 +12,15 @@ interface SelectedPublicationsProps {
     publications: Publication[];
     title?: string;
     enableOnePageMode?: boolean;
+    delay?: number;
 }
 
-export default function SelectedPublications({ publications, title, enableOnePageMode = false }: SelectedPublicationsProps) {
+export default function SelectedPublications({ 
+    publications, 
+    title, 
+    enableOnePageMode = false,
+    delay = 0.4 
+}: SelectedPublicationsProps) {
     const messages = useMessages();
     const resolvedTitle = title || messages.home.selectedPublications;
 
@@ -26,7 +32,7 @@ export default function SelectedPublications({ publications, title, enableOnePag
         <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay }}
         >
             <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-serif font-bold text-primary">{resolvedTitle}</h2>
@@ -44,7 +50,7 @@ export default function SelectedPublications({ publications, title, enableOnePag
                         key={pub.id}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.1 * index }}
+                        transition={{ duration: 0.4, delay: delay + 0.1 * index }}
                         className="bg-neutral-50 dark:bg-neutral-800 p-4 rounded-lg shadow-sm border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] hover:shadow-lg transition-all duration-200"
                     >
                         <div className="flex flex-col md:flex-row gap-6">

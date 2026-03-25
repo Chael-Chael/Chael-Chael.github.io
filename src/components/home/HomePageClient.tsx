@@ -5,11 +5,13 @@ import About from '@/components/home/About';
 import SelectedPublications from '@/components/home/SelectedPublications';
 import News, { NewsItem } from '@/components/home/News';
 import PublicationsList from '@/components/publications/PublicationsList';
+import BlogList from '@/components/blog/BlogList';
 import TextPage from '@/components/pages/TextPage';
 import CardPage from '@/components/pages/CardPage';
 import type { SiteConfig } from '@/lib/config';
 import { Publication } from '@/types/publication';
-import { CardPageConfig, PublicationPageConfig, TextPageConfig } from '@/types/page';
+import { BlogPostMeta } from '@/types/blog';
+import { CardPageConfig, PublicationPageConfig, TextPageConfig, BasePageConfig } from '@/types/page';
 import { useLocaleStore } from '@/lib/stores/localeStore';
 
 interface SectionConfig {
@@ -28,7 +30,8 @@ type PageData =
   | { type: 'about'; id: string; sections: SectionConfig[] }
   | { type: 'publication'; id: string; config: PublicationPageConfig; publications: Publication[] }
   | { type: 'text'; id: string; config: TextPageConfig; content: string }
-  | { type: 'card'; id: string; config: CardPageConfig };
+  | { type: 'card'; id: string; config: CardPageConfig }
+  | { type: 'blog'; id: string; config: BasePageConfig; posts: BlogPostMeta[] };
 
 export interface HomePageLocaleData {
   author: SiteConfig['author'];
@@ -68,7 +71,8 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
         <div className="lg:col-span-2 space-y-8">
           {data.pagesToShow.map((page) => (
             <section key={page.id} id={page.id} className="scroll-mt-24 space-y-8">
-              {page.type === 'about' && page.sections.map((section: SectionConfig) => {
+              {page.type === 'about' && page.sections.map((section: SectionConfig, index) => {
+                const delay = 0.2 + index * 0.15;
                 switch (section.type) {
                   case 'markdown':
                     return (
@@ -76,6 +80,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                         key={section.id}
                         content={section.content || ''}
                         title={section.title}
+                        delay={delay}
                       />
                     );
                   case 'publications':
@@ -85,6 +90,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                         publications={section.publications || []}
                         title={section.title}
                         enableOnePageMode={data.enableOnePageMode}
+                        delay={delay}
                       />
                     );
                   case 'list':
@@ -93,6 +99,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                         key={section.id}
                         items={section.items || []}
                         title={section.title}
+                        delay={delay}
                       />
                     );
                   default:
@@ -117,6 +124,13 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                 <CardPage
                   config={page.config}
                   embedded={true}
+                />
+              )}
+              {page.type === 'blog' && (
+                <BlogList
+                  posts={page.posts}
+                  title={page.config.title}
+                  description={page.config.description}
                 />
               )}
             </section>

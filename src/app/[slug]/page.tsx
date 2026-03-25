@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getPageConfig, getMarkdownContent, getBibtexContent } from '@/lib/content';
 import { getConfig } from '@/lib/config';
 import { parseBibTeX } from '@/lib/bibtexParser';
+import { getAllPosts } from '@/lib/blog';
 import DynamicPageClient, { type DynamicPageLocaleData } from '@/components/pages/DynamicPageClient';
 import {
   BasePageConfig,
@@ -18,6 +19,14 @@ function loadDynamicPageData(slug: string, locale?: string): DynamicPageLocaleDa
 
   if (!pageConfig) {
     return null;
+  }
+
+  if (pageConfig.type === 'blog') {
+    return {
+      type: 'blog',
+      config: pageConfig,
+      posts: getAllPosts(locale),
+    };
   }
 
   if (pageConfig.type === 'publication') {

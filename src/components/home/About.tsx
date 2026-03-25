@@ -8,9 +8,10 @@ import { useMessages } from '@/lib/i18n/useMessages';
 interface AboutProps {
     content: string;
     title?: string;
+    delay?: number;
 }
 
-export default function About({ content, title }: AboutProps) {
+export default function About({ content, title, delay = 0.2 }: AboutProps) {
     const messages = useMessages();
     const resolvedTitle = title || messages.home.about;
 
@@ -18,7 +19,7 @@ export default function About({ content, title }: AboutProps) {
         <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay }}
         >
             <h2 className="text-2xl font-serif font-bold text-primary mb-4">{resolvedTitle}</h2>
             <div className="text-neutral-700 dark:text-neutral-600 leading-relaxed">
