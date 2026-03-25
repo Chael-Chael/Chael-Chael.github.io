@@ -143,7 +143,7 @@ export default function RootLayout({
           rel="preload"
           as="font"
           type="font/otf"
-          href="/fonts/custom/Tiempos-Regular.otf"
+          href="/fonts/Copernicus/OTF/CopernicusTrial-Book.otf"
           crossOrigin=""
         />
         <script
