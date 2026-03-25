@@ -49,8 +49,10 @@ export default function SelectedPublications({ publications, title, enableOnePag
                                     <span className={`${author.isHighlighted ? 'font-semibold text-accent' : ''} ${author.isCoAuthor ? `underline underline-offset-4 ${author.isHighlighted ? 'decoration-accent' : 'decoration-neutral-400'}` : ''}`}>
                                         {author.name}
                                     </span>
-                                    {author.isCorresponding && (
-                                        <sup className={`ml-0 ${author.isHighlighted ? 'text-accent' : 'text-neutral-600 dark:text-neutral-500'}`}>†</sup>
+                                    {author.superscript ? (
+                                        <sup className={`ml-0 ${author.isHighlighted ? 'text-accent' : 'text-neutral-600 dark:text-neutral-500'}`}>{author.superscript}</sup>
+                                    ) : (
+                                        author.isCorresponding && <sup className={`ml-0 ${author.isHighlighted ? 'text-accent' : 'text-neutral-600 dark:text-neutral-500'}`}>†</sup>
                                     )}
                                     {idx < pub.authors.length - 1 && ', '}
                                 </span>

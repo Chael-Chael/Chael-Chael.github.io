@@ -196,11 +196,19 @@ function parseAuthors(authorsStr: string, highlightNames: string[]): Array<{ nam
       // Clean up the author name
       let name = author.trim();
 
+      // Extract superscript
+      let superscript = '';
+      const superMatch = name.match(/\^\{([^}]+)\}/) || name.match(/\^([*#\w,\\]+)/);
+      if (superMatch) {
+        superscript = superMatch[1].replace(/\\dag/g, '†');
+        name = name.replace(superMatch[0], '');
+      }
+
       // Check for corresponding author marker
-      const isCorresponding = name.includes('*');
+      const isCorresponding = name.includes('*') || superscript.includes('*');
 
       // Check for co-author marker (#)
-      const isCoAuthor = name.includes('#');
+      const isCoAuthor = name.includes('#') || superscript.includes('#');
 
       // Remove special markers from name
       name = name.replace(/[*#]/g, '');
@@ -225,6 +233,7 @@ function parseAuthors(authorsStr: string, highlightNames: string[]): Array<{ nam
         isHighlighted,
         isCorresponding,
         isCoAuthor,
+        superscript,
       };
     })
     .filter(author => author.name);
