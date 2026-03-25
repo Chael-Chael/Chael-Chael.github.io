@@ -153,13 +153,15 @@ export default function RootLayout({
                 const theme = localStorage.getItem('theme-storage');
                 const parsed = theme ? JSON.parse(theme) : null;
                 const setting = parsed?.state?.theme || 'system';
-                const prefersDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                 const effective = setting === 'dark' ? 'dark' : (setting === 'light' ? 'light' : (prefersDark ? 'dark' : 'light'));
-                var root = document.documentElement;
+                const root = document.documentElement;
+                root.classList.remove('light', 'dark');
                 root.classList.add(effective);
                 root.setAttribute('data-theme', effective);
               } catch (e) {
-                var root = document.documentElement;
+                const root = document.documentElement;
+                root.classList.remove('dark');
                 root.classList.add('light');
                 root.setAttribute('data-theme', 'light');
               }
