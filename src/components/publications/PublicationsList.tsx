@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import {
@@ -200,7 +200,6 @@ export default function PublicationsList({ config, publications, embedded = fals
                                 {pub.preview && (
                                     <div className="w-full md:w-48 flex-shrink-0 relative">
                                         <div className="relative rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800">
-                                            {/* eslint-disable-next-line @next/next/no-img-element */}
                                             <img
                                                 src={`/papers/${pub.preview}`}
                                                 alt={pub.title}
