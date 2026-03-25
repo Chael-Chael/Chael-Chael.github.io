@@ -1,0 +1,7 @@
+title = "欢迎来到我的新研究博客"
+date = "2026-02-25"
+excerpt = "今天我的个人研究博客正式上线了！在这里，我将分享最新的研究成果、对 AI 的思考以及技术教程。"
+image = "/images/blog/welcome.png"
+tags = ["研究", "AI", "扩散模型"]
+author = "朱晨宇"
+language = "zh"

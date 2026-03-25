@@ -42,6 +42,14 @@ export interface LocaleMessages {
     bibtex: string;
     code: string;
   };
+  blog: {
+    title: string;
+    description: string;
+    readMore: string;
+    backToBlog: string;
+    noPosts: string;
+    writtenBy: string;
+  };
   footer: {
     lastUpdated: string;
     builtWithPrism: string;
@@ -92,6 +100,14 @@ const en: LocaleMessages = {
     bibtex: 'BibTeX',
     code: 'Code',
   },
+  blog: {
+    title: 'Research Blog',
+    description: 'Explorations in AI, Diffusion Models, and Multimodal Learning.',
+    readMore: 'Read More',
+    backToBlog: 'Back to Blog',
+    noPosts: 'Stay tuned! More stories coming soon.',
+    writtenBy: 'Written by',
+  },
   footer: {
     lastUpdated: 'Last updated',
     builtWithPrism: 'Built with PRISM',
@@ -141,6 +157,14 @@ const zh: LocaleMessages = {
     abstract: '摘要',
     bibtex: 'BibTeX',
     code: '代码',
+  },
+  blog: {
+    title: '研究博客',
+    description: '探讨人工智能、扩散模型和多模态学习的前沿技术。',
+    readMore: '阅读全文',
+    backToBlog: '返回博客列表',
+    noPosts: '敬请期待！更多内容即将推出。',
+    writtenBy: '作者：',
   },
   footer: {
     lastUpdated: '最近更新',

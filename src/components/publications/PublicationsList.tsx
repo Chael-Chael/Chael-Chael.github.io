@@ -247,7 +247,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                         </p>
                                     )}
                                     <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-3 font-serif italic">
-                                        {pub.journal || pub.conference} {pub.year}
+                                        {pub.journal || pub.conference}
                                     </p>
 
                                     {pub.description && (

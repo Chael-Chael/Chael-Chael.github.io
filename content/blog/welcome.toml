@@ -1,0 +1,7 @@
+title = "Welcome to my New Research Blog"
+date = "2026-02-25"
+excerpt = "Today marks the launch of my personal research blog! Here, I will share my latest findings, thoughts on AI, and technical tutorials."
+image = "/images/blog/welcome.png"
+tags = ["Research", "AI", "Diffusion"]
+author = "Chenyu Zhu"
+language = "en"
