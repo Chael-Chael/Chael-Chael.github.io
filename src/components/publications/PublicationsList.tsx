@@ -235,7 +235,18 @@ export default function PublicationsList({ config, publications, embedded = fals
                                             </span>
                                         ))}
                                     </p>
-                                    <p className="text-sm font-medium text-neutral-800 dark:text-neutral-600 mb-3">
+
+                                    {pub.affiliations && Object.keys(pub.affiliations).length > 0 && (
+                                        <p className="text-[0.75rem] text-neutral-500 dark:text-neutral-500 mb-2 leading-tight">
+                                            {Object.entries(pub.affiliations).map(([key, value], idx, arr) => (
+                                                <span key={key}>
+                                                    <sup>{key}</sup>{value}
+                                                    {idx < arr.length - 1 && ', '}
+                                                </span>
+                                            ))}
+                                        </p>
+                                    )}
+                                    <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-3 font-serif italic">
                                         {pub.journal || pub.conference} {pub.year}
                                     </p>
 

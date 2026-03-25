@@ -86,13 +86,35 @@ export default function SelectedPublications({ publications, title, enableOnePag
                                         </span>
                                     ))}
                                 </p>
+
+                                {pub.affiliations && Object.keys(pub.affiliations).length > 0 && (
+                                    <p className="text-[0.75rem] text-neutral-500 dark:text-neutral-500 mb-1 leading-tight">
+                                        {Object.entries(pub.affiliations).map(([key, value], idx, arr) => (
+                                            <span key={key}>
+                                                <sup>{key}</sup>{value}
+                                                {idx < arr.length - 1 && ', '}
+                                            </span>
+                                        ))}
+                                    </p>
+                                )}
                                 <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-3 font-serif italic">
                                     {pub.journal || pub.conference}
                                 </p>
                                 
                                 {pub.description && (
-                                    <div className="text-sm text-neutral-500 dark:text-neutral-500 mb-4 prose dark:prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-li:my-0">
-                                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                                    <div className="text-sm text-neutral-500 dark:text-neutral-500 mb-4 leading-relaxed">
+                                        <ReactMarkdown 
+                                            rehypePlugins={[rehypeRaw]}
+                                            components={{
+                                                p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                                                ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1 ml-2">{children}</ul>,
+                                                ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1 ml-2">{children}</ol>,
+                                                li: ({ children }) => <li className="mb-1">{children}</li>,
+                                                a: ({ ...props }) => <a {...props} className="text-accent hover:underline font-medium" target="_blank" rel="noopener noreferrer" />,
+                                                strong: ({ children }) => <strong className="font-semibold text-primary">{children}</strong>,
+                                                em: ({ children }) => <em className="italic text-neutral-600 dark:text-neutral-500">{children}</em>,
+                                            }}
+                                        >
                                             {pub.description}
                                         </ReactMarkdown>
                                     </div>

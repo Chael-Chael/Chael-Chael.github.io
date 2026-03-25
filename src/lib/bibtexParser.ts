@@ -53,6 +53,20 @@ export function parseBibTeX(bibtexContent: string, locale?: string): Publication
     // Determine type
     const type = typeMapping[entry.entryType.toLowerCase()] || 'journal';
 
+    // Parse affiliations
+    const affiliationsStr = tags.affiliations || '';
+    const affiliations: Record<string, string> = {};
+    if (affiliationsStr) {
+      // Format: 1: Uni A, 2: Uni B or 1=Uni A, 2=Uni B
+      const parts = affiliationsStr.split(/[,;]/);
+      parts.forEach(part => {
+        const [key, ...value] = part.split(/[:=]/);
+        if (key && value.length > 0) {
+          affiliations[key.trim()] = value.join(':').trim();
+        }
+      });
+    }
+
     // Parse tags/keywords
     const keywords = tags.keywords?.split(',').map((k: string) => k.trim()) || [];
 
@@ -74,6 +88,7 @@ export function parseBibTeX(bibtexContent: string, locale?: string): Publication
       tags: keywords,
       keywords,
       researchArea: detectResearchArea(tags.title, keywords),
+      affiliations,
 
       // Optional fields
       journal: cleanBibTeXString(tags.journal),
@@ -93,7 +108,7 @@ export function parseBibTeX(bibtexContent: string, locale?: string): Publication
       preview,
 
       // Store original BibTeX (excluding custom fields)
-      bibtex: reconstructBibTeX(entry, ['selected', 'preview', 'description', 'keywords', 'code', 'project', 'dataset', 'badge']),
+      bibtex: reconstructBibTeX(entry, ['selected', 'preview', 'description', 'keywords', 'code', 'project', 'dataset', 'badge', 'affiliations']),
     };
 
     // Clean up undefined fields
