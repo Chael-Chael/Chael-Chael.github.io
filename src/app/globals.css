@@ -32,7 +32,15 @@
   font-display: swap;
 }
 
-/* Explicitly set dark mode to use class strategy */
+/* Explicitly set dark mode to use class strategy for Tailwind CSS v4 */
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
 @variant dark (&:where(.dark, .dark *));
 
 /* Default to light theme colors - no system preference detection */
