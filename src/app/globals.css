@@ -8,8 +8,14 @@
   color-scheme: light;
 }
 
-.dark {
-  color-scheme: dark;
+html.light {
+  color-scheme: light !important;
+  background-color: var(--background) !important;
+}
+
+html.dark {
+  color-scheme: dark !important;
+  background-color: var(--background) !important;
 }
 
 @font-face {
@@ -208,9 +214,12 @@ html[data-locale^="zh"] {
 }
 
 
-body {
+html, body {
   background: var(--background);
   color: var(--foreground);
+}
+
+body {
   font-family: var(--font-sans);
   line-height: var(--line-height-normal);
   font-weight: 400;

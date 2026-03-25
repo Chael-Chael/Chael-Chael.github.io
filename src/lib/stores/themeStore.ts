@@ -61,4 +61,6 @@ function updateTheme(theme: Theme) {
   root.classList.remove('light', 'dark');
   root.classList.add(effective);
   root.setAttribute('data-theme', effective);
+  root.style.colorScheme = effective;
+  root.style.backgroundColor = effective === 'dark' ? '#0f172a' : '#fefffe';
 }

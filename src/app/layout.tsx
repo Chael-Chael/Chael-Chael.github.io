@@ -159,11 +159,15 @@ export default function RootLayout({
                 root.classList.remove('light', 'dark');
                 root.classList.add(effective);
                 root.setAttribute('data-theme', effective);
+                root.style.colorScheme = effective;
+                root.style.backgroundColor = effective === 'dark' ? '#0f172a' : '#fefffe';
               } catch (e) {
                 const root = document.documentElement;
                 root.classList.remove('dark');
                 root.classList.add('light');
                 root.setAttribute('data-theme', 'light');
+                root.style.colorScheme = 'light';
+                root.style.backgroundColor = '#fefffe';
               }
             `,
           }}
