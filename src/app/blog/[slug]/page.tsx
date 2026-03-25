@@ -7,7 +7,6 @@ import { CalendarIcon, TagIcon, ChevronLeftIcon } from '@heroicons/react/24/outl
 import Link from 'next/link';
 
 import { getPostBySlug, getAllPosts } from '@/lib/blog';
-import { getConfig } from '@/lib/config';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
