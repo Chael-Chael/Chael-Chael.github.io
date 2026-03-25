@@ -202,17 +202,16 @@ export default function PublicationsList({ config, publications, embedded = fals
                         >
                             <div className="flex flex-col md:flex-row gap-6">
                                 {pub.preview && (
-                                    <div className="w-full md:w-48 flex-shrink-0">
-                                        <div className="aspect-video md:aspect-[4/3] relative rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800">
-                                            <Image
+                                    <div className="w-full md:w-48 flex-shrink-0 relative">
+                                        <div className="relative rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+                                            <img
                                                 src={`/papers/${pub.preview}`}
                                                 alt={pub.title}
-                                                fill
-                                                className="object-cover"
-                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                className="w-full h-auto object-contain"
+                                                loading="lazy"
                                             />
                                             {pub.badge && (
-                                                <div className="absolute top-2 left-2 bg-accent text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm z-10">
+                                                <div className="absolute top-2 left-2 bg-accent/90 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm backdrop-blur-sm z-10">
                                                     {pub.badge}
                                                 </div>
                                             )}

@@ -4,9 +4,9 @@ title = "About"
 [profile]
 research_interests = [
   "Unified Multimodal Models",
-  "Diffusion Post Training",
   "World Models",
-  "MLLMs"
+  "MLLMs",
+  "Diffusion Post Training"
 ]
 
 [[sections]]
@@ -16,6 +16,12 @@ source = "bio.md"
 title = "About"
 
 [[sections]]
+id = "news"
+type = "list"
+title = "News"
+source = "news.toml"
+
+[[sections]]
 id = "featured_publications"
 type = "publications"
 title = "Selected Publications"
@@ -23,8 +29,14 @@ filter = "selected"
 limit = 5
 
 [[sections]]
-id = "news"
-type = "list"
-title = "News"
-source = "news.toml"
+id = "education"
+type = "markdown"
+source = "education.md"
+title = "Educations"
+
+[[sections]]
+id = "internships"
+type = "markdown"
+source = "internships.md"
+title = "Internships"
 
