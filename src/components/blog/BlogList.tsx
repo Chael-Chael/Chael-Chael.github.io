@@ -23,7 +23,7 @@ export default function BlogList({ posts, title, description }: BlogListProps) {
           {title}
         </h1>
         {description && (
-          <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto italic">
+          <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto italic font-serif">
             {description}
           </p>
         )}

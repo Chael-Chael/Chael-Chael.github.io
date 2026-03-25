@@ -51,7 +51,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="flex items-center gap-4 mb-6 text-sm text-neutral-500 dark:text-neutral-400">
           <span className="flex items-center gap-1.5">
             <CalendarIcon className="h-4 w-4" />
-            {new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+            {(() => {
+              const d = new Date(post.date);
+              return `${String(d.getFullYear()).slice(-2)}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}`;
+            })()}
           </span>
           {post.tags && post.tags.length > 0 && (
             <div className="flex gap-2">

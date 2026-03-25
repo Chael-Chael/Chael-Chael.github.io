@@ -37,7 +37,10 @@ export default function BlogCard({ post, index }: BlogCardProps) {
         <div className="flex items-center gap-4 mb-3 text-xs text-neutral-500 dark:text-neutral-400">
           <span className="flex items-center gap-1">
             <CalendarIcon className="h-3.5 w-3.5" />
-            {new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+            {(() => {
+              const d = new Date(post.date);
+              return `${String(d.getFullYear()).slice(-2)}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}`;
+            })()}
           </span>
           {post.tags && post.tags.length > 0 && (
             <span className="flex items-center gap-1">

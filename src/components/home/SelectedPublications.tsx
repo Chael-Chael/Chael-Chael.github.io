@@ -48,9 +48,12 @@ export default function SelectedPublications({
                 {publications.map((pub, index) => (
                     <motion.div
                         key={pub.id}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: index === 0 ? 0 : 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: delay + 0.1 * index }}
+                        transition={{ 
+                            duration: 0.4, 
+                            delay: index === 0 ? delay : delay + 0.2 + (index - 1) * 0.1 
+                        }}
                         className="bg-neutral-50 dark:bg-neutral-800 p-4 rounded-lg shadow-sm border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] hover:shadow-lg transition-all duration-200"
                     >
                         <div className="flex flex-col md:flex-row gap-6">
