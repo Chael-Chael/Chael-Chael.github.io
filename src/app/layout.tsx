@@ -160,14 +160,14 @@ export default function RootLayout({
                 root.classList.add(effective);
                 root.setAttribute('data-theme', effective);
                 root.style.colorScheme = effective;
-                root.style.backgroundColor = effective === 'dark' ? '#0f172a' : '#fefffe';
+                root.style.backgroundColor = effective === 'dark' ? '#0f172a' : '#faf9f5';
               } catch (e) {
                 const root = document.documentElement;
                 root.classList.remove('dark');
                 root.classList.add('light');
                 root.setAttribute('data-theme', 'light');
                 root.style.colorScheme = 'light';
-                root.style.backgroundColor = '#fefffe';
+                root.style.backgroundColor = '#faf9f5';
               }
             `,
           }}
