@@ -77,7 +77,7 @@ export default function SelectedPublications({
                                 </div>
                             )}
                             <div className="flex-grow">
-                                <h3 className="font-tiempos font-normal text-primary mb-2 leading-tight">
+                                <h3 className="font-tiempos-headline font-medium text-primary mb-2 leading-tight">
                                     {pub.title}
                                 </h3>
                                 <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-1">

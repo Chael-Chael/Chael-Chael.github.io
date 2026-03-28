@@ -217,7 +217,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     </div>
                                 )}
                                 <div className="flex-grow">
-                                    <h3 className={`${embedded ? "text-lg" : "text-xl"} font-tiempos font-normal text-primary mb-2 leading-tight`}>
+                                    <h3 className={`${embedded ? "text-lg" : "text-xl"} font-tiempos-headline font-medium text-primary mb-2 leading-tight`}>
                                         {pub.title}
                                     </h3>
                                     <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-400 mb-2`}>

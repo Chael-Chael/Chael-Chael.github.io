@@ -16,6 +16,7 @@ export default {
           ...defaultTheme.fontFamily.sans,
         ],
         tiempos: ['var(--font-tiempos)', ...defaultTheme.fontFamily.serif],
+        'tiempos-headline': ['var(--font-tiempos-headline)', ...defaultTheme.fontFamily.serif],
       },
       colors: {
         background: 'var(--background)',
