@@ -46,7 +46,7 @@ export default function About({ content, title, delay = 0.2 }: AboutProps) {
                             </blockquote>
                         ),
                         strong: ({ children }) => <strong className="font-semibold text-primary">{children}</strong>,
-                        em: ({ children }) => <em className="italic text-neutral-600 dark:text-neutral-500">{children}</em>,
+                        em: ({ children }) => <em className="font-tiempos italic text-neutral-600 dark:text-neutral-500">{children}</em>,
                         img: ({ src, alt }) => {
                             if (alt === 'HUST') {
                                 return <img src={src} alt={alt} className="inline h-5 align-middle mx-1" />;

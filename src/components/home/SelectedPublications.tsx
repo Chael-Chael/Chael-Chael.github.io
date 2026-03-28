@@ -77,7 +77,7 @@ export default function SelectedPublications({
                                 </div>
                             )}
                             <div className="flex-grow">
-                                <h3 className="font-semibold text-primary mb-2 leading-tight">
+                                <h3 className="font-tiempos font-normal text-primary mb-2 leading-tight">
                                     {pub.title}
                                 </h3>
                                 <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-1">
@@ -106,7 +106,7 @@ export default function SelectedPublications({
                                         ))}
                                     </p>
                                 )}
-                                <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-3 font-serif italic">
+                                <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-3 font-tiempos italic">
                                     {pub.journal || pub.conference}
                                 </p>
                                 
@@ -121,7 +121,7 @@ export default function SelectedPublications({
                                                 li: ({ children }) => <li className="mb-1">{children}</li>,
                                                 a: ({ ...props }) => <a {...props} className="text-accent hover:underline font-medium" target="_blank" rel="noopener noreferrer" />,
                                                 strong: ({ children }) => <strong className="font-semibold text-primary">{children}</strong>,
-                                                em: ({ children }) => <em className="italic text-neutral-600 dark:text-neutral-500">{children}</em>,
+                                                em: ({ children }) => <em className="font-tiempos italic text-neutral-600 dark:text-neutral-500">{children}</em>,
                                             }}
                                         >
                                             {pub.description}

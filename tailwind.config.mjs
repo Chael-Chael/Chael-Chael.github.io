@@ -15,6 +15,7 @@ export default {
           'Styrene B',
           ...defaultTheme.fontFamily.sans,
         ],
+        tiempos: ['var(--font-tiempos)', ...defaultTheme.fontFamily.serif],
       },
       colors: {
         background: 'var(--background)',

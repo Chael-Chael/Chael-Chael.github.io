@@ -111,7 +111,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             img: ({ src, alt }) => (
               <span className="block my-12">
                 <img src={src} alt={alt} className="rounded-2xl shadow-xl mx-auto max-h-[600px] object-contain" />
-                {alt && <small className="block text-center text-neutral-500 mt-4 italic font-serif">{alt}</small>}
+                {alt && <small className="block text-center text-neutral-500 mt-4 italic font-tiempos">{alt}</small>}
               </span>
             ),
             a: ({ href, children }) => (
@@ -119,6 +119,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 {children}
               </a>
             ),
+            em: ({ children }) => <em className="font-tiempos italic text-neutral-600 dark:text-neutral-500">{children}</em>,
           }}
         >
           {post.content}
