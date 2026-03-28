@@ -146,7 +146,7 @@ export default function SelectedPublications({
                                             href={pub.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-medium bg-neutral-100 dark:bg-[#30302e] text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
+                                            className="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-medium bg-neutral-100 dark:bg-neutral-100 text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
                                         >
                                             <img src="/arxiv-logomark-small@2x.png" alt="arXiv" className="h-2.5 w-auto mr-1" />
                                             Paper
@@ -157,7 +157,7 @@ export default function SelectedPublications({
                                             href={pub.code}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-medium bg-neutral-100 dark:bg-[#30302e] text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
+                                            className="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-medium bg-neutral-100 dark:bg-neutral-100 text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
                                         >
                                             <img src="/GitHub_Invertocat_Black.png" alt="GitHub" className="h-2.5 w-2.5 mr-1 block dark:hidden" />
                                             <img src="/GitHub_Invertocat_White.png" alt="GitHub" className="h-2.5 w-2.5 mr-1 hidden dark:block" />
@@ -169,7 +169,7 @@ export default function SelectedPublications({
                                             href={pub.project}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-medium bg-neutral-100 dark:bg-[#30302e] text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
+                                            className="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-medium bg-neutral-100 dark:bg-neutral-100 text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
                                         >
                                             <img src="/GitHub_Invertocat_Black.png" alt="GitHub" className="h-2.5 w-2.5 mr-1 block dark:hidden" />
                                             <img src="/GitHub_Invertocat_White.png" alt="GitHub" className="h-2.5 w-2.5 mr-1 hidden dark:block" />
@@ -181,7 +181,7 @@ export default function SelectedPublications({
                                             href={pub.dataset}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-medium bg-neutral-100 dark:bg-[#30302e] text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
+                                            className="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-medium bg-neutral-100 dark:bg-neutral-100 text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
                                         >
                                             <img src="/GitHub_Invertocat_Black.png" alt="GitHub" className="h-2.5 w-2.5 mr-1 block dark:hidden" />
                                             <img src="/GitHub_Invertocat_White.png" alt="GitHub" className="h-2.5 w-2.5 mr-1 hidden dark:block" />
