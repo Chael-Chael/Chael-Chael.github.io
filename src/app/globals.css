@@ -104,12 +104,12 @@ html.dark {
 :root {
   /* Default (Light) theme colors */
   --background: #faf9f5;
-  --foreground: #0f172a;
+  --foreground: #141413;
   
   /* Brand colors - Deep Navy & Gold */
   --primary: #1e293b;
   --primary-light: #334155;
-  --primary-dark: #0f172a;
+  --primary-dark: #141413;
   --accent: #d37758;
   --accent-light: #e0967d;
   --accent-dark: #b25f44;
@@ -124,7 +124,7 @@ html.dark {
   --neutral-600: #475569;
   --neutral-700: #334155;
   --neutral-800: #1e293b;
-  --neutral-900: #0f172a;
+  --neutral-900: #141413;
   
   /* Semantic colors */
   --success: #10b981;
@@ -234,7 +234,7 @@ html[data-locale^="zh"] {
 
 /* Dark mode styles */
 .dark {
-  --background: #0f172a;
+  --background: #141413;
   --foreground: #f8fafc;
   
   /* Adjust colors for dark mode */
@@ -251,7 +251,7 @@ html[data-locale^="zh"] {
   --glass-shadow: rgba(0, 0, 0, 0.5);
   
   /* Neutral colors for dark mode - properly inverted */
-  --neutral-50: #0f172a;
+  --neutral-50: #141413;
   --neutral-100: #1e293b;
   --neutral-200: #334155;
   --neutral-300: #475569;
@@ -260,7 +260,7 @@ html[data-locale^="zh"] {
   --neutral-600: #cbd5e1;
   --neutral-700: #e2e8f0;
   --neutral-800: #1e293b;
-  --neutral-900: #0f172a;
+  --neutral-900: #141413;
 }
 
 

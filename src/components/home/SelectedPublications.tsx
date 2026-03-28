@@ -122,6 +122,17 @@ export default function SelectedPublications({
                                                 a: ({ ...props }) => <a {...props} className="text-accent hover:underline font-medium" target="_blank" rel="noopener noreferrer" />,
                                                 strong: ({ children }) => <strong className="font-semibold text-primary">{children}</strong>,
                                                 em: ({ children }) => <em className="font-tiempos italic text-neutral-600 dark:text-neutral-500">{children}</em>,
+                                                img: ({ ...props }) => {
+                                                    if (props.alt === 'HUST') {
+                                                        return (
+                                                            <span className="inline-block align-middle mx-1">
+                                                                <img src="/HUST.png" alt={props.alt} className="h-5 w-auto dark:hidden" />
+                                                                <img src="/HUST_night.png" alt={props.alt} className="hidden dark:block h-5 w-auto" />
+                                                            </span>
+                                                        );
+                                                    }
+                                                    return <img {...props} className="max-w-full rounded-lg my-4" />;
+                                                },
                                             }}
                                         >
                                             {pub.description}

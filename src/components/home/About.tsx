@@ -49,7 +49,12 @@ export default function About({ content, title, delay = 0.2 }: AboutProps) {
                         em: ({ children }) => <em className="font-tiempos italic text-neutral-600 dark:text-neutral-500">{children}</em>,
                         img: ({ src, alt }) => {
                             if (alt === 'HUST') {
-                                return <img src={src} alt={alt} className="inline h-5 align-middle mx-1" />;
+                                return (
+                                    <>
+                                        <img src="/HUST.png" alt={alt} className="inline h-5 align-middle mx-1 dark:hidden" />
+                                        <img src="/HUST_night.png" alt={alt} className="hidden dark:inline h-5 align-middle mx-1" />
+                                    </>
+                                );
                             }
                             return <img src={src} alt={alt} className="max-w-full rounded-lg my-4" />;
                         },

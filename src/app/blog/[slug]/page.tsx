@@ -108,12 +108,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 {children}
               </pre>
             ),
-            img: ({ src, alt }) => (
-              <span className="block my-12">
-                <img src={src} alt={alt} className="rounded-2xl shadow-xl mx-auto max-h-[600px] object-contain" />
-                {alt && <small className="block text-center text-neutral-500 mt-4 italic font-tiempos">{alt}</small>}
-              </span>
-            ),
+            img: ({ src, alt }) => {
+              if (alt === 'HUST') {
+                return (
+                  <span className="inline-block align-middle mx-1">
+                    <img src="/HUST.png" alt={alt} className="h-5 w-auto dark:hidden" />
+                    <img src="/HUST_night.png" alt={alt} className="hidden dark:block h-5 w-auto" />
+                  </span>
+                );
+              }
+              return (
+                <span className="block my-12">
+                  <img src={src} alt={alt} className="rounded-2xl shadow-xl mx-auto max-h-[600px] object-contain" />
+                  {alt && <small className="block text-center text-neutral-500 mt-4 italic font-tiempos">{alt}</small>}
+                </span>
+              );
+            },
             a: ({ href, children }) => (
               <a href={href} className="text-accent underline decoration-accent/30 hover:decoration-accent transition-all underline-offset-4" target="_blank" rel="noopener noreferrer">
                 {children}

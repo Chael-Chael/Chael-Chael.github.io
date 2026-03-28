@@ -160,7 +160,7 @@ export default function RootLayout({
                 root.classList.add(effective);
                 root.setAttribute('data-theme', effective);
                 root.style.colorScheme = effective;
-                root.style.backgroundColor = effective === 'dark' ? '#0f172a' : '#faf9f5';
+                root.style.backgroundColor = effective === 'dark' ? '#141413' : '#faf9f5';
               } catch (e) {
                 const root = document.documentElement;
                 root.classList.remove('dark');
