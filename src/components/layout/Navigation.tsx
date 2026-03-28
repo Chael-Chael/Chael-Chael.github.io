@@ -200,8 +200,8 @@ export default function Navigation({
                           className={cn(
                             'absolute rounded-lg pointer-events-none',
                             hoveredHref && hoveredHref !== activeHref
-                              ? 'bg-white/50 border border-neutral-100 shadow-sm'
-                              : 'bg-white border border-neutral-100 shadow-sm'
+                              ? 'bg-white/50 dark:bg-white/5 border border-neutral-100 dark:border-white/5 shadow-sm'
+                              : 'bg-white dark:bg-white/10 border border-neutral-100 dark:border-white/10 shadow-sm'
                           )}
                           initial={false}
                           animate={{
@@ -306,7 +306,7 @@ export default function Navigation({
                             className={cn(
                               'block px-3 py-2 rounded-md text-base font-medium transition-all duration-200',
                               isActive
-                                ? 'text-primary bg-white border-l-4 border-accent shadow-sm'
+                                ? 'text-primary bg-white dark:bg-white/10 border-l-4 border-accent shadow-sm'
                                 : 'text-neutral-600 hover:text-primary hover:bg-neutral-50'
                             )}
                           >
