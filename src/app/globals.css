@@ -100,6 +100,9 @@ html.dark {
   --error: #ef4444;
   --info: #3b82f6;
   
+  --card: #f5f4ed;
+  --card-hover: #eeebe0;
+  
   /* Glass effect */
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
@@ -116,6 +119,8 @@ html.dark {
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
   --color-accent-dark: var(--accent-dark);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
   
   /* Neutral palette */
   --color-neutral-50: var(--neutral-50);
@@ -228,6 +233,9 @@ html[data-locale^="zh"] {
   --neutral-700: #e2e8f0;
   --neutral-800: #1e293b;
   --neutral-900: #0f172a;
+  
+  --card: #1e293b;
+  --card-hover: #2d3a4f;
 }
 
 
@@ -305,7 +313,7 @@ body {
 
 /* Card background utility */
 .card-bg {
-  background-color: #ffffff;
+  background-color: var(--card);
 }
 
 .dark .card-bg {
