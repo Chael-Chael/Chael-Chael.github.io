@@ -255,12 +255,12 @@ html[data-locale^="zh"] {
   --neutral-100: #1f1e1d;
   --neutral-200: #2c2b2a;
   --neutral-300: #42403e;
-  --neutral-400: #dfddd8;
-  --neutral-500: #c8c6c4;
-  --neutral-600: #918f8d;
-  --neutral-700: #1f1e1d;
-  --neutral-800: #1f1e1d;
-  --neutral-900: #141413;
+  --neutral-400: #62605e;
+  --neutral-500: #918f8d;
+  --neutral-600: #c8c6c4;
+  --neutral-700: #dfddd8;
+  --neutral-800: #faf9f5;
+  --neutral-900: #ffffff;
 }
 
 

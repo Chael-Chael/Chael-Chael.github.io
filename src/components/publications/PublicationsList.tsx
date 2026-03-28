@@ -107,7 +107,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                             exit={{ opacity: 0, height: 0 }}
                             className="overflow-hidden"
                         >
-                            <div className="p-4 bg-neutral-50 dark:bg-neutral-800/50 rounded-lg border border-neutral-200 dark:border-neutral-800 flex flex-wrap gap-6">
+                            <div className="p-4 bg-neutral-50 dark:bg-neutral-100/50 rounded-lg border border-neutral-200 dark:border-neutral-800 flex flex-wrap gap-6">
                                 {/* Year Filter */}
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300 flex items-center">
@@ -120,7 +120,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 "px-3 py-1 text-xs rounded-full transition-colors",
                                                 selectedYear === 'all'
                                                     ? "bg-accent text-white"
-                                                    : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                                                    : "bg-white dark:bg-neutral-100 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                                             )}
                                         >
                                             {messages.common.all}
@@ -133,7 +133,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                     "px-3 py-1 text-xs rounded-full transition-colors",
                                                     selectedYear === year
                                                         ? "bg-accent text-white"
-                                                        : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                                                        : "bg-white dark:bg-neutral-100 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                                                 )}
                                             >
                                                 {year}
@@ -154,7 +154,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 "px-3 py-1 text-xs rounded-full transition-colors",
                                                 selectedType === 'all'
                                                     ? "bg-accent text-white"
-                                                    : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                                                    : "bg-white dark:bg-neutral-100 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                                             )}
                                         >
                                             {messages.common.all}
@@ -167,7 +167,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                     "px-3 py-1 text-xs rounded-full capitalize transition-colors",
                                                     selectedType === type
                                                         ? "bg-accent text-white"
-                                                        : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                                                        : "bg-white dark:bg-neutral-100 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                                                 )}
                                             >
                                                 {type.replace('-', ' ')}
@@ -199,7 +199,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                             <div className="flex flex-col md:flex-row gap-6">
                                 {pub.preview && (
                                     <div className="w-full md:w-48 flex-shrink-0 relative">
-                                        <div className="relative rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+                                        <div className="relative rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-100">
                                             <img
                                                 src={`/papers/${pub.preview}`}
                                                 alt={pub.title}
@@ -275,7 +275,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 href={pub.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
+                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-[#30302e] text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
                                             >
                                                 <img src="/arxiv-logomark-small@2x.png" alt="arXiv" className="h-3 w-auto mr-1.5" />
                                                 Paper
@@ -286,7 +286,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 href={pub.code}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
+                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-[#30302e] text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
                                             >
                                                 <img src="/GitHub_Invertocat_Black.png" alt="GitHub" className="h-3 w-3 mr-1.5 block dark:hidden" />
                                                 <img src="/GitHub_Invertocat_White.png" alt="GitHub" className="h-3 w-3 mr-1.5 hidden dark:block" />
@@ -298,7 +298,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 href={pub.project}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
+                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-[#30302e] text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
                                             >
                                                 <img src="/GitHub_Invertocat_Black.png" alt="GitHub" className="h-3 w-3 mr-1.5 block dark:hidden" />
                                                 <img src="/GitHub_Invertocat_White.png" alt="GitHub" className="h-3 w-3 mr-1.5 hidden dark:block" />
@@ -310,7 +310,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 href={pub.dataset}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
+                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-[#30302e] text-neutral-700 dark:text-white hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors border border-transparent dark:border-neutral-700 shadow-sm transition-all"
                                             >
                                                 <img src="/GitHub_Invertocat_Black.png" alt="GitHub" className="h-3 w-3 mr-1.5 block dark:hidden" />
                                                 <img src="/GitHub_Invertocat_White.png" alt="GitHub" className="h-3 w-3 mr-1.5 hidden dark:block" />
