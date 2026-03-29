@@ -1,51 +1,5 @@
 这篇 Llama 3 报告精读，最开始其实是因为参加考核才决定仔细研究的。但当时作为萌新的我在读的时候，发现里面有很多值得深挖的技术细节，于是顺带着补充了不少前置背景知识（主要集中于架构和分布式训练），最后整理出来了这一份，希望对大家有些帮助。
 
-为了让大家读得更顺手，我没死板地按照原文顺序写，而是先从 Abstract & Results 看起。大家先对模型的实际表现有一个整体的感知，然后再去详细分析后面的那些技术原理。
-
-# Abstract
-**Why:** 现代的AI系统往往由基座模型驱动，Llama3就是最新推出的基座模型。
-**How:** 推出了一系列原生支持多语言、编码、推理和工具使用的LLM，最大的是一个具有405B参数的稠密Transformer，上下文窗口最多可达128K token。这个工作同时还推出了用于输入和输出安全的Llama Guard 3模型，并且介绍了将图像、视频和语音能力通过组合方法集成到Llama 3中的实验结果。
-**What:** 在大量任务上，Llama 3 的质量与GPT-4等领先的语言模型相当，集成多模态的方法在图像、视频和语音识别任务上的性能与最先进技术相比具有竞争力。
-
-# Results
-Results这边，作者对于模型的评估主要分为以下几个方面：
-
-## Pre-Trained Model
-1. 在Standard Benchmark上的成绩：
-	涵盖了(1) 常识推理；(2) 知识；(3) 阅读理解；(4) 数学、推理和问题解决；(5) 长文本；(6) 代码；(7) 对抗性评估；(8) 综合评估。
-	![Llama 3 在各项标准基准测试（Standard Benchmark）中的性能表现](/images/blog/llama3-tech-report/attachments/Pasted%20image%2020250925182911.png)
-	成绩对比同参数模型效果很有竞争力。
-2. 模型的鲁棒性：
-	如少样本标签偏差，标签变体，答案顺序，和提示格式；
-	![Llama 3 在不同提示格式和扰动下的模型鲁棒性测试结果](/images/blog/llama3-tech-report/attachments/Pasted%20image%2020250925183125.png)
-	结果表明Llama3理解了语义，对人为扰动敏感度低。
-3. Adversarial Benchmark ![Llama 3 在对抗性基准测试（Adversarial Benchmark）中的表现对比](/images/blog/llama3-tech-report/attachments/Pasted%20image%2020250925183252.png)
-	用挑战性任务测试Llama，图表表明在数学推理和问答方面对抗性能弱于非对抗，可能在基准上有过拟合。
-4. Contamination Analysis
-	分析预训练的数据集是否被测试集上面的数据污染，以及被污染对模型性能造成的影响。
-
-## Post-Trained Model
-1. Proficiency Exams
-	让Llama3考试，结果表明Llama 3 405B模型与Claude 3.5 Sonnet和GPT-4 4o非常相似。70B模型显著优于GPT-3.5 Turbo，并在许多测试中击败了Nemotron 4 340B。
-2. Coding/Multilingual/Math and Reasoning/Tool use Benchmark
-	依然是405B的性能与GPT-4 4o相当。
-3. Long Context Benchmarks
-	**Needle-in-a-Haystack：** 在长上下文中插入四个针，并测试模型是否能检索其中的两个，衡量模型在长文档随机部分检索隐藏信息的能力。
-	结果表明长文本能力非常出色。
-	![Llama 3 在“大海捞针”（Needle-in-a-Haystack）测试中的长文本检索能力](/images/blog/llama3-tech-report/attachments/Pasted%20image%2020250925184418.png)
-4. Human Evaluations
-	让人类对Llama3和GPT给出的回复进行比较打分，结果表明两者的表现大体相当，说明后训练中SFT和DPO也是有效果的。
-	![人类评估（Human Evaluation）结果显示 Llama 3 与领先模型性能相当](/images/blog/llama3-tech-report/attachments/Pasted%20image%2020250925184524.png)
-	
-5. Safety Evaluations
-	在预训练的时候，就已经应用了data filtering，并且在后训练时，还进行了safety finetuning。构造了一些adversarial prompt来测试Llama3的安全性，主要的指标是violation rate(违反安全规则的比例)和false refusal rate(错误拒绝的比例)
-	可以看到405B的模型搭配训练的Llama Guard的安全性还是比较高的。
-	![Llama 3 在安全性评估（Safety Evaluation）中的违规率与错误拒绝率测试](/images/blog/llama3-tech-report/attachments/Pasted%20image%2020250925184553.png)
-6. Red Teaming
-	Llama团队还组织red teaming来攻击模型找出漏洞，不断优化自己的模型。
-
-# Conclusion
-
 # Introduction
 Llama3基座模型原生支持了多语言、编程、推理和工具使用，最大的模型为405B，上下文128K，在训练过程中，主要优化了以下的地方：1. 提高了数据数量和质量；2. 用更多的token训练来scale up model；3. 用稠密的transformer架构，和SFT、RS、DPO进行后训练，有利于scaling up。
 

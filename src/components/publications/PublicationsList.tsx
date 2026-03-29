@@ -192,7 +192,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                     filteredPublications.map((pub, index) => (
                         <motion.div
                             key={pub.id}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: index === 0 ? 0 : 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: delay + 0.1 * index }}
                             className="bg-white dark:bg-neutral-100 p-6 rounded-2xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-all duration-200"
