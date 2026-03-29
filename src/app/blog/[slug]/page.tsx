@@ -28,7 +28,7 @@ function slugify(text: string) {
 }
 
 function extractHeadings(content: string): Heading[] {
-  const headingRegex = /^(#{1,2})\s+(.+)$/gm;
+  const headingRegex = /^(#{1,3})\s+(.+)$/gm;
   const headings: Heading[] = [];
   let match;
   while ((match = headingRegex.exec(content)) !== null) {

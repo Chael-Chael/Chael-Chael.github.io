@@ -61,8 +61,12 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
   const scrollTo = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
+      const rect = element.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const targetY = rect.top + scrollTop - 100;
+      
       window.scrollTo({
-        top: element.offsetTop - 100, // Offset for top header
+        top: targetY,
         behavior: 'smooth',
       });
     }
@@ -102,9 +106,10 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
               data-id={heading.id}
               onClick={() => scrollTo(heading.id)}
               className={clsx(
-                "flex items-center gap-6 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group/item py-2 pl-4 pr-12 -ml-4 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-200/50",
-                heading.level === 1 ? "mb-2" : "",
-                heading.level > 2 ? "opacity-60 scale-90" : ""
+                "flex items-center gap-4 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group/item py-2 pl-4 pr-12 -ml-4 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-200/50 w-full text-left",
+                heading.level <= 1 ? "mb-1" : "mb-0.5",
+                heading.level === 2 ? "ml-4" : "",
+                heading.level > 2 ? "ml-8 opacity-60 scale-95" : ""
               )}
             >
               {/* Minimal Indicator (TOC Dash) */}
