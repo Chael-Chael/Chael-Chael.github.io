@@ -73,7 +73,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
 
   return (
     <aside 
-      className="fixed right-4 lg:right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:block"
+      className="fixed right-2 lg:right-3 xl:right-4 top-1/2 -translate-y-1/2 z-40 hidden xl:block transition-all duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -116,7 +116,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
                   "h-1 rounded-full transition-all duration-300 flex-shrink-0",
                   isActive 
                     ? "w-8 bg-accent shadow-[0_0_8px_rgba(var(--accent-rgb),0.4)]" 
-                    : "w-4 bg-neutral-200 dark:bg-neutral-200 group-hover/item:w-6 group-hover/item:bg-accent/40",
+                    : "w-4 bg-neutral-200 dark:bg-neutral-200 group-hover/item:w-6 group-hover/item:bg-accent/40 opacity-0 group-hover/toc:opacity-100",
                   heading.level === 1 ? "h-1.5" : "",
                   heading.level === 3 ? "w-3" : ""
                 )}
@@ -127,9 +127,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
                 "text-left text-xs font-serif transition-all duration-300 whitespace-nowrap overflow-hidden pointer-events-none -translate-x-4 opacity-0 group-hover/toc:opacity-100 group-hover/toc:translate-x-0 truncate max-w-[180px]",
                 isActive 
                    ? "text-primary scale-105 font-bold opacity-100 translate-x-0" 
-                   : "text-neutral-400 dark:text-neutral-600 group-hover/item:text-accent",
-                // Show H1 headers even when unhovered for context
-                !isHovered && heading.level === 1 && "opacity-100 translate-x-0 text-neutral-500 dark:text-neutral-600 font-semibold"
+                   : "text-neutral-400 dark:text-neutral-600 group-hover/item:text-accent"
               )}>
                 {heading.text}
               </span>

@@ -9,15 +9,16 @@ import { BlogPostMeta } from '@/types/blog';
 interface BlogCardProps {
   post: BlogPostMeta;
   index: number;
+  delay?: number;
 }
 
-export default function BlogCard({ post, index }: BlogCardProps) {
+export default function BlogCard({ post, index, delay = 0.4 }: BlogCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: 0.1 * index }}
+      transition={{ duration: 0.5, delay: delay + 0.1 * index }}
       className="group bg-white dark:bg-neutral-100 rounded-2xl overflow-hidden border border-neutral-100 dark:border-neutral-800 hover:border-accent/30 hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] transition-all duration-300 flex flex-col md:flex-row h-full min-h-[320px]"
     >
       <Link href={`/blog/${post.slug}`} className="relative h-64 md:h-auto md:w-[38%] overflow-hidden block">

@@ -111,6 +111,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                   config={page.config}
                   publications={page.publications}
                   embedded={true}
+                  delay={0.4}
                 />
               )}
               {page.type === 'text' && (
@@ -124,6 +125,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                 <CardPage
                   config={page.config}
                   embedded={true}
+                  delay={0.4}
                 />
               )}
               {page.type === 'blog' && (
@@ -131,6 +133,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                   posts={page.posts}
                   title={page.config.title}
                   description={page.config.description}
+                  delay={0.4}
                 />
               )}
             </section>

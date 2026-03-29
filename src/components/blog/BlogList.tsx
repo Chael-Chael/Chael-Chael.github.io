@@ -8,16 +8,17 @@ interface BlogListProps {
   posts: BlogPostMeta[];
   title: string;
   description?: string;
+  delay?: number;
 }
 
-export default function BlogList({ posts, title, description }: BlogListProps) {
+export default function BlogList({ posts, title, description, delay = 0.4 }: BlogListProps) {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.6, delay }}
         className="mb-16 text-center"
       >
         <h1 className="text-5xl md:text-6xl font-serif font-bold text-primary mb-6">
@@ -33,7 +34,7 @@ export default function BlogList({ posts, title, description }: BlogListProps) {
       <div className="grid grid-cols-1 gap-12">
         {posts.length > 0 ? (
           posts.map((post, index) => (
-            <BlogCard key={post.slug} post={post} index={index} />
+            <BlogCard key={post.slug} post={post} index={index} delay={delay} />
           ))
         ) : (
           <div className="col-span-full text-center py-20 text-neutral-500 italic">

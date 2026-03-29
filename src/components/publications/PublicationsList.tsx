@@ -20,9 +20,10 @@ interface PublicationsListProps {
     config: PublicationPageConfig;
     publications: Publication[];
     embedded?: boolean;
+    delay?: number;
 }
 
-export default function PublicationsList({ config, publications, embedded = false }: PublicationsListProps) {
+export default function PublicationsList({ config, publications, embedded = false, delay = 0.4 }: PublicationsListProps) {
     const messages = useMessages();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedYear, setSelectedYear] = useState<number | 'all'>('all');
@@ -60,7 +61,7 @@ export default function PublicationsList({ config, publications, embedded = fals
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay }}
         >
             <div className="mb-8">
                 <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-serif font-bold text-primary mb-4`}>{config.title}</h1>
@@ -193,7 +194,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                             key={pub.id}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.1 * index }}
+                            transition={{ duration: 0.4, delay: delay + 0.1 * index }}
                             className="bg-white dark:bg-neutral-100 p-6 rounded-2xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-all duration-200"
                         >
                             <div className="flex flex-col md:flex-row gap-6">

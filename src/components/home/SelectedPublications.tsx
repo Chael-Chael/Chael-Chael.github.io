@@ -52,7 +52,7 @@ export default function SelectedPublications({
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ 
                             duration: 0.4, 
-                            delay: index === 0 ? delay : delay + 0.2 + (index - 1) * 0.1 
+                            delay: delay + 0.1 * index 
                         }}
                         className="bg-neutral-50 dark:bg-neutral-100 p-4 rounded-2xl shadow-sm border border-neutral-200 dark:border-[rgba(148,163,184,0.1)] hover:shadow-lg transition-all duration-200"
                     >
