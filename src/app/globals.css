@@ -98,7 +98,13 @@ html.dark {
   font-display: swap;
 }
 
-
+@font-face {
+  font-family: "Fangzheng Song";
+  src: url("/fonts/custom/fangzheng-song.TTF") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 
 /* Default to light theme colors - no system preference detection */
 :root {
@@ -174,7 +180,7 @@ html.dark {
   
   /* Typography */
   --font-sans: 'Styrene B', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-serif: 'Copernicus', Georgia, serif;
+  --font-serif: 'Copernicus', 'Fangzheng Song', Georgia, serif;
   --font-tiempos: 'Test Tiempos Text', serif;
   --font-tiempos-headline: 'Test Tiempos Headline', serif;
   --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
@@ -229,7 +235,7 @@ html.dark {
 /* Use Source Han Serif for Chinese headings/title text via .font-serif */
 html:lang(zh),
 html[data-locale^="zh"] {
-  --font-serif: "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", STSong, SimSun, serif;
+  --font-serif: 'Copernicus', "Fangzheng Song", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", STSong, SimSun, serif;
 }
 
 /* Dark mode styles */
