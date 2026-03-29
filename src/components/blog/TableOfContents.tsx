@@ -113,7 +113,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
                   "h-1 rounded-full transition-all duration-300 flex-shrink-0",
                   isActive 
                     ? "w-8 bg-accent shadow-[0_0_8px_rgba(var(--accent-rgb),0.4)]" 
-                    : "w-4 bg-neutral-200 dark:bg-neutral-200 group-hover/item:w-6 group-hover/item:bg-accent/40 opacity-0 group-hover/toc:opacity-100",
+                    : "w-4 bg-neutral-200 dark:bg-neutral-200 group-hover/item:w-6 group-hover/item:bg-accent/40",
                   heading.level === 1 ? "h-1.5" : "",
                   heading.level === 3 ? "w-3" : ""
                 )}
