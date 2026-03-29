@@ -102,7 +102,7 @@ const en: LocaleMessages = {
   },
   blog: {
     title: 'Research Blog',
-    description: 'Explorations in AI, Diffusion Models, and Multimodal Learning.',
+    description: 'Explorations in LLMs, Diffusion Models, and Multimodal Learning.',
     readMore: 'Read More',
     backToBlog: 'Back to Blog',
     noPosts: 'Stay tuned! More stories coming soon.',

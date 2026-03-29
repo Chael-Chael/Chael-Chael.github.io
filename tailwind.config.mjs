@@ -42,9 +42,12 @@ export default {
           700: 'var(--neutral-700)',
           800: 'var(--neutral-800)',
           900: 'var(--neutral-900)',
-        }
-      }
+        },
+      },
+      animation: {
+        'spin-slow': 'spin 20s linear infinite',
+      },
     },
   },
   plugins: [],
-}; 
+};

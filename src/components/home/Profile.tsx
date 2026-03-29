@@ -174,7 +174,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                             initial={{ opacity: 0, y: 10, scale: 0.8 }}
                                             animate={{ opacity: 1, y: -10, scale: 1 }}
                                             exit={{ opacity: 0, y: -20, scale: 0.8 }}
-                                            className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-neutral-800 text-white px-4 py-3 rounded-lg text-sm font-medium shadow-lg max-w-[calc(100vw-2rem)] sm:max-w-none sm:whitespace-nowrap ${lastClickedTooltip === 'address' ? 'z-20' : 'z-10'
+                                            className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 px-4 py-3 rounded-lg text-sm font-medium shadow-lg max-w-[calc(100vw-2rem)] sm:max-w-none sm:whitespace-nowrap ${lastClickedTooltip === 'address' ? 'z-20' : 'z-10'
                                                 }`}
                                             onMouseEnter={() => {
                                                 if (!isAddressPinned) setShowAddress(true);
@@ -210,7 +210,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                                 </div>
 
                                             </div>
-                                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-800"></div>
+                                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-900 dark:border-t-neutral-100"></div>
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
@@ -251,7 +251,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                             initial={{ opacity: 0, y: 10, scale: 0.8 }}
                                             animate={{ opacity: 1, y: -10, scale: 1 }}
                                             exit={{ opacity: 0, y: -20, scale: 0.8 }}
-                                            className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-neutral-800 text-white px-4 py-3 rounded-lg text-sm font-medium shadow-lg max-w-[calc(100vw-2rem)] sm:max-w-none sm:whitespace-nowrap ${lastClickedTooltip === 'email' ? 'z-20' : 'z-10'
+                                            className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 px-4 py-3 rounded-lg text-sm font-medium shadow-lg max-w-[calc(100vw-2rem)] sm:max-w-none sm:whitespace-nowrap ${lastClickedTooltip === 'email' ? 'z-20' : 'z-10'
                                                 }`}
                                             onMouseEnter={() => {
                                                 if (!isEmailPinned) setShowEmail(true);
@@ -281,7 +281,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-800"></div>
+                                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-900 dark:border-t-neutral-100"></div>
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
@@ -305,7 +305,7 @@ export default function Profile({ author, social, features, researchInterests }:
 
             {/* Research Interests */}
             {researchInterests && researchInterests.length > 0 && (
-                <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 mb-6 hover:shadow-lg transition-all duration-200 hover:scale-[1.02] border border-neutral-100 dark:border-neutral-800">
+                <div className="bg-white dark:bg-neutral-100 rounded-lg p-4 mb-6 hover:shadow-lg transition-all duration-200 hover:scale-[1.02] border border-neutral-100 dark:border-neutral-200">
                     <h3 className="font-semibold text-primary mb-3">{messages.profile.researchInterests}</h3>
                     <div className="space-y-2 text-sm text-neutral-700 dark:text-neutral-500">
                         {researchInterests.map((interest, index) => (
@@ -323,9 +323,9 @@ export default function Profile({ author, social, features, researchInterests }:
                             onClick={handleLike}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 border border-neutral-100 dark:border-neutral-800 ${hasLiked
-                                ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
-                                : 'bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-500 hover:bg-neutral-50 dark:hover:bg-neutral-900 cursor-pointer shadow-sm'
+                            className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 border border-neutral-100 dark:border-neutral-200 ${hasLiked
+                                ? 'bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400'
+                                : 'bg-white dark:bg-neutral-100 text-neutral-700 dark:text-neutral-600 hover:bg-neutral-50 dark:hover:bg-neutral-200 cursor-pointer shadow-sm'
                                 }`}
                         >
                             {hasLiked ? (

@@ -352,11 +352,11 @@ body {
 
 /* Card background utility */
 .card-bg {
-  background-color: #ffffff;
+  background-color: var(--neutral-50);
 }
 
 .dark .card-bg {
-  background-color: #1e293b;
+  background-color: var(--neutral-100);
   /* Soften card borders in dark mode only */
-  border-color: rgba(148, 163, 184, 0.24);
+  border-color: var(--neutral-200);
 }

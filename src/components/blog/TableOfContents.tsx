@@ -105,7 +105,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
               data-id={heading.id}
               onClick={() => scrollTo(heading.id)}
               className={clsx(
-                "flex items-center gap-6 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group/item py-2 pl-4 pr-12 -ml-4 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-800/50",
+                "flex items-center gap-6 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group/item py-2 pl-4 pr-12 -ml-4 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-200/50",
                 heading.level === 1 ? "mb-2" : "",
                 heading.level > 2 ? "opacity-60 scale-90" : ""
               )}
@@ -116,7 +116,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
                   "h-1 rounded-full transition-all duration-300 flex-shrink-0",
                   isActive 
                     ? "w-8 bg-accent shadow-[0_0_8px_rgba(var(--accent-rgb),0.4)]" 
-                    : "w-4 bg-neutral-200 dark:bg-neutral-800 group-hover/item:w-6 group-hover/item:bg-accent/40",
+                    : "w-4 bg-neutral-200 dark:bg-neutral-200 group-hover/item:w-6 group-hover/item:bg-accent/40",
                   heading.level === 1 ? "h-1.5" : "",
                   heading.level === 3 ? "w-3" : ""
                 )}
@@ -127,9 +127,9 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
                 "text-left text-xs font-serif transition-all duration-300 whitespace-nowrap overflow-hidden pointer-events-none -translate-x-4 opacity-0 group-hover/toc:opacity-100 group-hover/toc:translate-x-0 truncate max-w-[180px]",
                 isActive 
                    ? "text-primary scale-105 font-bold opacity-100 translate-x-0" 
-                   : "text-neutral-400 group-hover/item:text-accent",
+                   : "text-neutral-400 dark:text-neutral-600 group-hover/item:text-accent",
                 // Show H1 headers even when unhovered for context
-                !isHovered && heading.level === 1 && "opacity-100 translate-x-0 text-neutral-500 font-semibold"
+                !isHovered && heading.level === 1 && "opacity-100 translate-x-0 text-neutral-500 dark:text-neutral-600 font-semibold"
               )}>
                 {heading.text}
               </span>

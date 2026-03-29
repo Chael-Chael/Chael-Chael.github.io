@@ -82,7 +82,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                             placeholder={messages.publications.searchPlaceholder}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
+                            className="w-full pl-10 pr-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-100 focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
                         />
                     </div>
                     <button
@@ -91,7 +91,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                             "flex items-center justify-center px-4 py-2 rounded-lg border transition-all duration-200",
                             showFilters
                                 ? "bg-accent text-white border-accent"
-                                : "bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 text-neutral-600 hover:border-accent hover:text-accent"
+                                : "bg-white dark:bg-neutral-100 border-neutral-200 dark:border-neutral-800 text-neutral-600 hover:border-accent hover:text-accent"
                         )}
                     >
                         <FunnelIcon className="h-5 w-5 mr-2" />
@@ -107,7 +107,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                             exit={{ opacity: 0, height: 0 }}
                             className="overflow-hidden"
                         >
-                            <div className="p-4 bg-neutral-50 dark:bg-neutral-100/50 rounded-lg border border-neutral-200 dark:border-neutral-800 flex flex-wrap gap-6">
+                            <div className="p-4 bg-neutral-50 dark:bg-neutral-200/50 rounded-lg border border-neutral-200 dark:border-neutral-800 flex flex-wrap gap-6">
                                 {/* Year Filter */}
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300 flex items-center">
@@ -194,7 +194,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: 0.1 * index }}
-                            className="bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-all duration-200"
+                            className="bg-white dark:bg-neutral-100 p-6 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-all duration-200"
                         >
                             <div className="flex flex-col md:flex-row gap-6">
                                 {pub.preview && (
@@ -220,7 +220,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     <h3 className={`${embedded ? "text-lg" : "text-xl"} font-tiempos-headline font-medium text-primary mb-2 leading-tight`}>
                                         {pub.title}
                                     </h3>
-                                    <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-400 mb-2`}>
+                                    <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-600 mb-2`}>
                                         {pub.authors.map((author, idx) => (
                                             <span key={idx}>
                                                 <span className={`${author.isHighlighted ? 'font-semibold text-accent' : ''} ${author.isCoAuthor ? `underline underline-offset-4 ${author.isHighlighted ? 'decoration-accent' : 'decoration-neutral-400'}` : ''}`}>

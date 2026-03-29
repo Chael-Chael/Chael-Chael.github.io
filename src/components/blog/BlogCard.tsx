@@ -18,7 +18,7 @@ export default function BlogCard({ post, index }: BlogCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.1 * index }}
-      className="group bg-white dark:bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-100 dark:border-neutral-800 hover:border-accent/30 hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] transition-all duration-300 flex flex-col md:flex-row h-full min-h-[320px]"
+      className="group bg-white dark:bg-neutral-100 rounded-3xl overflow-hidden border border-neutral-100 dark:border-neutral-800 hover:border-accent/30 hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] transition-all duration-300 flex flex-col md:flex-row h-full min-h-[320px]"
     >
       <Link href={`/blog/${post.slug}`} className="relative h-64 md:h-auto md:w-[38%] overflow-hidden block">
         {post.image ? (
@@ -28,7 +28,7 @@ export default function BlogCard({ post, index }: BlogCardProps) {
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
         ) : (
-          <div className="w-full h-full bg-neutral-50 dark:bg-neutral-800/50 flex items-center justify-center p-8">
+          <div className="w-full h-full bg-neutral-50 dark:bg-neutral-200/50 flex items-center justify-center p-8">
              <span className="text-neutral-400 dark:text-neutral-600 font-serif italic text-2xl opacity-20 text-center leading-tight">{post.title}</span>
           </div>
         )}
@@ -36,8 +36,8 @@ export default function BlogCard({ post, index }: BlogCardProps) {
       </Link>
       
       <div className="p-8 md:p-10 flex flex-col flex-grow md:w-[62%]">
-        <div className="flex items-center flex-wrap gap-4 mb-5 text-sm font-medium text-neutral-500 dark:text-neutral-400">
-          <span className="flex items-center gap-2 px-3 py-1 bg-neutral-100 dark:bg-neutral-800 rounded-full text-xs">
+        <div className="flex items-center flex-wrap gap-4 mb-5 text-sm font-medium text-neutral-500 dark:text-neutral-600">
+          <span className="flex items-center gap-2 px-3 py-1 bg-neutral-100 dark:bg-neutral-200 rounded-full text-xs">
             <CalendarIcon className="h-4 w-4" />
             {(() => {
               const d = new Date(post.date);
@@ -58,7 +58,7 @@ export default function BlogCard({ post, index }: BlogCardProps) {
           </h3>
         </Link>
         
-        <p className="text-neutral-600 dark:text-neutral-400 text-lg leading-relaxed line-clamp-2 md:line-clamp-3 mb-8 flex-grow">
+        <p className="text-neutral-600 dark:text-neutral-600 text-lg leading-relaxed line-clamp-2 md:line-clamp-3 mb-8 flex-grow">
           {post.excerpt}
         </p>
         

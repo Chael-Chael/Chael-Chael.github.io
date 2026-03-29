@@ -85,7 +85,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       </Link>
 
       <header className="mb-8">
-        <div className="flex items-center gap-4 mb-4 text-sm text-neutral-500 dark:text-neutral-400">
+        <div className="flex items-center gap-4 mb-4 text-sm text-neutral-500 dark:text-neutral-600">
           <span className="flex items-center gap-1.5">
             <CalendarIcon className="h-4 w-4" />
             {(() => {
@@ -96,7 +96,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           {post.tags && post.tags.length > 0 && (
             <div className="flex gap-2">
               {post.tags.map(tag => (
-                <span key={tag} className="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded-full text-xs">
+                <span key={tag} className="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-200 px-2 py-0.5 rounded-full text-xs">
                   <TagIcon className="h-3 w-3" />
                   {tag}
                 </span>
@@ -131,13 +131,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             },
             h2: ({ children }) => {
               const id = slugify(String(children));
-              return <h2 id={id} className="text-3xl font-tiempos-headline font-normal text-primary mt-8 mb-4 border-b border-neutral-100 dark:border-neutral-800 pb-2">{children}</h2>;
+              return <h2 id={id} className="text-3xl font-tiempos-headline font-normal text-primary mt-8 mb-4 border-b border-neutral-100 dark:border-neutral-200 pb-2">{children}</h2>;
             },
             h3: ({ children }) => {
               const id = slugify(String(children));
               return <h3 id={id} className="text-2xl font-tiempos-headline font-normal text-primary mt-6 mb-3">{children}</h3>;
             },
-            p: ({ children }) => <p className="mb-4 leading-relaxed text-neutral-700 dark:text-neutral-300">{children}</p>,
+            p: ({ children }) => <p className="mb-4 leading-relaxed text-neutral-700 dark:text-neutral-700">{children}</p>,
             ul: ({ children }) => <ul className="list-disc list-outside ml-6 mb-4 space-y-1">{children}</ul>,
             ol: ({ children }) => <ol className="list-decimal list-outside ml-6 mb-4 space-y-1">{children}</ol>,
             li: ({ children }) => <li className="pl-2">{children}</li>,
@@ -147,12 +147,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               </mark>
             ),
             blockquote: ({ children }) => (
-              <blockquote className="border-l-4 border-accent bg-neutral-50 dark:bg-neutral-800/50 p-6 italic my-8 rounded-r-lg">
+              <blockquote className="border-l-4 border-accent bg-neutral-50 dark:bg-neutral-200/50 p-6 italic my-8 rounded-r-lg">
                 {children}
               </blockquote>
             ),
             code: ({ children }) => (
-              <code className="bg-neutral-100 dark:bg-neutral-800 rounded px-1.5 py-0.5 text-sm font-mono text-accent">
+              <code className="bg-neutral-100 dark:bg-neutral-200 rounded px-1.5 py-0.5 text-sm font-mono text-accent">
                 {children}
               </code>
             ),
@@ -189,8 +189,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </ReactMarkdown>
       </div>
       
-      <footer className="mt-20 pt-12 border-t border-neutral-100 dark:border-neutral-800">
-        <div className="bg-neutral-50 dark:bg-neutral-800/50 p-8 rounded-3xl flex items-center gap-6">
+      <footer className="mt-20 pt-12 border-t border-neutral-100 dark:border-neutral-200">
+        <div className="bg-neutral-50 dark:bg-neutral-100/50 p-8 rounded-3xl flex items-center gap-6">
            <img src="/avatar.png" alt="Author" className="h-16 w-16 rounded-full border-2 border-accent/20" />
            <div>
              <h4 className="font-bold text-primary">Written by Chenyu Zhu</h4>
