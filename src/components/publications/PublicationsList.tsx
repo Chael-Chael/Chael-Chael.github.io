@@ -194,12 +194,12 @@ export default function PublicationsList({ config, publications, embedded = fals
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: 0.1 * index }}
-                            className="bg-white dark:bg-neutral-100 p-6 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-all duration-200"
+                            className="bg-white dark:bg-neutral-100 p-6 rounded-2xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-all duration-200"
                         >
                             <div className="flex flex-col md:flex-row gap-6">
                                 {pub.preview && (
                                     <div className="w-full md:w-48 flex-shrink-0 relative">
-                                        <div className="relative rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-100">
+                                        <div className="relative rounded-xl overflow-hidden bg-neutral-100 dark:bg-neutral-100">
                                             <img
                                                 src={`/papers/${pub.preview}`}
                                                 alt={pub.title}
