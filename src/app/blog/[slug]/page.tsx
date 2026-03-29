@@ -105,7 +105,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           )}
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-6 leading-tight">
+        <h1 className="text-4xl md:text-5xl font-tiempos-headline font-normal text-primary mb-6 leading-tight">
           {post.title}
         </h1>
 
@@ -127,15 +127,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           components={{
             h1: ({ children }) => {
               const id = slugify(String(children));
-              return <h1 id={id} className="text-4xl font-serif font-bold text-primary mt-10 mb-4 border-b-2 border-accent/20 pb-2">{children}</h1>;
+              return <h1 id={id} className="text-4xl font-tiempos-headline font-normal text-primary mt-10 mb-4 border-b-2 border-accent/20 pb-2">{children}</h1>;
             },
             h2: ({ children }) => {
               const id = slugify(String(children));
-              return <h2 id={id} className="text-3xl font-serif font-bold text-primary mt-8 mb-4 border-b border-neutral-100 dark:border-neutral-800 pb-2">{children}</h2>;
+              return <h2 id={id} className="text-3xl font-tiempos-headline font-normal text-primary mt-8 mb-4 border-b border-neutral-100 dark:border-neutral-800 pb-2">{children}</h2>;
             },
             h3: ({ children }) => {
               const id = slugify(String(children));
-              return <h3 id={id} className="text-2xl font-serif font-bold text-primary mt-6 mb-3">{children}</h3>;
+              return <h3 id={id} className="text-2xl font-tiempos-headline font-normal text-primary mt-6 mb-3">{children}</h3>;
             },
             p: ({ children }) => <p className="mb-4 leading-relaxed text-neutral-700 dark:text-neutral-300">{children}</p>,
             ul: ({ children }) => <ul className="list-disc list-outside ml-6 mb-4 space-y-1">{children}</ul>,

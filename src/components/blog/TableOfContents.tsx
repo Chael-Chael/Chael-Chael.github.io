@@ -73,7 +73,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
 
   return (
     <aside 
-      className="fixed right-4 lg:right-12 top-1/2 -translate-y-1/2 z-40 hidden xl:block"
+      className="fixed right-4 lg:right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:block"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -105,7 +105,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
               data-id={heading.id}
               onClick={() => scrollTo(heading.id)}
               className={clsx(
-                "flex items-center gap-10 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group/item py-2 pl-4 pr-32 -ml-4 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-800/50",
+                "flex items-center gap-6 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group/item py-2 pl-4 pr-12 -ml-4 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-800/50",
                 heading.level === 1 ? "mb-2" : "",
                 heading.level > 2 ? "opacity-60 scale-90" : ""
               )}
@@ -124,7 +124,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
 
               {/* Heading Text - Hidden by default, visible on hover */}
               <span className={clsx(
-                "text-left text-sm font-serif transition-all duration-300 whitespace-nowrap overflow-hidden pointer-events-none -translate-x-4 opacity-0 group-hover/toc:opacity-100 group-hover/toc:translate-x-0",
+                "text-left text-xs font-serif transition-all duration-300 whitespace-nowrap overflow-hidden pointer-events-none -translate-x-4 opacity-0 group-hover/toc:opacity-100 group-hover/toc:translate-x-0 truncate max-w-[180px]",
                 isActive 
                    ? "text-primary scale-105 font-bold opacity-100 translate-x-0" 
                    : "text-neutral-400 group-hover/item:text-accent",
