@@ -15,7 +15,6 @@ interface TableOfContentsProps {
 
 export default function TableOfContents({ headings }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>('');
-  const [isHovered, setIsHovered] = useState(false);
   const observer = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -74,8 +73,6 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
   return (
     <aside 
       className="fixed right-2 lg:right-3 xl:right-4 top-1/2 -translate-y-1/2 z-40 hidden xl:block transition-all duration-300"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <nav 
         ref={navRef}
