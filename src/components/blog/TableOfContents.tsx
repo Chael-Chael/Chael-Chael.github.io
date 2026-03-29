@@ -86,6 +86,15 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
             mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
             -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
           }
+          /* Hide scrollbar for Chrome, Safari and Opera */
+          nav::-webkit-scrollbar {
+            display: none;
+          }
+          /* Hide scrollbar for IE, Edge and Firefox */
+          nav {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+          }
         `}</style>
         {headings.map((heading) => {
           const isActive = activeId === heading.id;
@@ -96,14 +105,14 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
               data-id={heading.id}
               onClick={() => scrollTo(heading.id)}
               className={clsx(
-                "flex items-center gap-4 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group/item",
+                "flex items-center gap-10 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group/item",
                 heading.level === 1 ? "mb-2" : "",
                 heading.level > 2 ? "opacity-60 scale-90" : ""
               )}
             >
               {/* Heading Text - Hidden by default, visible on hover */}
               <span className={clsx(
-                "text-right text-sm font-medium transition-all duration-300 whitespace-nowrap overflow-hidden pointer-events-none translate-x-4 opacity-0 group-hover/toc:opacity-100 group-hover/toc:translate-x-0",
+                "text-right text-sm font-serif transition-all duration-300 whitespace-nowrap overflow-hidden pointer-events-none translate-x-4 opacity-0 group-hover/toc:opacity-100 group-hover/toc:translate-x-0",
                 isActive 
                    ? "text-primary scale-105 font-bold opacity-100 translate-x-0" 
                    : "text-neutral-400 group-hover/item:text-accent",
@@ -116,7 +125,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
               {/* Minimal Indicator (TOC Dash) */}
               <div 
                 className={clsx(
-                  "h-1 rounded-full transition-all duration-300",
+                  "h-1 rounded-full transition-all duration-300 flex-shrink-0",
                   isActive 
                     ? "w-8 bg-accent shadow-[0_0_8px_rgba(var(--accent-rgb),0.4)]" 
                     : "w-4 bg-neutral-200 dark:bg-neutral-800 group-hover/item:w-6 group-hover/item:bg-accent/40",
