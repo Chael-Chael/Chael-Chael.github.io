@@ -79,7 +79,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
     >
       <nav 
         ref={navRef}
-        className="flex flex-col items-end gap-3 h-[450px] overflow-y-auto pr-2 no-scrollbar py-12 group/toc scroll-smooth mask-vertical"
+        className="flex flex-col items-start gap-3 h-[450px] overflow-y-auto pl-2 no-scrollbar py-12 group/toc scroll-smooth mask-vertical"
       >
         <style jsx>{`
           .mask-vertical {
@@ -105,23 +105,11 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
               data-id={heading.id}
               onClick={() => scrollTo(heading.id)}
               className={clsx(
-                "flex items-center gap-10 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group/item",
+                "flex items-center gap-10 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group/item py-2 pl-4 pr-32 -ml-4 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-800/50",
                 heading.level === 1 ? "mb-2" : "",
                 heading.level > 2 ? "opacity-60 scale-90" : ""
               )}
             >
-              {/* Heading Text - Hidden by default, visible on hover */}
-              <span className={clsx(
-                "text-right text-sm font-serif transition-all duration-300 whitespace-nowrap overflow-hidden pointer-events-none translate-x-4 opacity-0 group-hover/toc:opacity-100 group-hover/toc:translate-x-0",
-                isActive 
-                   ? "text-primary scale-105 font-bold opacity-100 translate-x-0" 
-                   : "text-neutral-400 group-hover/item:text-accent",
-                // Show H1 headers even when unhovered for context
-                !isHovered && heading.level === 1 && "opacity-100 translate-x-0 text-neutral-500 font-semibold"
-              )}>
-                {heading.text}
-              </span>
-
               {/* Minimal Indicator (TOC Dash) */}
               <div 
                 className={clsx(
@@ -133,6 +121,18 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
                   heading.level === 3 ? "w-3" : ""
                 )}
               />
+
+              {/* Heading Text - Hidden by default, visible on hover */}
+              <span className={clsx(
+                "text-left text-sm font-serif transition-all duration-300 whitespace-nowrap overflow-hidden pointer-events-none -translate-x-4 opacity-0 group-hover/toc:opacity-100 group-hover/toc:translate-x-0",
+                isActive 
+                   ? "text-primary scale-105 font-bold opacity-100 translate-x-0" 
+                   : "text-neutral-400 group-hover/item:text-accent",
+                // Show H1 headers even when unhovered for context
+                !isHovered && heading.level === 1 && "opacity-100 translate-x-0 text-neutral-500 font-semibold"
+              )}>
+                {heading.text}
+              </span>
             </button>
           );
         })}
