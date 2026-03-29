@@ -83,8 +83,3 @@ title = "Blog"
 type = "page"
 target = "blog"
 href = "/blog"
-[[navigation]]
-title = "Pricing"
-type = "page"
-target = "pricing"
-href = "/pricing"
