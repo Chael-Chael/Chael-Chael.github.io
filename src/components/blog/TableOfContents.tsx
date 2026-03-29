@@ -76,7 +76,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
 
   return (
     <aside 
-      className="fixed right-2 lg:right-3 xl:right-4 top-1/2 -translate-y-1/2 z-40 hidden xl:block transition-all duration-300"
+      className="fixed left-1/2 ml-[480px] 2xl:ml-[520px] top-1/2 -translate-y-1/2 z-40 hidden xl:block transition-all duration-300"
     >
       <nav 
         ref={navRef}
