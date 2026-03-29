@@ -28,8 +28,8 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
     };
 
     observer.current = new IntersectionObserver(handleObserver, {
-      rootMargin: '-10% 0px -80% 0px', // When the header is near the top
-      threshold: 1.0,
+      rootMargin: '-10% 0px -80% 0px',
+      threshold: 0.1,
     });
 
     headings.forEach((heading) => {
@@ -43,6 +43,21 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
       observer.current?.disconnect();
     };
   }, [headings]);
+
+  // Auto-scroll the TOC to the active heading
+  const navRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (activeId && navRef.current) {
+      const activeElement = navRef.current.querySelector(`[data-id="${activeId}"]`);
+      if (activeElement) {
+        activeElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest'
+        });
+      }
+    }
+  }, [activeId]);
 
   const scrollTo = (id: string) => {
     const element = document.getElementById(id);
@@ -62,13 +77,23 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <nav className="flex flex-col items-end gap-3 max-h-[80vh] overflow-y-auto no-scrollbar py-8 group/toc">
+      <nav 
+        ref={navRef}
+        className="flex flex-col items-end gap-3 h-[450px] overflow-y-auto pr-2 no-scrollbar py-12 group/toc scroll-smooth mask-vertical"
+      >
+        <style jsx>{`
+          .mask-vertical {
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+          }
+        `}</style>
         {headings.map((heading) => {
           const isActive = activeId === heading.id;
           
           return (
             <button
               key={heading.id}
+              data-id={heading.id}
               onClick={() => scrollTo(heading.id)}
               className={clsx(
                 "flex items-center gap-4 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group/item",
