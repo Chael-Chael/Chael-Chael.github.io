@@ -93,6 +93,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           remarkPlugins={[remarkGfm, remarkMath, remarkBreaks]}
           rehypePlugins={[rehypeRaw, rehypeKatex]}
           components={{
+            h1: ({ children }) => <h1 className="text-4xl font-serif font-bold text-primary mt-16 mb-8 border-b-2 border-accent/20 pb-4">{children}</h1>,
             h2: ({ children }) => <h2 className="text-3xl font-serif font-bold text-primary mt-12 mb-6 border-b border-neutral-100 dark:border-neutral-800 pb-2">{children}</h2>,
             h3: ({ children }) => <h3 className="text-2xl font-serif font-bold text-primary mt-8 mb-4">{children}</h3>,
             p: ({ children }) => <p className="mb-6 leading-relaxed text-neutral-700 dark:text-neutral-300">{children}</p>,
