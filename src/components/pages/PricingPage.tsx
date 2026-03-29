@@ -1,9 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Check, ArrowRight, Zap, Users, Shield, Globe } from 'lucide-react';
-import { useTheme } from 'next-themes';
 import Link from 'next/link';
 
 const plans = [
@@ -93,7 +93,6 @@ const faqs = [
 ];
 
 const PricingPage = () => {
-  const { theme } = useTheme();
   
   return (
     <div className="min-h-screen bg-background text-foreground py-20 px-4 sm:px-6 lg:px-8 font-sans transition-colors duration-500">
@@ -132,7 +131,7 @@ const PricingPage = () => {
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-background border border-neutral-200 dark:border-neutral-800 rounded-full font-bold hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-all font-serif italic"
+                className="px-8 py-4 bg-background border border-neutral-200 dark:border-neutral-800 rounded-full font-bold hover:bg-neutral-50 dark:hover:bg-neutral-200 transition-all font-serif italic"
               >
                 View Documentation
               </motion.button>
@@ -180,7 +179,7 @@ const PricingPage = () => {
               className={`flex flex-col h-full rounded-2xl overflow-hidden border transition-all duration-300 ${
                 plan.highlight 
                   ? 'border-accent shadow-xl bg-background ring-1 ring-accent/20' 
-                  : 'border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/50 hover:border-neutral-300 dark:hover:border-neutral-700'
+                  : 'border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-100/50 hover:border-neutral-300 dark:hover:border-neutral-200'
               }`}
             >
               <div className="p-8 flex-grow">
@@ -202,7 +201,7 @@ const PricingPage = () => {
                 
                 <div className="text-xs text-neutral-400 uppercase tracking-widest font-semibold mb-6 flex items-center gap-2">
                   <div className="h-[1px] flex-grow bg-neutral-200 dark:bg-neutral-800"></div>
-                  <span>WHAT'S INCLUDED</span>
+                  <span>WHAT&apos;S INCLUDED</span>
                   <div className="h-[1px] flex-grow bg-neutral-200 dark:bg-neutral-800"></div>
                 </div>
                 
@@ -241,7 +240,7 @@ const PricingPage = () => {
         </div>
 
         {/* Feature Comparison / Value Prop Section */}
-        <section className="mb-24 py-16 bg-neutral-50/50 dark:bg-neutral-900/50 rounded-3xl border border-neutral-200 dark:border-neutral-800 backdrop-blur-sm overflow-hidden relative">
+        <section className="mb-24 py-16 bg-neutral-50/50 dark:bg-neutral-100/50 rounded-3xl border border-neutral-200 dark:border-neutral-800 backdrop-blur-sm overflow-hidden relative">
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -mr-48 -mt-48"></div>
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
           
@@ -308,7 +307,7 @@ const PricingPage = () => {
         
         {/* Footer Link / CTA */}
         <div className="text-center pt-10 border-t border-neutral-200 dark:border-neutral-800">
-          <p className="text-neutral-400 font-serif mb-6">Need something more tailored? Let's talk about your needs.</p>
+          <p className="text-neutral-400 font-serif mb-6">Need something more tailored? Let&apos;s talk about your needs.</p>
           <Link 
             href="/contact"
             className="inline-flex items-center text-accent hover:text-accent-light font-semibold transition-colors group"
