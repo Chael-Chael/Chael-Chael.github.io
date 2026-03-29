@@ -78,14 +78,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <Link 
         href="/blog" 
-        className="inline-flex items-center text-sm text-neutral-500 hover:text-accent mb-12 transition-colors group"
+        className="inline-flex items-center text-sm text-neutral-500 hover:text-accent mb-8 transition-colors group"
       >
         <ChevronLeftIcon className="h-4 w-4 mr-1 transition-transform group-hover:-translate-x-1" />
         Back to Blog
       </Link>
 
-      <header className="mb-12">
-        <div className="flex items-center gap-4 mb-6 text-sm text-neutral-500 dark:text-neutral-400">
+      <header className="mb-8">
+        <div className="flex items-center gap-4 mb-4 text-sm text-neutral-500 dark:text-neutral-400">
           <span className="flex items-center gap-1.5">
             <CalendarIcon className="h-4 w-4" />
             {(() => {
@@ -105,12 +105,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           )}
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-8 leading-tight">
+        <h1 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-6 leading-tight">
           {post.title}
         </h1>
 
         {post.image && (
-          <div className="aspect-video w-full relative rounded-2xl overflow-hidden shadow-2xl mb-12">
+          <div className="aspect-video w-full relative rounded-2xl overflow-hidden shadow-2xl mb-8">
             <img 
               src={post.image} 
               alt={post.title} 
@@ -127,19 +127,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           components={{
             h1: ({ children }) => {
               const id = slugify(String(children));
-              return <h1 id={id} className="text-4xl font-serif font-bold text-primary mt-16 mb-8 border-b-2 border-accent/20 pb-4">{children}</h1>;
+              return <h1 id={id} className="text-4xl font-serif font-bold text-primary mt-10 mb-4 border-b-2 border-accent/20 pb-2">{children}</h1>;
             },
             h2: ({ children }) => {
               const id = slugify(String(children));
-              return <h2 id={id} className="text-3xl font-serif font-bold text-primary mt-12 mb-6 border-b border-neutral-100 dark:border-neutral-800 pb-2">{children}</h2>;
+              return <h2 id={id} className="text-3xl font-serif font-bold text-primary mt-8 mb-4 border-b border-neutral-100 dark:border-neutral-800 pb-2">{children}</h2>;
             },
             h3: ({ children }) => {
               const id = slugify(String(children));
-              return <h3 id={id} className="text-2xl font-serif font-bold text-primary mt-8 mb-4">{children}</h3>;
+              return <h3 id={id} className="text-2xl font-serif font-bold text-primary mt-6 mb-3">{children}</h3>;
             },
-            p: ({ children }) => <p className="mb-6 leading-relaxed text-neutral-700 dark:text-neutral-300">{children}</p>,
-            ul: ({ children }) => <ul className="list-disc list-outside ml-6 mb-6 space-y-2">{children}</ul>,
-            ol: ({ children }) => <ol className="list-decimal list-outside ml-6 mb-6 space-y-2">{children}</ol>,
+            p: ({ children }) => <p className="mb-4 leading-relaxed text-neutral-700 dark:text-neutral-300">{children}</p>,
+            ul: ({ children }) => <ul className="list-disc list-outside ml-6 mb-4 space-y-1">{children}</ul>,
+            ol: ({ children }) => <ol className="list-decimal list-outside ml-6 mb-4 space-y-1">{children}</ol>,
             li: ({ children }) => <li className="pl-2">{children}</li>,
             mark: ({ children }) => (
               <mark className="bg-accent/20 text-accent font-medium rounded px-1 group-dark:bg-accent/30 selection:bg-accent selection:text-white">
@@ -171,9 +171,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 );
               }
               return (
-                <span className="block my-12">
+                <span className="block my-6">
                   <img src={src} alt={alt} className="rounded-2xl shadow-xl mx-auto max-h-[600px] object-contain" />
-                  {alt && <small className="block text-center text-neutral-500 mt-4 italic font-tiempos">{alt}</small>}
+                  {alt && <small className="block text-center text-neutral-500 mt-2 italic font-tiempos">{alt}</small>}
                 </span>
               );
             },
