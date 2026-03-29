@@ -12,6 +12,33 @@ import Link from 'next/link';
 import 'katex/dist/katex.min.css';
 
 import { getPostBySlug, getAllPosts } from '@/lib/blog';
+import TableOfContents from '@/components/blog/TableOfContents';
+
+interface Heading {
+  id: string;
+  text: string;
+  level: number;
+}
+
+function slugify(text: string) {
+  return text.toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w-]/g, '')
+    .replace(/-+/g, '-');
+}
+
+function extractHeadings(content: string): Heading[] {
+  const headingRegex = /^(#{1,6})\s+(.+)$/gm;
+  const headings: Heading[] = [];
+  let match;
+  while ((match = headingRegex.exec(content)) !== null) {
+    const level = match[1].length;
+    const text = match[2].trim().replace(/[*_~`]/g, '');
+    const id = slugify(text);
+    headings.push({ level, id, text });
+  }
+  return headings;
+}
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -42,8 +69,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     notFound();
   }
 
+  const headings = extractHeadings(post.content);
+
   return (
-    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="relative min-h-screen">
+      <TableOfContents headings={headings} />
+      
+      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <Link 
         href="/blog" 
         className="inline-flex items-center text-sm text-neutral-500 hover:text-accent mb-12 transition-colors group"
@@ -93,9 +125,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           remarkPlugins={[remarkGfm, remarkMath, remarkBreaks]}
           rehypePlugins={[rehypeRaw, rehypeKatex]}
           components={{
-            h1: ({ children }) => <h1 className="text-4xl font-serif font-bold text-primary mt-16 mb-8 border-b-2 border-accent/20 pb-4">{children}</h1>,
-            h2: ({ children }) => <h2 className="text-3xl font-serif font-bold text-primary mt-12 mb-6 border-b border-neutral-100 dark:border-neutral-800 pb-2">{children}</h2>,
-            h3: ({ children }) => <h3 className="text-2xl font-serif font-bold text-primary mt-8 mb-4">{children}</h3>,
+            h1: ({ children }) => {
+              const id = slugify(String(children));
+              return <h1 id={id} className="text-4xl font-serif font-bold text-primary mt-16 mb-8 border-b-2 border-accent/20 pb-4">{children}</h1>;
+            },
+            h2: ({ children }) => {
+              const id = slugify(String(children));
+              return <h2 id={id} className="text-3xl font-serif font-bold text-primary mt-12 mb-6 border-b border-neutral-100 dark:border-neutral-800 pb-2">{children}</h2>;
+            },
+            h3: ({ children }) => {
+              const id = slugify(String(children));
+              return <h3 id={id} className="text-2xl font-serif font-bold text-primary mt-8 mb-4">{children}</h3>;
+            },
             p: ({ children }) => <p className="mb-6 leading-relaxed text-neutral-700 dark:text-neutral-300">{children}</p>,
             ul: ({ children }) => <ul className="list-disc list-outside ml-6 mb-6 space-y-2">{children}</ul>,
             ol: ({ children }) => <ol className="list-decimal list-outside ml-6 mb-6 space-y-2">{children}</ol>,
@@ -158,5 +199,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
       </footer>
     </article>
+    </div>
   );
 }
