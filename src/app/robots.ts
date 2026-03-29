@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next';
 
+export const dynamic = 'force-static';
+
 /**
  * Next.js Robots.txt Generator
  * Tells Google and other search engines what they can crawl.

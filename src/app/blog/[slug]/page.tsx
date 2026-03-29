@@ -6,6 +6,7 @@ import rehypeRaw from 'rehype-raw';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
 import { CalendarIcon, TagIcon, ChevronLeftIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import 'katex/dist/katex.min.css';
@@ -89,7 +90,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
         <ReactMarkdown 
-          remarkPlugins={[remarkGfm, remarkMath]}
+          remarkPlugins={[remarkGfm, remarkMath, remarkBreaks]}
           rehypePlugins={[rehypeRaw, rehypeKatex]}
           components={{
             h2: ({ children }) => <h2 className="text-3xl font-serif font-bold text-primary mt-12 mb-6 border-b border-neutral-100 dark:border-neutral-800 pb-2">{children}</h2>,

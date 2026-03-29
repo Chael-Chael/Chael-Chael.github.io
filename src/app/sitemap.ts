@@ -2,6 +2,8 @@ import { getAllPosts } from '@/lib/blog';
 import { getConfig } from '@/lib/config';
 import { MetadataRoute } from 'next';
 
+export const dynamic = 'force-static';
+
 /**
  * Next.js Sitemap Generator
  * This dynamically generates a sitemap.xml for Google indexing.

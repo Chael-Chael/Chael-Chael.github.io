@@ -131,7 +131,7 @@ export default function SelectedPublications({
                                                             </span>
                                                         );
                                                     }
-                                                    return <img {...props} className="max-w-full rounded-lg my-4" />;
+                                                    return <img {...props} alt={props.alt || ''} className="max-w-full rounded-lg my-4" />;
                                                 },
                                             }}
                                         >
