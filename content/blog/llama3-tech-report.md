@@ -1,3 +1,4 @@
+这其实是我参与考核的一个小任务，不过在阅读过程中还是补充了很多细节和前置知识，在这里分享一下。
 我在这里按照Abstract-Results-Conclusion-Introduction-Methods-Experiments的方式展开这个阅读报告
 ，先把握模型的大概效果，然后再深入技术细节。
 # Abstract
