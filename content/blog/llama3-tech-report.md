@@ -189,32 +189,32 @@ Llama3使用了一个4D parallelism的机制，结合了Tensor Parallelism、Pip
 在展开我对于FSDP的理解之前，我觉得应该先明确一些通信原语的定义：
 **(1) Broadcast**
 将数据从主节点发送到集群中的其他节点。如下图，计算设备1将大小为1xN的张量广播到其它设备，最终每张卡输出均为1×N矩阵：
-![分布式计算中的 Broadcast 通信原语](https://s3.51cto.com/oss/202409/13/e9112de90d3784679ce5517ca47c376b650053.webp)
+![分布式计算中的 Broadcast 通信原语](/images/blog/llama3-tech-report/attachments/dist-comp-broadcast.webp)
 **(2) Scatter**
 主节点将一个大的数据块分割成若干小部分，再将每部分分发到集群中的其他节点。如下图，计算设备1将大小为1xN的张量分成4个子张量，再分别发送给其它设备：
-![分布式计算中的 Scatter 通信原语](https://s9.51cto.com/oss/202409/13/d94d5ba34ae7315dcbd6085ccffa430dc09350.webp)
+![分布式计算中的 Scatter 通信原语](/images/blog/llama3-tech-report/attachments/dist-comp-scatter.webp)
 **(3) Reduce**
 将不同节点上的计算结果进行聚合。Reduce操作可以细分为多种类型，包括SUM（求和）、MIN（求最小值）、MAX（求最大值）、PROD（乘积）、LOR（逻辑或）等，每种类型对应一种特定的聚合方式。如下图所示，Reduce Sum操作将所有计算设备上的数据进行求和，然后将结果返回到计算设备1：
-![分布式计算中的 Reduce 通信原语](https://s8.51cto.com/oss/202409/13/a92850d367e6bf60fcf8177937c40075d40b09.webp)
+![分布式计算中的 Reduce 通信原语](/images/blog/llama3-tech-report/attachments/dist-comp-reduce.webp)
 **(4) All Reduce**
 在所有节点上执行同样的Reduce操作，如求和、求最小值、求最大值等。可通过单节点上Reduce+Broadcast操作完成。
 如下图所示，All Reduce Sum操作将所有节点上的数据求和，然后将求和结果Broadcast到所有节点：
-![分布式计算中的 All Reduce 通信原语](https://s6.51cto.com/oss/202409/13/f6fce0e382cd79e63bf868f99da3cc4f0624d7.webp)
+![分布式计算中的 All Reduce 通信原语](/images/blog/llama3-tech-report/attachments/dist-comp-allreduce.webp)
 **(5) Gather**
 将所有节点的数据收集到单个节点，可以看作是Scatter操作的逆操作。
 如下图所示，Gather操作将所有设备的数据收集到计算设备1中：
 
-![分布式计算中的 Gather 通信原语](https://s9.51cto.com/oss/202409/13/9946ae986c93890ab7e49580a03224ae14d927.webp)
+![分布式计算中的 Gather 通信原语](/images/blog/llama3-tech-report/attachments/dist-comp-gather.webp)
 **(6) All Gather**
 在所有节点上收集所有其他节点的数据，最终使每个节点都拥有一份完整的数据集合。可以视为Gather操作与Broadcast操作的结合体。如下图所示，All Gather操作将所有计算设备上的数据收集到各个计算设备。
-![分布式计算中的 All Gather 通信原语](https://s2.51cto.com/oss/202409/13/e6fb91d14badad23a846997505fc310377ef30.webp)
-**(6) Reduce Scatter**
+![分布式计算中的 All Gather 通信原语](/images/blog/llama3-tech-report/attachments/dist-comp-allgather.webp)
+**(7) Reduce Scatter**
 将每个节点的张量分割成多个块，每个块分发给不同的节点，再在每个节点执行Reduce操作（如求和、平均等）。如下图所示，Reduce Scatter操作将每个计算设备中的张量分割成4块，并发送给4个不同的计算设备，每个计算设备对接收到的块执行Reduce Sum操作。
-![分布式计算中的 Reduce Scatter 通信原语](https://s8.51cto.com/oss/202409/13/b15e2391448b28b3b2f474da35bddb87dcf3b8.webp)
-**(7) All to All**
+![分布式计算中的 Reduce Scatter 通信原语](/images/blog/llama3-tech-report/attachments/dist-comp-reducescatter.webp)
+**(8) All to All**
 将每个节点上的数据分割成多个块，并将这些块分别发送给不同的节点。
 如下图所示，All to All操作将每个计算设备中的张量分割成4块，并发送给4个不同的计算设备。
-![分布式计算中的 All to All 通信原语](https://s2.51cto.com/oss/202409/13/d2ef159354cd90cb90e900548674fba25a706e.webp)
+![分布式计算中的 All to All 通信原语](/images/blog/llama3-tech-report/attachments/dist-comp-alltoall.webp)
 
 FSDP是在DP和DDP基础上演化出来的。Data Parallelism发明出来是为了解决**训练数据太大，** 内存不够、batch size开不大的问题，所以最朴素的DP就是把一个大的batch分割成小batch给不同的GPU，模型参数在每个GPU上复制一遍，然后在每个GPU上针对每个小batch做前向传播。
 
