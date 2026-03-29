@@ -1,6 +1,6 @@
-title = "Llama 3 技术报告精读"
+title = "See the Basics: Llama 3 技术报告精读"
 date = "2026-03-29"
-excerpt = "补充了很多前置知识的Llama 3技术报告精读"
+excerpt = "从零开始，带你读懂 Llama 3 的核心技术细节"
 image = "/images/blog/llama3-tech-report/banner.png"
 tags = ["LLM", "Deep Learning", "Papers"]
 author = "Chenyu Zhu"
