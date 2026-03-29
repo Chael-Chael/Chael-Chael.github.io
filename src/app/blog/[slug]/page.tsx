@@ -120,7 +120,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         )}
       </header>
 
-      <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+      <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none text-neutral-700 dark:text-neutral-700">
         <ReactMarkdown 
           remarkPlugins={[remarkGfm, remarkMath, remarkBreaks]}
           rehypePlugins={[rehypeRaw, rehypeKatex]}
@@ -137,7 +137,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               const id = slugify(String(children));
               return <h3 id={id} className="text-2xl font-tiempos-headline font-normal text-primary mt-6 mb-3">{children}</h3>;
             },
-            p: ({ children }) => <p className="mb-4 leading-relaxed text-neutral-700 dark:text-neutral-700">{children}</p>,
+            p: ({ children }) => <p className="mb-4 leading-relaxed">{children}</p>,
             ul: ({ children }) => <ul className="list-disc list-outside ml-6 mb-4 space-y-1">{children}</ul>,
             ol: ({ children }) => <ol className="list-decimal list-outside ml-6 mb-4 space-y-1">{children}</ol>,
             li: ({ children }) => <li className="pl-2">{children}</li>,
@@ -182,7 +182,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 {children}
               </a>
             ),
-            em: ({ children }) => <em className="font-tiempos italic text-neutral-600 dark:text-neutral-500">{children}</em>,
+            em: ({ children }) => <em className="font-tiempos italic">{children}</em>,
           }}
         >
           {post.content.replace(/==([\s\S]*?)==/g, '<mark>$1</mark>')}
