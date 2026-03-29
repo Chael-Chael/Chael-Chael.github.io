@@ -3,8 +3,12 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import remarkGfm from 'remark-gfm';
 import { CalendarIcon, TagIcon, ChevronLeftIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import 'katex/dist/katex.min.css';
 
 import { getPostBySlug, getAllPosts } from '@/lib/blog';
 
@@ -85,7 +89,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
         <ReactMarkdown 
-          rehypePlugins={[rehypeRaw]}
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[rehypeRaw, rehypeKatex]}
           components={{
             h2: ({ children }) => <h2 className="text-3xl font-serif font-bold text-primary mt-12 mb-6 border-b border-neutral-100 dark:border-neutral-800 pb-2">{children}</h2>,
             h3: ({ children }) => <h3 className="text-2xl font-serif font-bold text-primary mt-8 mb-4">{children}</h3>,
@@ -93,6 +98,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             ul: ({ children }) => <ul className="list-disc list-outside ml-6 mb-6 space-y-2">{children}</ul>,
             ol: ({ children }) => <ol className="list-decimal list-outside ml-6 mb-6 space-y-2">{children}</ol>,
             li: ({ children }) => <li className="pl-2">{children}</li>,
+            mark: ({ children }) => (
+              <mark className="bg-accent/20 text-accent font-medium rounded px-1 group-dark:bg-accent/30 selection:bg-accent selection:text-white">
+                {children}
+              </mark>
+            ),
             blockquote: ({ children }) => (
               <blockquote className="border-l-4 border-accent bg-neutral-50 dark:bg-neutral-800/50 p-6 italic my-8 rounded-r-lg">
                 {children}
@@ -132,7 +142,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             em: ({ children }) => <em className="font-tiempos italic text-neutral-600 dark:text-neutral-500">{children}</em>,
           }}
         >
-          {post.content}
+          {post.content.replace(/==([\s\S]*?)==/g, '<mark>$1</mark>')}
         </ReactMarkdown>
       </div>
       
