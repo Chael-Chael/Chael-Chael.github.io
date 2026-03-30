@@ -17,7 +17,7 @@ export default function About({ content, title, delay = 0.2 }: AboutProps) {
 
     return (
         <motion.section
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay }}
         >

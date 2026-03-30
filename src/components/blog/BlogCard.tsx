@@ -15,7 +15,7 @@ interface BlogCardProps {
 export default function BlogCard({ post, index, delay = 0.4 }: BlogCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: index === 0 ? 0 : 20 }}
+      initial={{ opacity: 0, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: delay + 0.1 * index }}
       className="group bg-white dark:bg-neutral-100 rounded-2xl overflow-hidden border border-neutral-100 dark:border-neutral-800 hover:border-accent/30 hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] transition-all duration-300 flex flex-col md:flex-row h-full min-h-[320px]"
