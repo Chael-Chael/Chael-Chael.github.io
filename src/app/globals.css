@@ -189,6 +189,7 @@ html.dark {
   /* Typography */
   --font-sans: 'Styrene B', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-serif: 'Copernicus', 'Fangzheng Song', Georgia, serif;
+  --font-fangzheng: 'Fangzheng Song', serif;
   --font-tiempos: 'Test Tiempos Text', serif;
   --font-tiempos-headline: 'Test Tiempos Headline', serif;
   --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;

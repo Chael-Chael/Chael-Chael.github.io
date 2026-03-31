@@ -21,7 +21,7 @@ export default function BlogList({ posts, title, description, delay = 0.4 }: Blo
         transition={{ duration: 0.6, delay }}
         className="mb-16 text-center"
       >
-        <h1 className="text-5xl md:text-6xl font-serif font-bold text-primary mb-6">
+        <h1 className="text-5xl md:text-6xl font-fangzheng font-bold text-primary mb-6">
           {title}
         </h1>
         {description && (
