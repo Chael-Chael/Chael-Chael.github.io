@@ -1,0 +1,24 @@
+type = "card"
+title = "Open Source"
+description = "Pinned open-source projects from my GitHub profile. Star counts verified on July 10, 2026."
+
+[[items]]
+title = "MAIR-Lab-HUST / TMPO"
+subtitle = "★ 12 · Python"
+slug = "tmpo"
+link = "https://github.com/MAIR-Lab-HUST/TMPO"
+content = "Official implementation of TMPO: Trajectory Matching Policy Optimization for Diverse and Efficient Diffusion Alignment."
+
+[[items]]
+title = "awesome-hermes-eva-skins"
+subtitle = "★ 15 · Python"
+slug = "awesome-hermes-eva-skins"
+link = "https://github.com/Chael-Chael/awesome-hermes-eva-skins"
+content = "A curated collection of EVA-style retro themes for Hermes CLI Agent, designed for the Windows Terminal retro effect."
+
+[[items]]
+title = "zotero-translate-skill"
+subtitle = "★ 1 · Python"
+slug = "zotero-translate-skill"
+link = "https://github.com/Chael-Chael/zotero-translate-skill"
+content = "An agent-native Zotero PDF translation skill powered by pdf2zh and BabelDOC."

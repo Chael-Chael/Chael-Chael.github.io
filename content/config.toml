@@ -1,0 +1,75 @@
+[site]
+title = "Chenyu Zhu"
+description = "Undergraduate at HUST | Research interests: Unified Multimodal Models, Diffusion Post Training, World Models"
+favicon = "/favicon.svg"
+last_updated = "April 2026"
+
+[author]
+name = "Chenyu Zhu"
+title = "Undergraduate Student"
+institution = "Huazhong University of Science and Technology"
+avatar = "/avatar.png"
+
+[social]
+# Contact information (leave blank or delete to hide)
+
+email = "zhu_chenyu@foxmail.com"
+location = "Wuhan, China"
+location_url = "https://maps.google.com"
+location_details = [
+  "Huazhong University of Science and Technology,",
+  "Wuhan, China"
+]
+google_scholar = "https://scholar.google.com/citations?user=k_GGXCkAAAAJ"
+orcid = ""
+github = "https://github.com/Chael-Chael"
+linkedin = ""
+
+[features]
+# Show a like button on the about page
+enable_likes = true
+
+# Display all subpages on a single page
+enable_one_page_mode = false
+
+[[navigation]]
+title = "About"
+type = "page"
+target = "about"
+href = "/"
+
+[[navigation]]
+title = "Publications"
+type = "page"
+target = "publications"
+href = "/publications"
+
+[[navigation]]
+title = "Awards"
+type = "page"
+target = "awards"
+href = "/awards"
+
+[[navigation]]
+title = "Services"
+type = "page"
+target = "services"
+href = "/services"
+
+[[navigation]]
+title = "CV"
+type = "page"
+target = "cv"
+href = "/cv"
+
+[[navigation]]
+title = "Blog"
+type = "page"
+target = "blog"
+href = "/blog"
+
+[[navigation]]
+title = "Open Source"
+type = "page"
+target = "open-source"
+href = "/open-source"

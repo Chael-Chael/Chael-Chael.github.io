@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quick References — Interactive ASCII Particle Logo</title>
+  <style>
+    :root { color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f5f7fb; color: #182033; line-height: 1.65; }
+    main { width: min(900px, calc(100% - 40px)); margin: 0 auto; padding: 64px 0 96px; }
+    h1 { margin: 0 0 24px; font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.04; letter-spacing: -0.045em; }
+    h2 { margin-top: 56px; font-size: 1.55rem; letter-spacing: -0.02em; }
+    h3 { margin-top: 36px; font-size: 1.12rem; }
+    .tldr { padding: 22px 24px; border: 1px solid #bdd9ff; border-radius: 16px; background: #eaf4ff; color: #143459; }
+    ol, ul { padding-left: 1.35rem; }
+    li + li { margin-top: 8px; }
+    figure { margin: 24px 0 40px; }
+    img { display: block; width: 100%; border-radius: 18px; box-shadow: 0 22px 60px rgba(25, 41, 79, .14); background: #02040a; }
+    figcaption { margin-top: 12px; color: #59657b; font-size: .92rem; }
+    pre { overflow-x: auto; padding: 20px; border-radius: 14px; background: #101827; color: #dceaff; font: 14px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    a { color: #1265cc; text-underline-offset: 3px; }
+    .label { display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 999px; background: #edf1f7; color: #5b6678; font-size: .75rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Interactive ASCII Particle Logo</h1>
+    <section class="tldr"><strong>TL;DR.</strong> Use a full-screen near-black stage, one centered luminous identity mark, and no competing interface. Let motion scatter locally, then settle back into a precise silhouette.</section>
+
+    <h2>Patterns</h2>
+    <ol>
+      <li><strong>Give the identity the whole stage.</strong> Remove navigation, cards, and competing copy from the first viewport.</li>
+      <li><strong>Keep atmosphere subordinate.</strong> Use only a faint blue-black field; the brightest pixels stay inside the MAIR mark.</li>
+      <li><strong>Make motion spatially meaningful.</strong> Particles should return to a stable anchor instead of drifting forever.</li>
+      <li><strong>Preserve the source color.</strong> Retain MAIR's blue-to-cyan gradient rather than reducing it to generic white ASCII.</li>
+    </ol>
+
+    <h2>Proposed composition</h2>
+    <pre>+------------------------------------------------------+
+|                                                      |
+|                 .+%#@ MAIR @#%+.                    |
+|             pointer scatters nearby glyphs           |
+|                 spring returns them                  |
+|                                                      |
++------------------------------------------------------+</pre>
+
+    <h2>References</h2>
+    <h3>One luminous interaction on black</h3>
+    <figure>
+      <img src="references/eikon-particle-splash.png" alt="Eikon particle splash on a black field">
+      <figcaption>Eikon Therapeutics — a small cyan focal point and restrained particle trail command an otherwise empty stage. <span class="label">Lazyweb</span></figcaption>
+    </figure>
+    <figure>
+      <img src="references/extraordinary-minimal-splash.png" alt="Minimal white star animation on black">
+      <figcaption>Extraordinary Things — a single moving mark and orbit line carry the full composition without interface chrome. <span class="label">Lazyweb</span></figcaption>
+    </figure>
+
+    <h3>Low-contrast atmosphere</h3>
+    <figure>
+      <img src="references/dreamworld-particle-atmosphere.png" alt="Dark blue atmospheric particle field">
+      <figcaption>Dreamworld — a navy-to-black field and sparse, out-of-focus particles add depth while remaining low contrast. <span class="label">Lazyweb</span></figcaption>
+    </figure>
+
+    <h2>Implementation cross-check</h2>
+    <ul>
+      <li><a href="https://cssdeck.com/labs/interactive-particle-logo">Interactive Particle Logo</a> demonstrates the image-to-particle Canvas pattern.</li>
+      <li><a href="https://www.propernoun.co/how-to-make-an-interactive-particle-logo-using-canvas/">Proper Noun's walkthrough</a> uses a hidden image as the sampling source and a Canvas as the interaction layer.</li>
+    </ul>
+
+    <h2>Applied constraints</h2>
+    <ul>
+      <li>Full viewport, near-black background.</li>
+      <li>No third-party rendering or physics library.</li>
+      <li>Transparent image bounds cropped before responsive grid sampling.</li>
+      <li>Local blue/cyan source color retained per cell.</li>
+      <li>Temporary pointer repulsion with spring-damper return.</li>
+      <li>A stable reduced-motion treatment.</li>
+    </ul>
+  </main>
+</body>
+</html>

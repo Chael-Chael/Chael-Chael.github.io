@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>设计脑暴：ASCII 粒子 MAIR Logo × 主页</title>
+  <style>
+    :root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; color: #151a26; background: #f4f6fa; }
+    * { box-sizing: border-box; }
+    body { margin: 0; line-height: 1.7; }
+    main { width: min(920px, calc(100% - 40px)); margin: 0 auto; padding: 64px 0 100px; }
+    h1 { margin: 0 0 26px; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.05; letter-spacing: -.045em; }
+    h2 { margin-top: 64px; padding-top: 18px; border-top: 1px solid #d8dde7; font-size: 1.6rem; letter-spacing: -.025em; }
+    h3 { margin-top: 36px; }
+    .tldr { padding: 22px 24px; border: 1px solid #b9d8ff; border-radius: 16px; background: #e9f4ff; color: #15365d; }
+    table { width: 100%; border-collapse: collapse; margin: 22px 0; background: white; }
+    th, td { padding: 13px 15px; border: 1px solid #dfe4ec; text-align: left; }
+    th { background: #eef2f7; }
+    figure { margin: 24px 0 38px; }
+    img { display: block; width: 100%; border-radius: 16px; background: #02040a; box-shadow: 0 22px 55px rgba(26, 38, 65, .13); }
+    figcaption { margin-top: 11px; color: #5a6578; font-size: .9rem; }
+    pre { overflow-x: auto; padding: 20px; border-radius: 14px; background: #101827; color: #dcebff; font: 13px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    a { color: #1263c6; text-underline-offset: 3px; }
+    .verdict { display: inline-block; padding: 3px 9px; border-radius: 999px; background: #dff7e8; color: #126633; font-size: .78rem; font-weight: 700; }
+    .idea { padding: 2px 0 8px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>ASCII 粒子 MAIR Logo × 主页</h1>
+  <div class="tldr"><strong>首选“活体刊头”。</strong>把 Canvas 从全屏演示改成首屏中的互动编辑插图；保留当前视频与研究叙事，让 Logo 成为内容，而不是额外的开场特效。</div>
+
+  <h2>Current State</h2>
+  <figure><img src="references/current-state.png" alt="当前主页首屏"><figcaption>当前首屏已经同时包含动态视频、大字号衬线正文与固定底部引语，视觉强度很高。</figcaption></figure>
+
+  <h2>三个方向</h2>
+  <table>
+    <thead><tr><th>方案</th><th>新颖度</th><th>可行性</th><th>结论</th></tr></thead>
+    <tbody>
+      <tr><td>活体刊头</td><td>中高</td><td>高</td><td><span class="verdict">优先原型</span></td></tr>
+      <tr><td>黑场序章</td><td>高</td><td>中</td><td>第一眼冲击</td></tr>
+      <tr><td>粒子章节铰链</td><td>高</td><td>中高</td><td>全站动效语言</td></tr>
+    </tbody>
+  </table>
+
+  <h2>普通作品集的“显然做法”</h2>
+  <figure><img src="references/obvious-portfolio.png" alt="常规作品集首屏"><figcaption>姓名、导航、宣言、CTA 的标准 Hero。你的主页已经远比这个更具编辑感。[Lazyweb]</figcaption></figure>
+
+  <section class="idea">
+    <h2>01 活体刊头 / Living Masthead</h2>
+    <figure><img src="references/music-cover-object.png" alt="唱片播放器中的核心媒体对象"><figcaption>Vinyls 把动画唱片限定为一个清晰的媒体对象，而不是铺满背景。[Lazyweb]</figcaption></figure>
+    <p><strong>做法：</strong>首段改成 12 栏；左侧 8 栏正文，右侧 4 栏放置 260–420px 的黑色互动 Canvas。Logo 只在指针进入时散开，移动端则放到第一段之后。</p>
+    <pre>┌──────────────────────────────┬──────────────────────┐
+│ I'm a third year...          │ MAIR / 001           │
+│ member of the MAIR Lab...    │   .+#%@@%#+.         │
+├──────────────────────────────┴──────────────────────┤
+│ General intelligence demands more than reasoning... │
+└─────────────────────────────────────────────────────┘</pre>
+    <p><strong>判断：</strong>语义位置最自然、改动最小，不会遮挡视频或正文。推荐先做。</p>
+  </section>
+
+  <section class="idea">
+    <h2>02 黑场序章 / Research Portal</h2>
+    <figure><img src="references/game-title-entry.png" alt="游戏标题式入口"><figcaption>游戏标题画面先建立世界观，再用少量入口动作进入内容。[Lazyweb]</figcaption></figure>
+    <p><strong>做法：</strong>首次访问出现全屏 Logo 与极小的 ENTER / SKIP；第一次鼠标移动让 Logo 从中心裂开，0.8–1.2 秒内露出现有主页。同一会话只出现一次。</p>
+    <pre>             .+#@  MAIR  @#+.
+        [ ENTER RESEARCH ]   SKIP
+                  ↓
+          existing video biography</pre>
+    <p><strong>判断：</strong>冲击力最强，但不能做成强制点击门禁；招生与合作访问者需要快速看到研究内容。</p>
+  </section>
+
+  <section class="idea">
+    <h2>03 粒子章节铰链 / Particle Hinge</h2>
+    <figure><img src="references/particle-transition.png" alt="黑场粒子过场"><figcaption>少量发光粒子在黑场中承担过场和焦点引导。[Lazyweb]</figcaption></figure>
+    <p><strong>做法：</strong>在传记首屏与 Research 之间加入 30–38vh 黑色间隔；滚动时 Logo 从完整形态散开，最终排列成 <code>01 / RESEARCH</code>。论文详情弹层也可复用 350–500ms 的粒子展开。</p>
+    <pre>│ end of biography                              │
+├───────────────────────────────────────────────┤
+│ .+#@ MAIR @#+.  →  01 / RESEARCH             │
+├───────────────────────────────────────────────┤
+│ Research Interest / Publications              │</pre>
+    <p><strong>判断：</strong>最适合建立全站品牌动效，但需要滚动状态与触发频率控制。</p>
+  </section>
+
+  <h2>Recommendation</h2>
+  <p>先原型方案一；满意后再把同一组件扩展成方案三。方案二更适合作为特殊展示模式，而不是长期默认入口。</p>
+
+  <h2>Web References</h2>
+  <ul>
+    <li><a href="https://www.awwwards.com/inspiration/enter-screen-interaction-carl-gordon-portfolio-c-2024">Awwwards — Enter Screen Interaction</a></li>
+    <li><a href="https://try.no/en/case-studies/ny-merkearkitektur-visuell-identitet-og-nettside">TRY — Kode museum identity and animated website</a></li>
+    <li><a href="https://mcachicago.org/about/logo-and-identity">Museum of Contemporary Art Chicago — Logo and Identity</a></li>
+  </ul>
+</main>
+</body>
+</html>

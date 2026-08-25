@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>Pretext × Academic Homepage — Interactive Lab</title>
+  <style>
+    @font-face{font-family:Styrene;src:url("../../../public/fonts/custom/StyreneB-Regular.otf") format("opentype");font-display:swap}
+    @font-face{font-family:Copernicus;src:url("../../../public/fonts/Copernicus/OTF/CopernicusTrial-Book.otf") format("opentype");font-display:swap}
+    @font-face{font-family:Fangzheng;src:url("../../../public/fonts/custom/fangzheng-song.TTF") format("truetype");font-display:swap}
+    :root{--ink:#11110f;--paper:#f3f0e8;--panel:#fffefa;--muted:#6d6a62;--line:#c8c3b7;--orange:#df5c37;--blue:#2346d7;--acid:#d8ff42;--serif:Copernicus,Fangzheng,Georgia,serif;--sans:Styrene,ui-sans-serif,system-ui,sans-serif}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 var(--sans)}
+    button,input{font:inherit}
+    button{color:inherit}
+    .shell{max-width:1180px;margin:auto;padding:28px 24px 96px}
+    .topbar{position:sticky;top:12px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 14px;border:1px solid var(--ink);background:rgba(243,240,232,.94);backdrop-filter:blur(14px)}
+    .brand{font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+    .topnav{display:flex;gap:6px;overflow:auto}
+    .topnav a{padding:7px 10px;border:1px solid transparent;color:inherit;text-decoration:none;white-space:nowrap}
+    .topnav a:hover,.topnav a:focus-visible{border-color:var(--ink);outline:0}
+    .hero{display:grid;grid-template-columns:1.35fr .65fr;gap:28px;align-items:end;padding:74px 0 54px}
+    .hero h1{margin:0;font:400 clamp(54px,9vw,122px)/.84 var(--serif);letter-spacing:-.065em}
+    .hero-copy{max-width:380px;margin:0 0 8px;color:var(--muted);font-size:16px}
+    .hero-copy strong{color:var(--ink)}
+    .engine-pill{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:7px 10px;border:1px solid var(--ink);background:var(--acid);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    .dot{width:7px;height:7px;border-radius:50%;background:#168b3f;box-shadow:0 0 0 4px rgba(22,139,63,.14)}
+    .intro{display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid var(--ink);background:var(--ink);margin-bottom:70px}
+    .intro>*{margin:0;background:var(--panel);padding:22px}
+    .intro strong{font-weight:400;font-family:var(--serif);font-size:25px}
+    .lab{margin:0 0 86px;scroll-margin-top:88px}
+    .lab-head{display:grid;grid-template-columns:86px 1fr minmax(230px,.56fr);gap:22px;align-items:start;margin-bottom:20px}
+    .lab-no{font:400 48px/1 var(--serif);letter-spacing:-.05em}
+    .lab h2{margin:0;font:400 clamp(34px,5vw,66px)/.92 var(--serif);letter-spacing:-.045em}
+    .lab-desc{margin:4px 0 0;color:var(--muted)}
+    .demo{border:1px solid var(--ink);background:var(--panel)}
+    .demo-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:48px;padding:9px 12px;border-bottom:1px solid var(--ink);background:#ece8dd}
+    .demo-title{display:flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    .demo-status{font:11px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--muted);text-align:right}
+    .demo-body{display:grid;grid-template-columns:minmax(0,1fr) 220px;min-height:430px}
+    .stage{position:relative;min-width:0;overflow:hidden;border-right:1px solid var(--ink);background:var(--panel)}
+    .controls{display:flex;flex-direction:column;gap:22px;padding:18px;background:#f6f3eb}
+    .control{display:grid;gap:8px}
+    .control-row{display:flex;justify-content:space-between;gap:12px;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+    input[type=range]{width:100%;accent-color:var(--ink)}
+    .button-row{display:flex;flex-wrap:wrap;gap:8px}
+    .btn{border:1px solid var(--ink);background:transparent;padding:8px 10px;cursor:pointer}
+    .btn:hover,.btn:focus-visible,.btn.active{background:var(--ink);color:#fff;outline:0}
+    .hint{margin-top:auto;color:var(--muted);font-size:12px}
+    .code-chip{display:inline-block;padding:2px 5px;background:#e8e3d8;font:11px ui-monospace,SFMono-Regular,Consolas,monospace}
+    .thesis-stage{height:520px;padding:26px}
+    .thesis-kicker{position:absolute;top:22px;left:24px;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+    .thesis-lines{position:absolute;inset:70px 24px 24px}
+    .thesis-line{position:absolute;white-space:nowrap;font:400 43px/1 var(--serif);letter-spacing:-.04em;transition:left .45s cubic-bezier(.2,.8,.2,1),top .45s cubic-bezier(.2,.8,.2,1),opacity .25s}
+    .concept{position:absolute;display:grid;place-items:center;width:104px;height:104px;border:1px solid var(--ink);border-radius:50%;background:rgba(216,255,66,.88);font-size:10px;letter-spacing:.12em;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+    .concept.c1{left:8%;top:34%}.concept.c2{right:9%;top:18%;background:rgba(223,92,55,.88);color:#fff}.concept.c3{right:20%;bottom:8%;background:rgba(35,70,215,.9);color:#fff}
+    .accordion-stage{padding:24px;min-height:430px;background:#0f0f0e;color:#fff}
+    .accordion-index{border-top:1px solid #fff}
+    .acc-item{border-bottom:1px solid #fff}
+    .acc-trigger{display:grid;grid-template-columns:minmax(0,1fr) 44px;width:100%;padding:13px 0;border:0;background:none;color:inherit;text-align:left;cursor:pointer}
+    .acc-title{font:400 36px/.92 var(--serif);letter-spacing:-.035em;text-transform:uppercase}
+    .acc-index{text-align:right;font:11px var(--sans)}
+    .acc-panel{overflow:hidden;max-height:0;opacity:.15;transition:max-height .55s cubic-bezier(.2,.8,.2,1),opacity .35s}
+    .acc-copy{max-width:620px;padding:5px 56px 20px 0;color:#c7c7c1}
+    .acc-item.open .acc-panel{opacity:1}
+    .publication-stage{min-height:430px;padding:24px;background:#ece8dd}
+    .paper-list{border-top:1px solid var(--ink)}
+    .paper{position:relative;display:grid;grid-template-columns:62px minmax(0,1fr) 32px;gap:12px;padding:17px 0;border-bottom:1px solid var(--ink);cursor:pointer}
+    .paper-year,.paper-arrow{font-size:11px}.paper-arrow{text-align:right}
+    .paper-title{font:400 clamp(24px,3.4vw,42px)/.98 var(--serif);letter-spacing:-.035em}
+    .paper-preview{grid-column:2/4;display:grid;gap:2px;max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.2,.8,.2,1)}
+    .paper.open .paper-preview{max-height:180px}
+    .abstract-line{width:max-content;max-width:100%;padding:2px 5px;background:var(--panel);font-size:13px;opacity:0;transform:translateY(8px);transition:opacity .28s,transform .35s}
+    .paper.open .abstract-line{opacity:1;transform:none}
+    .bilingual-stage{display:grid;place-items:center;min-height:430px;padding:32px;background:#183d2f;color:#f4f0e6}
+    .language-card{width:min(100%,720px);position:relative}
+    .language-label{margin-bottom:24px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#b8d1c7}
+    .language-lines{min-height:238px}
+    .language-line{width:max-content;max-width:100%;font:400 clamp(31px,5vw,58px)/1.02 var(--serif);letter-spacing:-.04em;transition:opacity .28s,transform .5s cubic-bezier(.2,.8,.2,1)}
+    .language-line.enter{animation:lineIn .55s both}
+    @keyframes lineIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+    .ascii-stage{min-height:430px;background:#0b0b0a;color:var(--acid);padding:18px;display:grid;place-items:center}
+    .ascii-wrap{position:relative;width:100%;height:100%;min-height:390px;display:grid;place-items:center}
+    .ascii-art{font:18px/1 Styrene,monospace;letter-spacing:0;white-space:pre;filter:contrast(1.15);transition:filter .4s,transform .4s;user-select:none}
+    .ascii-wrap:hover .ascii-art{filter:blur(.5px) contrast(1.4);transform:scale(1.015)}
+    .ascii-words{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(circle,rgba(11,11,10,.88),transparent 68%)}
+    .ascii-words strong{font:400 clamp(34px,6vw,72px)/.9 var(--serif);letter-spacing:-.05em;text-align:center;color:#fff}
+    .ascii-wrap.reveal .ascii-words,.ascii-wrap:hover .ascii-words{opacity:1}
+    .sources{border-top:1px solid var(--ink);padding-top:24px;color:var(--muted)}
+    .sources a{color:var(--ink);text-underline-offset:3px}
+    .pretext-fail{padding:18px;background:#ffe7df;color:#7b230d;border:1px solid #7b230d}
+    @media(max-width:820px){
+      .hero,.intro{grid-template-columns:1fr}.hero{padding-top:52px}.lab-head{grid-template-columns:58px 1fr}.lab-desc{grid-column:2}.demo-body{grid-template-columns:1fr}.stage{border-right:0;border-bottom:1px solid var(--ink)}.controls{min-height:190px}.thesis-line{font-size:32px}.demo-status{display:none}
+    }
+    @media(max-width:520px){.shell{padding:14px 12px 70px}.topnav{display:none}.lab-head{grid-template-columns:1fr}.lab-desc{grid-column:auto}.lab-no{font-size:24px}.paper{grid-template-columns:48px minmax(0,1fr) 20px}.concept{width:82px;height:82px}.thesis-stage{height:480px}.thesis-line{font-size:27px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <span class="brand">Pretext / Interaction Lab</span>
+      <nav class="topnav" aria-label="Demo navigation">
+        <a href="#thesis">01 Thesis</a><a href="#accordion">02 Index</a><a href="#abstract">03 Abstract</a><a href="#language">04 i18n</a><a href="#ascii">05 ASCII</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>Text becomes<br>the interface.</h1>
+      <div><p class="hero-copy"><strong>五个可操作原型。</strong>每个舞台都使用内嵌的 <code>@chenglou/pretext</code> 0.0.8 计算真实断行；拖动参数，观察文字如何在不读取 DOM 尺寸的情况下重新组织。</p><span class="engine-pill"><span class="dot"></span> Engine bundled locally</span></div>
+    </section>
+
+    <section class="intro"><strong>不是替换 CSS。</strong><p>Pretext 先测量，再以纯算术重排。这里保留 DOM 语义，只把断行和高度决策交给引擎。所有 Demo 可离线运行。</p></section>
+
+    <section class="lab" id="thesis">
+      <div class="lab-head"><span class="lab-no">01</span><h2>Research Thesis Field</h2><p class="lab-desc">研究宣言绕过 SEE / IMAGINE / CREATE 三个概念节点。移动节点强度或拖动舞台宽度，Pretext 会逐行重新选择可用空间。</p></div>
+      <div class="demo">
+        <div class="demo-bar"><span class="demo-title"><span class="dot"></span> Live obstacle routing</span><span class="demo-status" id="thesis-status">Preparing…</span></div>
+        <div class="demo-body">
+          <div class="stage thesis-stage" id="thesis-stage">
+            <span class="thesis-kicker">Unified intelligence / a working thesis</span>
+            <div class="thesis-lines" id="thesis-lines" aria-label="Research thesis"></div>
+            <span class="concept c1">SEE</span><span class="concept c2">IMAGINE</span><span class="concept c3">CREATE</span>
+          </div>
+          <aside class="controls">
+            <label class="control"><span class="control-row"><span>Stage width</span><output id="thesis-width-out">100%</output></span><input id="thesis-width" type="range" min="62" max="100" value="100"></label>
+            <label class="control"><span class="control-row"><span>Node energy</span><output id="thesis-energy-out">35</output></span><input id="thesis-energy" type="range" min="0" max="100" value="35"></label>
+            <div class="button-row"><button class="btn" id="thesis-pulse">Pulse nodes</button><button class="btn" id="thesis-reset">Reset</button></div>
+            <p class="hint"><span class="code-chip">layoutNextLineRange()</span><br>每一行可拥有不同宽度与起点。</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab" id="accordion">
+      <div class="lab-head"><span class="lab-no">02</span><h2>Shrink-wrapped Index</h2><p class="lab-desc">长标题在有限宽度内收成更有节奏的多行索引。点击栏目时，Pretext 预先给出正文高度，避免展开后再测量 DOM。</p></div>
+      <div class="demo">
+        <div class="demo-bar"><span class="demo-title"><span class="dot"></span> Fiona-style accordion</span><span class="demo-status" id="accordion-status">Preparing…</span></div>
+        <div class="demo-body">
+          <div class="stage accordion-stage"><div class="accordion-index" id="accordion-index"></div></div>
+          <aside class="controls">
+            <label class="control"><span class="control-row"><span>Title measure</span><output id="acc-width-out">460px</output></span><input id="acc-width" type="range" min="230" max="620" value="460"></label>
+            <div class="button-row"><button class="btn" id="acc-open">Open all</button><button class="btn" id="acc-close">Close all</button></div>
+            <p class="hint"><span class="code-chip">measureLineStats()</span> + <span class="code-chip">layout()</span><br>标题断行与面板高度都提前可知。</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab" id="abstract">
+      <div class="lab-head"><span class="lab-no">03</span><h2>Abstract Preview</h2><p class="lab-desc">论文没有预览图也能产生强反馈。点击或悬停条目，摘要按 Pretext 的真实行框逐行显影。</p></div>
+      <div class="demo">
+        <div class="demo-bar"><span class="demo-title"><span class="dot"></span> Line-aware paper preview</span><span class="demo-status" id="paper-status">Preparing…</span></div>
+        <div class="demo-body">
+          <div class="stage publication-stage"><div class="paper-list" id="paper-list"></div></div>
+          <aside class="controls">
+            <label class="control"><span class="control-row"><span>Visible lines</span><output id="paper-lines-out">4</output></span><input id="paper-lines" type="range" min="1" max="6" value="4"></label>
+            <div class="button-row"><button class="btn" id="paper-cycle">Next paper</button></div>
+            <p class="hint"><span class="code-chip">layoutWithLines()</span><br>行文本与精确像素宽度直接驱动显影条。</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab" id="language">
+      <div class="lab-head"><span class="lab-no">04</span><h2>Bilingual Reflow</h2><p class="lab-desc">语言切换不再是突然替换。中英文分别预计算行框，再以行作为动画单位进入同一版面。</p></div>
+      <div class="demo">
+        <div class="demo-bar"><span class="demo-title"><span class="dot"></span> English ↔ 中文</span><span class="demo-status" id="language-status">Preparing…</span></div>
+        <div class="demo-body">
+          <div class="stage bilingual-stage"><div class="language-card"><div class="language-label" id="language-label">English / research statement</div><div class="language-lines" id="language-lines"></div></div></div>
+          <aside class="controls">
+            <div class="button-row"><button class="btn active" data-lang="en">English</button><button class="btn" data-lang="zh">中文</button></div>
+            <label class="control"><span class="control-row"><span>Measure width</span><output id="language-width-out">620px</output></span><input id="language-width" type="range" min="280" max="720" value="620"></label>
+            <p class="hint"><span class="code-chip">setLocale()</span> + <span class="code-chip">layoutWithLines()</span><br>CJK 断行由 Pretext 处理；动画映射留在应用层。</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab" id="ascii">
+      <div class="lab-head"><span class="lab-no">05</span><h2>Typographic World Model</h2><p class="lab-desc">一个克制的彩蛋：字符密度形成“世界状态”，悬停时显露研究关键词。Pretext 保证字符流在当前宽度内稳定成行。</p></div>
+      <div class="demo">
+        <div class="demo-bar"><span class="demo-title"><span class="dot"></span> Measured character field</span><span class="demo-status" id="ascii-status">Preparing…</span></div>
+        <div class="demo-body">
+          <div class="stage ascii-stage"><div class="ascii-wrap" id="ascii-wrap"><div class="ascii-art" id="ascii-art" aria-label="Typographic world model"></div><div class="ascii-words"><strong>PERCEIVE<br>IMAGINE<br>ACT</strong></div></div></div>
+          <aside class="controls">
+            <label class="control"><span class="control-row"><span>Density</span><output id="density-out">48</output></span><input id="density" type="range" min="28" max="68" value="48"></label>
+            <div class="button-row"><button class="btn" id="ascii-random">New world</button><button class="btn" id="ascii-reveal">Reveal</button></div>
+            <p class="hint"><span class="code-chip">prepareWithSegments()</span><br>这里每次“新世界”才重新 prepare；普通 resize 只重新 layout。</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <footer class="sources">
+      <p><strong>Implementation note.</strong> Demo 内嵌 MIT-licensed <a href="https://github.com/chenglou/pretext">Pretext 0.0.8</a>。字体来自当前 PRISM 项目的本地 assets。参考：<a href="https://chenglou.me/pretext/">official demos</a> · <a href="https://nationalparktypeface.com/">National Park type playground</a> · <a href="https://brand.dropbox.com/typography">Dropbox typography system</a>.</p>
+    </footer>
+  </div>
+
+  <script src="pretext.bundle.js"></script>
+  <script>
+  (function(){
+    "use strict";
+    var q=function(s,r){return (r||document).querySelector(s)};
+    var qa=function(s,r){return Array.from((r||document).querySelectorAll(s))};
+    var reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var raf=0;
+    function later(fn){cancelAnimationFrame(raf);raf=requestAnimationFrame(fn)}
+    function metric(id,text){q(id).textContent=text}
+    function lineEl(text,className){var el=document.createElement("div");el.className=className;el.textContent=text;return el}
+    function init(){
+      if(typeof Pretext==="undefined"||!Pretext.prepareWithSegments){
+        var debug="typeof="+typeof Pretext+(typeof Pretext!=="undefined"?" keys="+Object.keys(Pretext).join(","):"");
+        qa(".stage").forEach(function(el){el.innerHTML='<div class="pretext-fail">Pretext bundle failed to initialize. '+debug+'</div>'});
+        return;
+      }
+      initThesis();initAccordion();initPapers();initLanguage();initAscii();
+    }
+
+    function initThesis(){
+      var text="Intelligence must do more than reason. It must see, imagine, and create as one unified system across digital and physical worlds.";
+      var font="43px Copernicus";
+      var prepared=Pretext.prepareWithSegments(text,font);
+      var stage=q("#thesis-stage"),host=q("#thesis-lines"),widthInput=q("#thesis-width"),energy=q("#thesis-energy");
+      var nodes=qa(".concept",stage),pulse=0;
+      function render(){
+        var pct=Number(widthInput.value),e=Number(energy.value),full=stage.parentElement.clientWidth||760;
+        stage.style.width=Math.max(340,full*pct/100)+"px";
+        var w=host.clientWidth||650,h=host.clientHeight||420,lineHeight=43;
+        var base=[{x:.08,y:.34},{x:.72,y:.18},{x:.62,y:.72}];
+        nodes.forEach(function(n,i){
+          var dx=Math.sin((e+i*31+pulse)/18)*e*.22;
+          var dy=Math.cos((e+i*17+pulse)/21)*e*.15;
+          n.style.transform="translate("+dx+"px,"+dy+"px)";
+        });
+        host.innerHTML="";
+        var boxes=nodes.map(function(n){
+          var sr=stage.getBoundingClientRect(),r=n.getBoundingClientRect();
+          return {left:r.left-sr.left-24,right:r.right-sr.left-24,top:r.top-sr.top-70,bottom:r.bottom-sr.top-70};
+        });
+        var cursor={segmentIndex:0,graphemeIndex:0},y=8,count=0;
+        while(y<h-lineHeight&&count<14){
+          var left=0,right=w,cy=y+lineHeight*.5;
+          boxes.forEach(function(b){
+            if(cy>b.top-8&&cy<b.bottom+8){
+              if(b.left<w*.5) left=Math.max(left,b.right+16);
+              else right=Math.min(right,b.left-16);
+            }
+          });
+          if(right-left<180){left=0;right=w}
+          var range=Pretext.layoutNextLineRange(prepared,cursor,Math.max(120,right-left));
+          if(!range)break;
+          var line=Pretext.materializeLineRange(prepared,range);
+          var el=lineEl(line.text,"thesis-line");
+          el.style.left=left+"px";el.style.top=y+"px";host.appendChild(el);
+          cursor=range.end;y+=lineHeight;count++;
+        }
+        metric("#thesis-status",count+" lines · "+Math.round(w)+"px · no DOM measure");
+        metric("#thesis-width-out",pct+"%");metric("#thesis-energy-out",String(e));
+      }
+      widthInput.addEventListener("input",function(){later(render)});energy.addEventListener("input",function(){later(render)});
+      q("#thesis-pulse").addEventListener("click",function(){pulse+=70;render()});
+      q("#thesis-reset").addEventListener("click",function(){widthInput.value=100;energy.value=35;pulse=0;render()});
+      new ResizeObserver(function(){later(render)}).observe(stage.parentElement);render();
+    }
+
+    function initAccordion(){
+      var data=[
+        ["About","I explore unified multimodal intelligence: systems that perceive, imagine, reason, and create across digital and physical worlds."],
+        ["Selected Publications","Research on diffusion post-training, multimodal generation, and world models presented as a compact editorial index."],
+        ["Open Source","Code, models, project pages, and reproducible research artifacts."],
+        ["Research Blog","Notes that make unfinished questions visible before they become papers."]
+      ];
+      var host=q("#accordion-index"),slider=q("#acc-width");
+      var prepared=data.map(function(x){return {title:Pretext.prepareWithSegments(x[0].toUpperCase(),"36px Copernicus"),body:Pretext.prepare(x[1],"15px Styrene")};});
+      function render(){
+        var limit=Math.min(Number(slider.value),host.clientWidth-52);host.innerHTML="";
+        data.forEach(function(item,i){
+          var result=Pretext.layoutWithLines(prepared[i].title,limit,34);
+          var wrap=document.createElement("section");wrap.className="acc-item"+(i===0?" open":"");
+          var btn=document.createElement("button");btn.className="acc-trigger";btn.setAttribute("aria-expanded",i===0?"true":"false");
+          var title=document.createElement("span");title.className="acc-title";
+          result.lines.forEach(function(l,j){title.appendChild(document.createTextNode(l.text));if(j<result.lines.length-1)title.appendChild(document.createElement("br"))});
+          var index=lineEl(String(i+1).padStart(2,"0"),"acc-index");btn.append(title,index);
+          var panel=document.createElement("div");panel.className="acc-panel";
+          var copy=lineEl(item[1],"acc-copy");panel.appendChild(copy);
+          var bodyHeight=Pretext.layout(prepared[i].body,Math.max(220,limit),22).height+30;
+          if(i===0)panel.style.maxHeight=bodyHeight+"px";
+          btn.addEventListener("click",function(){
+            var open=wrap.classList.toggle("open");btn.setAttribute("aria-expanded",String(open));panel.style.maxHeight=open?bodyHeight+"px":"0px";
+          });
+          wrap.append(btn,panel);host.appendChild(wrap);
+        });
+        metric("#accordion-status",data.length+" cached titles · "+Math.round(limit)+"px measure");metric("#acc-width-out",Math.round(limit)+"px");
+      }
+      slider.addEventListener("input",function(){later(render)});
+      q("#acc-open").addEventListener("click",function(){qa(".acc-item").forEach(function(x){x.classList.add("open");var p=q(".acc-panel",x);p.style.maxHeight=p.scrollHeight+"px"})});
+      q("#acc-close").addEventListener("click",function(){qa(".acc-item").forEach(function(x){x.classList.remove("open");q(".acc-panel",x).style.maxHeight="0px"})});
+      new ResizeObserver(function(){later(render)}).observe(host);render();
+    }
+
+    function initPapers(){
+      var papers=[
+        {year:"2026",title:"Diffusion Post-Training for Unified Multimodal Models",abstract:"A post-training framework that aligns perception and generation while preserving the expressive visual prior of diffusion models."},
+        {year:"2026",title:"World Models as Generative Interfaces",abstract:"We study how predictive visual representations can become interactive interfaces for reasoning about actions, uncertainty, and imagined futures."},
+        {year:"2025",title:"From Seeing to Creating in One Architecture",abstract:"A unified architecture connects visual understanding and synthesis through shared representations, objectives, and scalable data mixtures."}
+      ];
+      var prepared=papers.map(function(p){return Pretext.prepareWithSegments(p.abstract,"13px Styrene")});
+      var host=q("#paper-list"),slider=q("#paper-lines"),active=0;
+      function render(){
+        var max=Number(slider.value);host.innerHTML="";
+        papers.forEach(function(p,i){
+          var card=document.createElement("article");card.className="paper"+(i===active?" open":"");card.tabIndex=0;
+          card.append(lineEl(p.year,"paper-year"),lineEl(p.title,"paper-title"),lineEl(i===active?"×":"↗","paper-arrow"));
+          var preview=document.createElement("div");preview.className="paper-preview";
+          var width=Math.max(220,host.clientWidth-110),result=Pretext.layoutWithLines(prepared[i],width,20);
+          result.lines.slice(0,max).forEach(function(l,j){var el=lineEl(l.text,"abstract-line");el.style.width=Math.min(l.width+10,width)+"px";el.style.transitionDelay=(j*55)+"ms";preview.appendChild(el)});
+          card.appendChild(preview);
+          function open(){active=i;render()}
+          card.addEventListener("mouseenter",open);card.addEventListener("click",open);card.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}});
+          host.appendChild(card);
+        });
+        metric("#paper-status",max+" visible lines · widths from Pretext");metric("#paper-lines-out",String(max));
+      }
+      slider.addEventListener("input",render);q("#paper-cycle").addEventListener("click",function(){active=(active+1)%papers.length;render()});
+      new ResizeObserver(function(){later(render)}).observe(host);render();
+    }
+
+    function initLanguage(){
+      var copy={
+        en:{label:"English / research statement",text:"General intelligence must perceive, imagine, and create as one unified mind.",font:"48px Copernicus",locale:"en"},
+        zh:{label:"中文 / 研究宣言",text:"通用智能必须在同一个心智中理解世界、想象未来，并创造新的可能。",font:"48px Fangzheng",locale:"zh"}
+      };
+      var prepared={en:null,zh:null},lang="en",host=q("#language-lines"),slider=q("#language-width");
+      function render(){
+        var c=copy[lang];Pretext.setLocale(c.locale);
+        if(!prepared[lang])prepared[lang]=Pretext.prepareWithSegments(c.text,c.font);
+        var width=Math.min(Number(slider.value),host.clientWidth||620);
+        var result=Pretext.layoutWithLines(prepared[lang],width,54);host.innerHTML="";
+        result.lines.forEach(function(l,i){var el=lineEl(l.text,"language-line enter");el.style.animationDelay=(reduced?0:i*70)+"ms";host.appendChild(el)});
+        q("#language-label").textContent=c.label;qa("[data-lang]").forEach(function(b){b.classList.toggle("active",b.dataset.lang===lang)});
+        metric("#language-status",lang.toUpperCase()+" · "+result.lineCount+" lines · "+Math.round(width)+"px");metric("#language-width-out",Math.round(width)+"px");
+      }
+      qa("[data-lang]").forEach(function(b){b.addEventListener("click",function(){lang=b.dataset.lang;render()})});
+      slider.addEventListener("input",function(){later(render)});new ResizeObserver(function(){later(render)}).observe(host);render();
+    }
+
+    function initAscii(){
+      var host=q("#ascii-art"),wrap=q("#ascii-wrap"),density=q("#density"),seed=3,prepared=null;
+      function random(x,y){var n=Math.sin(x*12.9898+y*78.233+seed*31.7)*43758.5453;return n-Math.floor(n)}
+      function make(){
+        var cols=Number(density.value),rows=Math.round(cols*.42),chars=" .·:+*#@";var out=[];
+        for(var y=0;y<rows;y++){
+          var row="";
+          for(var x=0;x<cols;x++){
+            var nx=(x-cols/2)/(cols*.48),ny=(y-rows/2)/(rows*.42);
+            var field=Math.sin(nx*8+seed)*Math.cos(ny*7-seed*.4)-Math.sqrt(nx*nx+ny*ny)*.85+random(x,y)*.42;
+            var idx=Math.max(0,Math.min(chars.length-1,Math.floor((field+1.15)/2.3*chars.length)));
+            row+=chars[idx];
+          }
+          out.push(row);
+        }
+        var text=out.join("\n");prepared=Pretext.prepareWithSegments(text,"18px Styrene",{whiteSpace:"pre-wrap"});return text;
+      }
+      function render(){
+        var text=make(),width=Math.max(280,host.parentElement.clientWidth-36),result=Pretext.layoutWithLines(prepared,width,18);
+        host.textContent=result.lines.map(function(l){return l.text}).join("\n");
+        var scale=Math.min(1,(host.parentElement.clientWidth-30)/(Number(density.value)*10.2));host.style.transform="scale("+scale+")";
+        metric("#ascii-status",result.lineCount+" measured rows · seed "+seed);metric("#density-out",density.value);
+      }
+      density.addEventListener("input",function(){later(render)});q("#ascii-random").addEventListener("click",function(){seed++;render()});
+      q("#ascii-reveal").addEventListener("click",function(e){wrap.classList.toggle("reveal");e.currentTarget.classList.toggle("active")});
+      new ResizeObserver(function(){later(render)}).observe(host.parentElement);render();
+    }
+
+    document.fonts.ready.then(init);
+  })();
+  </script>
+</body>
+</html>
