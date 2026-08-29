@@ -211,7 +211,7 @@ export default function OzzyHome({ data }: OzzyHomeProps) {
                 mair<span>[.]</span>lab
               </a>
               . i work on unified multimodal models{' '}
-              <span className={styles.muted}>that see, reason, imagine, and create.</span> my research spans mllms, diffusion post-training,
+              <span className={`${styles.muted} ${styles.shimmer}`}>that see, reason, imagine, and create.</span> my research spans mllms, diffusion post-training,
               and world models. i keep my work in{' '}
               <Link className={`${styles.pastelLink} ${styles.butter}`} href="/publications">publications</Link>, think out loud in{' '}
               <Link className={`${styles.pastelLink} ${styles.sky}`} href="/blog">blog</Link>, and live on{' '}

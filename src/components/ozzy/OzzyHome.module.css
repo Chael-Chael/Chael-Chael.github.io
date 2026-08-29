@@ -62,6 +62,15 @@
 .introCopy { display: block; }
 
 .muted { color: var(--muted); font-weight: 400; }
+.shimmer {
+  background: linear-gradient(90deg, #aaa9a4 0%, #aaa9a4 40%, #f3f3f1 50%, #aaa9a4 60%, #aaa9a4 100%);
+  background-size: 400% 100%;
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerText 2s linear infinite;
+}
 
 .brand,
 .mair {
@@ -317,6 +326,11 @@
 
 @keyframes gradientDrift {
   to { background-position: 100% 65%; transform: scale(1.03); }
+}
+
+@keyframes shimmerText {
+  from { background-position: 100% 0; }
+  to { background-position: 0 0; }
 }
 
 .gallery {
@@ -643,6 +657,7 @@
   .projectStage::before { transition: none; }
   .projectCard:hover .projectStage::before,
   .projectCard:focus-visible .projectStage::before { animation: none; }
+  .shimmer { animation: none; }
 }
 
 @keyframes galleryLoopMobile {
