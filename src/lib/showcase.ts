@@ -102,6 +102,11 @@ function publicationToItem(publication: Publication): ShowcaseItem {
     image: getPublicationPreview(publication),
     meta: [venue, publication.year].filter(Boolean).join(' / '),
     description: stripMarkup(publication.description || publication.summary || publication.abstract),
+    links: [
+      publication.url && { label: 'Paper', href: publication.url },
+      publication.code && { label: 'Code', href: publication.code },
+      publication.project && { label: 'Project', href: publication.project },
+    ].filter((link): link is { label: string; href: string } => Boolean(link)),
   };
 }
 

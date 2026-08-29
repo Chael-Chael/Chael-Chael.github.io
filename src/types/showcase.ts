@@ -19,6 +19,7 @@ export interface ShowcaseItem {
   meta?: string;
   description?: string;
   external?: boolean;
+  links?: DetailLink[];
 }
 
 export interface ShowcaseSection {

@@ -1,6 +1,6 @@
 'use client';
 
-import FionaHome from '@/components/fiona/FionaHome';
+import OzzyHome from '@/components/ozzy/OzzyHome';
 import type { ShowcaseHomeLocaleData } from '@/types/showcase';
 
 export type HomePageLocaleData = ShowcaseHomeLocaleData;
@@ -10,5 +10,5 @@ interface HomePageClientProps {
 }
 
 export default function HomePageClient({ data }: HomePageClientProps) {
-  return <FionaHome data={data} />;
+  return <OzzyHome data={data} />;
 }

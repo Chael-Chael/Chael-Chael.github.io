@@ -1,19 +1,29 @@
 type = "card"
 title = "Open Source"
-description = "Pinned open-source projects from my GitHub profile. Star counts verified on July 10, 2026."
+description = "Selected open-source projects from my GitHub profile."
+
+[[items]]
+title = "dsh-reference-anything"
+subtitle = "★ 11 · TypeScript"
+slug = "dsh-reference-anything"
+link = "https://github.com/Chael-Chael/dsh-reference-anything"
+image = "https://raw.githubusercontent.com/Chael-Chael/dsh-reference-anything/main/images/banner.png"
+content = "An enhanced DeepSeek Harness @ menu for referencing commands, skills, files, agent sessions, cloud drives, and chatbot conversations."
 
 [[items]]
 title = "MAIR-Lab-HUST / TMPO"
-subtitle = "★ 12 · Python"
+subtitle = "★ 17 · Python"
 slug = "tmpo"
 link = "https://github.com/MAIR-Lab-HUST/TMPO"
+image = "/papers/TMPO.png"
 content = "Official implementation of TMPO: Trajectory Matching Policy Optimization for Diverse and Efficient Diffusion Alignment."
 
 [[items]]
 title = "awesome-hermes-eva-skins"
-subtitle = "★ 15 · Python"
+subtitle = "★ 25 · Python"
 slug = "awesome-hermes-eva-skins"
 link = "https://github.com/Chael-Chael/awesome-hermes-eva-skins"
+image = "https://raw.githubusercontent.com/Chael-Chael/awesome-hermes-eva-skins/main/assets/eva-nerv.png"
 content = "A curated collection of EVA-style retro themes for Hermes CLI Agent, designed for the Windows Terminal retro effect."
 
 [[items]]
@@ -21,4 +31,5 @@ title = "zotero-translate-skill"
 subtitle = "★ 1 · Python"
 slug = "zotero-translate-skill"
 link = "https://github.com/Chael-Chael/zotero-translate-skill"
+image = "https://raw.githubusercontent.com/Chael-Chael/zotero-translate-skill/main/assets/zotero-translate-hero.png"
 content = "An agent-native Zotero PDF translation skill powered by pdf2zh and BabelDOC."

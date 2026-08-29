@@ -6,15 +6,7 @@ import rehypeKatex from 'rehype-katex';
 import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
-
-function slugify(value: string): string {
-  return value
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-');
-}
+import { slugifyHeading } from '@/lib/heading';
 
 interface FionaMarkdownProps {
   content: string;
@@ -30,18 +22,23 @@ export default function FionaMarkdown({ content, className = '', compact = false
         rehypePlugins={[rehypeRaw, rehypeKatex]}
         components={{
           h1: ({ children }) => {
-            const id = slugify(String(children));
+            const id = slugifyHeading(String(children));
             return <h1 id={id}>{children}</h1>;
           },
           h2: ({ children }) => {
-            const id = slugify(String(children));
+            const id = slugifyHeading(String(children));
             return <h2 id={id}>{children}</h2>;
           },
           h3: ({ children }) => {
-            const id = slugify(String(children));
+            const id = slugifyHeading(String(children));
             return <h3 id={id}>{children}</h3>;
           },
-          p: ({ children }) => <p>{children}</p>,
+          p: ({ node, children }) => {
+            const containsImage = node?.children?.some(
+              (child) => child.type === 'element' && child.tagName === 'img',
+            );
+            return containsImage ? <>{children}</> : <p>{children}</p>;
+          },
           a: ({ href, children }) => (
             <a href={href} target={href?.startsWith('http') ? '_blank' : undefined} rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}>
               {children}

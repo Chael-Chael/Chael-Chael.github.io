@@ -1,6 +1,7 @@
 'use client';
 
 import FionaIndexPage from '@/components/fiona/FionaIndexPage';
+import OzzyIndexPage from '@/components/ozzy/OzzyIndexPage';
 import { Publication } from '@/types/publication';
 import { BlogPostMeta } from '@/types/blog';
 import {
@@ -25,9 +26,9 @@ export default function DynamicPageClient({ data: pageData }: DynamicPageClientP
 
   if (pageData.type === 'publication') {
     return (
-      <FionaIndexPage
+      <OzzyIndexPage
         title={pageData.config.title}
-        description={pageData.config.description}
+        variant="publications"
         items={pageData.publications.map(publicationToShowcaseItem)}
       />
     );
@@ -45,6 +46,16 @@ export default function DynamicPageClient({ data: pageData }: DynamicPageClientP
   }
 
   if (pageData.type === 'card') {
+    if (pageData.config.title === 'Open Source') {
+      return (
+        <OzzyIndexPage
+          title="Projects"
+          variant="projects"
+          items={pageData.config.items.map((item, index) => cardToShowcaseItem(item, index))}
+        />
+      );
+    }
+
     return (
       <FionaIndexPage
         title={pageData.config.title}
@@ -55,9 +66,9 @@ export default function DynamicPageClient({ data: pageData }: DynamicPageClientP
   }
 
   return (
-    <FionaIndexPage
+    <OzzyIndexPage
       title={pageData.config.title}
-      description={pageData.config.description}
+      variant="blog"
       items={pageData.posts.map(blogToShowcaseItem)}
     />
   );
@@ -87,13 +98,6 @@ function slugFromTitle(value: string): string {
     .replace(/-+/g, '-');
 }
 
-function formatDate(value?: string): string | undefined {
-  if (!value) return undefined;
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-  return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
-}
-
 function publicationToShowcaseItem(publication: Publication): ShowcaseItem {
   const venue = publication.journal || publication.conference || publication.venue;
 
@@ -105,6 +109,11 @@ function publicationToShowcaseItem(publication: Publication): ShowcaseItem {
     image: publication.preview ? `/papers/${publication.preview}` : undefined,
     meta: [venue, publication.year].filter(Boolean).join(' / '),
     description: stripMarkup(publication.description || publication.summary || publication.abstract),
+    links: [
+      publication.url && { label: 'Paper', href: publication.url },
+      publication.code && { label: 'Code', href: publication.code },
+      publication.project && { label: 'Project', href: publication.project },
+    ].filter((link): link is { label: string; href: string } => Boolean(link)),
   };
 }
 
@@ -115,7 +124,7 @@ function blogToShowcaseItem(post: BlogPostMeta): ShowcaseItem {
     href: `/blog/${post.slug}`,
     kind: 'blog',
     image: post.image,
-    meta: [formatDate(post.date), post.tags?.[0]].filter(Boolean).join(' / '),
+    meta: [post.date, post.tags?.[0]].filter(Boolean).join(' / '),
     description: post.excerpt,
   };
 }

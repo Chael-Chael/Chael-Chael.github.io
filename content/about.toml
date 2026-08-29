@@ -3,9 +3,9 @@ title = "About"
 
 [profile]
 research_interests = [
-  "Multimodal Models",
-  "Agentic AI",
-  "Lifelong Learning",
+  "Unified Multimodal Models",
+  "MLLMs & Agentic AI",
+  "World Models & Diffusion Post-Training",
 ]
 
 [[sections]]
