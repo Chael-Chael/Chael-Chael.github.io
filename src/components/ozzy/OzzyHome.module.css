@@ -49,9 +49,9 @@
 }
 
 .introHero {
-  max-width: 1120px;
-  margin: clamp(32px, 9svh, 88px) 0 40px;
-  padding: 24px clamp(24px, 6vw, 88px);
+  width: min(720px, calc(100% - 32px));
+  margin: clamp(32px, 9svh, 88px) auto 40px;
+  padding: 24px 18px;
   font-size: clamp(22px, min(3vw, 3.5vh), 31px);
   font-weight: 500;
   line-height: 1.42;
@@ -621,7 +621,8 @@
   .left { overflow: visible; }
   .flow { width: 100%; border-inline: 0; }
   .introHero {
-    margin: 12px 0 18px;
+    width: 100%;
+    margin: 12px auto 18px;
     padding: 20px 18px;
     font-size: clamp(20px, 6.5vw, 27px);
   }
