@@ -7,9 +7,9 @@ import { Github, GraduationCap, Mail } from 'lucide-react';
 import type { CSSProperties } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import type { ShowcaseHomeLocaleData, ShowcaseItem, ShowcaseKind, ShowcaseSection } from '@/types/showcase';
-import FionaMarkdown from '@/components/fiona/FionaMarkdown';
+import EditorialMarkdown from '@/components/editorial/EditorialMarkdown';
 
-interface FionaHomeProps {
+interface EditorialHomeProps {
   data: ShowcaseHomeLocaleData;
 }
 
@@ -21,7 +21,7 @@ function ShowcaseThumb({ item }: { item: ShowcaseItem }) {
   if (!item.image) return null;
 
   return (
-    <figure className="fiona-page-thumb" aria-hidden="true">
+    <figure className="editorial-page-thumb" aria-hidden="true">
       <img src={item.image} alt="" loading="lazy" />
     </figure>
   );
@@ -65,7 +65,7 @@ function HeaderSocialLinks({ social }: { social: ShowcaseHomeLocaleData['social'
   }
 
   return (
-    <div className="fiona-section-socials" aria-label="Profile links">
+    <div className="editorial-section-socials" aria-label="Profile links">
       {links.map((link) => {
         const Icon = link.icon;
         return (
@@ -100,24 +100,24 @@ function InlineItemDetail({
 
   return (
     <motion.article
-      className="fiona-item-layer"
+      className="editorial-item-layer"
       initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: '100%' }}
       animate={{ opacity: 1, y: 0 }}
       exit={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: '100%' }}
       transition={reduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.5, 0.08, 0, 0.99] }}
       aria-modal="false"
     >
-      <header className="fiona-item-layer-header sans">
+      <header className="editorial-item-layer-header sans">
         <span>{sectionTitle}</span>
         <button type="button" onClick={onClose} aria-label="Close item detail">×</button>
       </header>
 
-      <div className={`fiona-inline-detail ${item.image ? 'has-image' : ''}`}>
-        <div className="fiona-inline-detail-heading">
+      <div className={`editorial-inline-detail ${item.image ? 'has-image' : ''}`}>
+        <div className="editorial-inline-detail-heading">
           <h3>{item.title}</h3>
         </div>
 
-        <dl className="fiona-inline-detail-meta sans">
+        <dl className="editorial-inline-detail-meta sans">
           {item.meta && (
             <>
               <dt>Details</dt>
@@ -139,18 +139,18 @@ function InlineItemDetail({
         </dl>
 
         {item.image && (
-          <figure className="fiona-inline-detail-media">
+          <figure className="editorial-inline-detail-media">
             <img src={item.image} alt={item.title} loading="lazy" />
           </figure>
         )}
 
-        <div className="fiona-inline-detail-copy">
+        <div className="editorial-inline-detail-copy">
           {item.description ? (
             <p>{item.description}</p>
           ) : (
             <p className="sans">More details are available from the linked page.</p>
           )}
-          <button type="button" className="fiona-inline-back sans" onClick={onClose}>
+          <button type="button" className="editorial-inline-back sans" onClick={onClose}>
             Back to list
           </button>
         </div>
@@ -179,7 +179,7 @@ function SectionList({
   canPreview: boolean;
 }) {
   if (items.length === 0) {
-    return <p className="fiona-section-note sans">More soon.</p>;
+    return <p className="editorial-section-note sans">More soon.</p>;
   }
 
   const isSpacedList = sectionKind === 'news' || sectionKind === 'publication' || sectionKind === 'card';
@@ -194,14 +194,14 @@ function SectionList({
   };
 
   return (
-    <ul className={`fiona-pages-list ${isSpacedList ? 'fiona-pages-list--spaced' : ''} ${showMetaLabel ? 'fiona-pages-list--labeled' : ''}`}>
+    <ul className={`editorial-pages-list ${isSpacedList ? 'editorial-pages-list--spaced' : ''} ${showMetaLabel ? 'editorial-pages-list--labeled' : ''}`}>
       {items.map((item) => {
         const metaLabel = getMetaLabel(item);
 
         return (
           <li
             key={item.id}
-            className={`fiona-page-title ${item.image ? 'has-thumb' : ''} ${selectedItem?.id === item.id ? 'is-selected' : ''} ${previewedItem?.id === item.id ? 'is-previewed' : ''}`}
+            className={`editorial-page-title ${item.image ? 'has-thumb' : ''} ${selectedItem?.id === item.id ? 'is-selected' : ''} ${previewedItem?.id === item.id ? 'is-previewed' : ''}`}
             onMouseEnter={() => {
               if (canPreview) onPreview(item);
             }}
@@ -216,11 +216,11 @@ function SectionList({
             }}
           >
             {showMetaLabel && metaLabel && (
-              <span className={`fiona-page-meta fiona-page-meta--${sectionKind}`}>{metaLabel}</span>
+              <span className={`editorial-page-meta editorial-page-meta--${sectionKind}`}>{metaLabel}</span>
             )}
             <button
               type="button"
-              className="fiona-page-item-button"
+              className="editorial-page-item-button"
               onClick={() => onSelect(item)}
               aria-expanded={selectedItem?.id === item.id}
             >
@@ -242,7 +242,7 @@ function SectionPreview({ item, reduceMotion }: { item: ShowcaseItem; reduceMoti
   return (
     <motion.div
       key={item.id}
-      className={`fiona-section-preview ${item.image ? 'has-image' : 'is-placeholder'}`}
+      className={`editorial-section-preview ${item.image ? 'has-image' : 'is-placeholder'}`}
       initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 28, scaleY: 0.94 }}
       animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, scaleY: 1 }}
       exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 22, scaleY: 0.96 }}
@@ -250,13 +250,13 @@ function SectionPreview({ item, reduceMotion }: { item: ShowcaseItem; reduceMoti
       aria-hidden="true"
     >
       {item.image ? (
-        <img className="fiona-section-preview-image" src={item.image} alt="" loading="lazy" />
+        <img className="editorial-section-preview-image" src={item.image} alt="" loading="lazy" />
       ) : (
-        <div className="fiona-section-preview-placeholder">
+        <div className="editorial-section-preview-placeholder">
           <span>{item.title}</span>
         </div>
       )}
-      <div className="fiona-section-preview-caption sans">
+      <div className="editorial-section-preview-caption sans">
         <span>{item.kind}</span>
         {item.meta && <span>{item.meta}</span>}
       </div>
@@ -318,12 +318,12 @@ function AboutSection({
   } => Boolean(link));
 
   return (
-    <div className="fiona-about-block">
-      {section.intro && <FionaMarkdown content={section.intro} compact />}
+    <div className="editorial-about-block">
+      {section.intro && <EditorialMarkdown content={section.intro} compact />}
       {section.items.length > 0 && (
         <>
-          <h3 className="fiona-about-list-title sans">Research Interest</h3>
-          <ul className="fiona-about-list sans">
+          <h3 className="editorial-about-list-title sans">Research Interest</h3>
+          <ul className="editorial-about-list sans">
             {section.items.map((item) => (
               <li key={item.id}>
                 {item.meta && <span>{item.meta}</span>}
@@ -334,7 +334,7 @@ function AboutSection({
         </>
       )}
       {contactLinks.length > 0 && (
-        <div className="fiona-mail fiona-contact-list sans">
+        <div className="editorial-mail editorial-contact-list sans">
           {contactLinks.map((link) => (
             <a
               key={link.label}
@@ -393,14 +393,14 @@ function ShowcaseSectionPanel({
 
   return (
     <section
-      className={`fiona-section ${isVideoHero ? 'fiona-section--video-hero' : ''} ${isActive ? 'is-active' : ''} ${isHovered ? 'is-hovered' : ''} ${isPinned ? 'is-pinned' : ''} ${previewedItem ? 'has-preview' : ''}`}
+      className={`editorial-section ${isVideoHero ? 'editorial-section--video-hero' : ''} ${isActive ? 'is-active' : ''} ${isHovered ? 'is-hovered' : ''} ${isPinned ? 'is-pinned' : ''} ${previewedItem ? 'has-preview' : ''}`}
       style={{ '--section-index': index + 1 } as CSSProperties}
       onMouseEnter={() => onSectionHover(section)}
       onMouseLeave={() => onSectionLeave(section)}
     >
       {isVideoHero && !reduceMotion && (
         <video
-          className="fiona-section-hero-video"
+          className="editorial-section-hero-video"
           src={HERO_VIDEO_URL}
           autoPlay
           muted
@@ -412,13 +412,13 @@ function ShowcaseSectionPanel({
           disablePictureInPicture
         />
       )}
-      <div className="fiona-section-content">
-        <div className="fiona-section-header">
-          <div className="fiona-section-title-group">
-            <h2 className="fiona-section-title sans">
+      <div className="editorial-section-content">
+        <div className="editorial-section-header">
+          <div className="editorial-section-title-group">
+            <h2 className="editorial-section-title sans">
               <button
                 type="button"
-                className="fiona-section-title-link"
+                className="editorial-section-title-link"
                 onClick={() => onActivate(section)}
                 aria-expanded={isActive}
               >
@@ -429,14 +429,14 @@ function ShowcaseSectionPanel({
           </div>
           <button
             type="button"
-            className="fiona-section-close sans"
+            className="editorial-section-close sans"
             onClick={onClose}
             aria-label={`Close ${section.title}`}
           >
             ×
           </button>
         </div>
-        <div className="fiona-section-body">
+        <div className="editorial-section-body">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key="section-list"
@@ -449,7 +449,7 @@ function ShowcaseSectionPanel({
                 <AboutSection section={section} social={social} />
               ) : (
                 <>
-                  {section.intro && <p className="fiona-section-intro sans">{section.intro}</p>}
+                  {section.intro && <p className="editorial-section-intro sans">{section.intro}</p>}
                   <SectionList
                     items={section.items}
                     selectedItem={selectedItem}
@@ -475,7 +475,7 @@ function ShowcaseSectionPanel({
   );
 }
 
-export default function FionaHome({ data }: FionaHomeProps) {
+export default function EditorialHome({ data }: EditorialHomeProps) {
   const sections = useMemo(() => data?.sections || [], [data]);
   const [activeItem, setActiveItem] = useState<{ sectionId: string; itemId: string } | null>(null);
   const [previewItem, setPreviewItem] = useState<{ sectionId: string; itemId: string } | null>(null);
@@ -488,8 +488,8 @@ export default function FionaHome({ data }: FionaHomeProps) {
     ? activeLayerSection.items.find((item) => item.id === activeItem.itemId) || null
     : null;
   return (
-    <div className={`fiona-home fiona-home--expanded ${activeLayerItem ? 'has-item-layer' : ''}`}>
-      <nav className="fiona-menu" style={{ '--sectionscount': sections.length } as CSSProperties}>
+    <div className={`editorial-home editorial-home--expanded ${activeLayerItem ? 'has-item-layer' : ''}`}>
+      <nav className="editorial-menu" style={{ '--sectionscount': sections.length } as CSSProperties}>
         {sections.map((section, index) => {
           const selectedItem = activeItem?.sectionId === section.id
             ? section.items.find((item) => item.id === activeItem.itemId) || null
@@ -534,9 +534,9 @@ export default function FionaHome({ data }: FionaHomeProps) {
             />
           );
         })}
-        <footer className="fiona-page-footer">
-          <div className="fiona-footer-content sans">
-            <span className="fiona-footer-quote">
+        <footer className="editorial-page-footer">
+          <div className="editorial-footer-content sans">
+            <span className="editorial-footer-quote">
               Consciousness is in the first place not a matter of ‘I think that’ but of ‘I can’.
             </span>
           </div>

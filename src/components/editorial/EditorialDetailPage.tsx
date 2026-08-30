@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import type { DetailLink, DetailPair } from '@/types/showcase';
-import FionaMarkdown from '@/components/fiona/FionaMarkdown';
+import EditorialMarkdown from '@/components/editorial/EditorialMarkdown';
 
-interface FionaDetailPageProps {
+interface EditorialDetailPageProps {
   title: string;
   content: string;
   details?: DetailPair[];
@@ -16,7 +16,7 @@ interface FionaDetailPageProps {
   footer?: string;
 }
 
-export default function FionaDetailPage({
+export default function EditorialDetailPage({
   title,
   content,
   details = [],
@@ -25,29 +25,29 @@ export default function FionaDetailPage({
   coverAlt,
   notes,
   footer,
-}: FionaDetailPageProps) {
+}: EditorialDetailPageProps) {
   const reduceMotion = useReducedMotion();
 
   return (
     <motion.article
-      className="fiona-detail-shell"
+      className="editorial-detail-shell"
       initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
       animate={{ opacity: 1, y: 0 }}
       transition={reduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.5, 0.08, 0, 0.99] }}
     >
-      <Link href="/" className="fiona-close-button" aria-label="Close and return home">
+      <Link href="/" className="editorial-close-button" aria-label="Close and return home">
         <span className="sans">×</span>
       </Link>
 
-      <div className="fiona-page-content">
-        <header className="fiona-content-title">
-          <h1 className="fiona-big-title">{title}</h1>
+      <div className="editorial-page-content">
+        <header className="editorial-content-title">
+          <h1 className="editorial-big-title">{title}</h1>
         </header>
 
         {coverImage && (
-          <figure className="fiona-content-cover">
-            <div className="fiona-cover-image">
-              <div className="fiona-lazy-image">
+          <figure className="editorial-content-cover">
+            <div className="editorial-cover-image">
+              <div className="editorial-lazy-image">
                 <img src={coverImage} alt={coverAlt || title} loading="eager" />
               </div>
             </div>
@@ -56,9 +56,9 @@ export default function FionaDetailPage({
         )}
 
         {(details.length > 0 || links.length > 0) && (
-          <aside className="fiona-content-infos">
+          <aside className="editorial-content-infos">
             {details.map((detail) => (
-              <div key={`${detail.label}-${detail.value}`} className="fiona-details sans">
+              <div key={`${detail.label}-${detail.value}`} className="editorial-details sans">
                 <div className="label">
                   <h4>{detail.label}</h4>
                 </div>
@@ -68,7 +68,7 @@ export default function FionaDetailPage({
               </div>
             ))}
             {links.length > 0 && (
-              <div className="fiona-details sans">
+              <div className="editorial-details sans">
                 <div className="label">
                   <h4>Links</h4>
                 </div>
@@ -84,18 +84,18 @@ export default function FionaDetailPage({
           </aside>
         )}
 
-        <main className="fiona-content-main">
-          <div className="fiona-content-text">
-            <div className="fiona-content-text-text">
-              <FionaMarkdown content={content} />
+        <main className="editorial-content-main">
+          <div className="editorial-content-text">
+            <div className="editorial-content-text-text">
+              <EditorialMarkdown content={content} />
             </div>
             {notes && (
-              <aside className="fiona-content-text-notes sans">
-                <FionaMarkdown content={notes} compact />
+              <aside className="editorial-content-text-notes sans">
+                <EditorialMarkdown content={notes} compact />
               </aside>
             )}
           </div>
-          {footer && <p className="fiona-detail-footer sans">{footer}</p>}
+          {footer && <p className="editorial-detail-footer sans">{footer}</p>}
         </main>
       </div>
     </motion.article>

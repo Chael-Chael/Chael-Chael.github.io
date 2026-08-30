@@ -8,15 +8,15 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import { slugifyHeading } from '@/lib/heading';
 
-interface FionaMarkdownProps {
+interface EditorialMarkdownProps {
   content: string;
   className?: string;
   compact?: boolean;
 }
 
-export default function FionaMarkdown({ content, className = '', compact = false }: FionaMarkdownProps) {
+export default function EditorialMarkdown({ content, className = '', compact = false }: EditorialMarkdownProps) {
   return (
-    <div className={`fiona-markdown ${compact ? 'fiona-markdown-compact' : ''} ${className}`}>
+    <div className={`editorial-markdown ${compact ? 'editorial-markdown-compact' : ''} ${className}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkMath, remarkBreaks]}
         rehypePlugins={[rehypeRaw, rehypeKatex]}
@@ -46,11 +46,11 @@ export default function FionaMarkdown({ content, className = '', compact = false
           ),
           img: ({ src, alt }) => {
             if (alt === 'HUST') {
-              return <img src="/HUST_night.png" alt={alt} className="fiona-inline-logo" />;
+              return <img src="/HUST_night.png" alt={alt} className="editorial-inline-logo" />;
             }
 
             return (
-              <figure className="fiona-markdown-figure">
+              <figure className="editorial-markdown-figure">
                 <img src={src} alt={alt || ''} loading="lazy" />
                 {alt && <figcaption>{alt}</figcaption>}
               </figure>

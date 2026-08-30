@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import FionaDetailPage from '@/components/fiona/FionaDetailPage';
+import EditorialDetailPage from '@/components/editorial/EditorialDetailPage';
 import { getAllPublications, getPublicationById, getPublicationPreview, getPublicationVenue } from '@/lib/showcase';
 import type { DetailLink, DetailPair } from '@/types/showcase';
 import type { Author, Publication } from '@/types/publication';
@@ -88,7 +88,7 @@ export default async function PublicationDetailPage({ params }: { params: Promis
   }
 
   return (
-    <FionaDetailPage
+    <EditorialDetailPage
       title={publication.title}
       content={buildPublicationContent(publication)}
       coverImage={getPublicationPreview(publication)}

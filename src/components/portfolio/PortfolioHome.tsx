@@ -9,38 +9,14 @@ import { FaEnvelope, FaGithub, FaGraduationCap, FaXTwitter } from 'react-icons/f
 import { SiXiaohongshu } from 'react-icons/si';
 import { ArrowRight, ArrowUpRight, BookOpen, Camera, Code2, Lightbulb, X } from 'lucide-react';
 import type { CSSProperties } from 'react';
-import type { ShowcaseHomeLocaleData, ShowcaseItem } from '@/types/showcase';
-import styles from './OzzyHome.module.css';
+import type { HomeFeaturedItem, ShowcaseHomeLocaleData, ShowcaseItem } from '@/types/showcase';
+import styles from './PortfolioHome.module.css';
 
-interface OzzyHomeProps {
+interface PortfolioHomeProps {
   data: ShowcaseHomeLocaleData;
 }
 
-interface GalleryItem {
-  id: string;
-  title: string;
-  href: string;
-  image: string;
-  description?: string;
-  meta?: string;
-  external?: boolean;
-}
-
-const MAIR_GALLERY_ITEM: GalleryItem = {
-  id: 'mair',
-  title: 'MAIR Lab',
-  href: 'https://github.com/MAIR-Lab-HUST',
-  image: '/ascii-logo/MAIR_logo.png',
-  external: true,
-};
-
-const LLAMA_BLOG_ITEM: GalleryItem = {
-  id: 'llama3-tech-report',
-  title: 'Notes on the Llama 3 Technical Report',
-  href: '/blog',
-  image: '/images/blog/llama3-tech-report/banner.png',
-  meta: '2025.09 / Llama 3',
-};
+type GalleryItem = HomeFeaturedItem;
 
 const CALENDAR_THEME = {
   light: ['#f4f4f5', '#d4d4d8', '#a1a1aa', '#52525b', '#18181b'],
@@ -55,12 +31,6 @@ const CARD_OFFSETS = [
   { x: '-36px', r: '-2.1deg' },
   { x: '-28px', r: '1.2deg' },
   { x: '-8px', r: '-1.8deg' },
-];
-
-const INTEREST_DETAILS = [
-  'Joint perception, reasoning, generation, and creation in one multimodal system.',
-  'Agents that understand visual structure and turn language into grounded actions.',
-  'Learning visual dynamics and aligning diffusion trajectories while preserving diversity.',
 ];
 
 const PROJECT_THEMES = [
@@ -135,7 +105,7 @@ function GallerySet({ items, onOpen }: { items: GalleryItem[]; onOpen: (item: Ga
   );
 }
 
-export default function OzzyHome({ data }: OzzyHomeProps) {
+export default function PortfolioHome({ data }: PortfolioHomeProps) {
   const reduceMotion = useReducedMotion();
   const [selected, setSelected] = useState<GalleryItem | null>(null);
   const [repoStars, setRepoStars] = useState<Record<string, number>>({});
@@ -148,13 +118,13 @@ export default function OzzyHome({ data }: OzzyHomeProps) {
       .map(toGalleryItem)
       .filter((item): item is GalleryItem => Boolean(item));
 
-    return [MAIR_GALLERY_ITEM, LLAMA_BLOG_ITEM, ...contentItems];
-  }, [data.sections]);
+    return [...data.home.gallery, data.home.featured_blog, ...contentItems];
+  }, [data.home.featured_blog, data.home.gallery, data.sections]);
 
-  const about = data.sections.find((section) => section.id === 'about');
   const publications = data.sections.find((section) => section.id === 'publications');
   const openSource = data.sections.find((section) => section.id === 'open-source');
   const blogs = data.sections.find((section) => section.id === 'blog');
+  const { hero, profile, limits, research_interests: researchInterests, featured_blog: featuredBlog } = data.home;
 
   useEffect(() => setMounted(true), []);
 
@@ -196,28 +166,34 @@ export default function OzzyHome({ data }: OzzyHomeProps) {
   const githubHandle = github.split('/').filter(Boolean).pop() || 'Chael-Chael';
   const githubAvatar = `${github.replace(/\/$/, '')}.png`;
   const scholar = typeof data.social.google_scholar === 'string' ? data.social.google_scholar : undefined;
+  const x = typeof data.social.x === 'string' ? data.social.x : undefined;
+  const xLabel = typeof data.social.x_label === 'string' ? data.social.x_label : undefined;
+  const xiaohongshu = typeof data.social.xiaohongshu === 'string' ? data.social.xiaohongshu : undefined;
+  const xiaohongshuLabel = typeof data.social.xiaohongshu_label === 'string' ? data.social.xiaohongshu_label : undefined;
 
   return (
     <div className={styles.root}>
       <section className={styles.left} aria-label="Portfolio feed">
         <p className={styles.introHero}>
             <span className={styles.introCopy}>
-              hello, i&apos;m chenyu zhu. a third-year undergraduate at{' '}
-              <a className={styles.brand} href="https://www.hust.edu.cn/" target="_blank" rel="noreferrer">
-                huazhong university of science and technology
+              {hero.before_university}{' '}
+              <a className={styles.brand} href={hero.university_url} target="_blank" rel="noreferrer">
+                {hero.university}
               </a>
-              , and a member of{' '}
-              <a className={styles.mair} href="https://github.com/MAIR-Lab-HUST" target="_blank" rel="noreferrer">
-                mair<span>[.]</span>lab
+              {hero.before_lab}{' '}
+              <a className={styles.mair} href={hero.lab_url} target="_blank" rel="noreferrer">
+                {hero.lab_prefix}<span>{hero.lab_mark}</span>{hero.lab_suffix}
               </a>
-              . i work on unified multimodal models{' '}
-              <span className={`${styles.muted} ${styles.shimmer}`}>that see, reason, imagine, and create.</span> my research spans mllms, diffusion post-training,
-              and world models. i keep my work in{' '}
-              <Link className={`${styles.pastelLink} ${styles.butter}`} href="/publications">publications</Link>, think out loud in{' '}
-              <Link className={`${styles.pastelLink} ${styles.sky}`} href="/blog">blog</Link>, and live on{' '}
-              <a className={`${styles.pastelLink} ${styles.mint}`} href={github} target="_blank" rel="noreferrer">github</a>{' '}
-              <span className={styles.muted}>or</span>{' '}
-              <a className={`${styles.pastelLink} ${styles.lilac}`} href={email}>email</a>.
+              {hero.before_shimmer}{' '}
+              <span className={`${styles.muted} ${styles.shimmer}`}>{hero.shimmer}</span>{' '}
+              {hero.after_shimmer}{' '}
+              <Link className={`${styles.pastelLink} ${styles.butter}`} href="/publications">{hero.publications_label}</Link>
+              {hero.after_publications}{' '}
+              <Link className={`${styles.pastelLink} ${styles.sky}`} href="/blog">{hero.blog_label}</Link>
+              {hero.after_blog}{' '}
+              <a className={`${styles.pastelLink} ${styles.mint}`} href={github} target="_blank" rel="noreferrer">{hero.github_label}</a>{' '}
+              <span className={styles.muted}>{hero.connector}</span>{' '}
+              <a className={`${styles.pastelLink} ${styles.lilac}`} href={email}>{hero.email_label}</a>.
             </span>
         </p>
 
@@ -228,21 +204,19 @@ export default function OzzyHome({ data }: OzzyHomeProps) {
               <img className={styles.avatar} src={githubAvatar} alt={`${data.author.name} on GitHub`} />
               <div>
                 <h1>{data.author.name}</h1>
-                <p>{data.author.title} · HUST</p>
+                <p>{data.author.title} · {profile.institution_short}</p>
               </div>
             </header>
 
             <div className={styles.profileBody}>
-              <p className={styles.profileBio}>
-                I explore unified multimodal intelligence across perception, reasoning, generation, and interaction, with a focus on MLLMs, diffusion post-training, and world models.
-              </p>
+              <p className={styles.profileBio}>{profile.bio}</p>
 
               <div className={styles.socialPills}>
                 <a href={github} target="_blank" rel="noreferrer" aria-label={`GitHub: ${githubHandle}`}><FaGithub aria-hidden="true" /><span>{githubHandle}</span></a>
                 {scholar && <a href={scholar} target="_blank" rel="noreferrer" aria-label={`Google Scholar: ${data.author.name}`}><FaGraduationCap aria-hidden="true" /><span>{data.author.name}</span></a>}
                 <a href={email} aria-label={`Email: ${data.social.email}`}><FaEnvelope aria-hidden="true" /><span>{data.social.email}</span></a>
-                <a href="https://x.com/ChaelChaelAGI" target="_blank" rel="noreferrer" aria-label="X: @ChaelChaelAGI"><FaXTwitter aria-hidden="true" /><span>@ChaelChaelAGI</span></a>
-                <a href="https://www.xiaohongshu.com/user/profile/5fe0725d000000000100aa2c" target="_blank" rel="noreferrer" aria-label="小红书: 新世纪 AGI 战士"><SiXiaohongshu aria-hidden="true" /><span>新世纪 AGI 战士</span></a>
+                {x && xLabel && <a href={x} target="_blank" rel="noreferrer" aria-label={`X: ${xLabel}`}><FaXTwitter aria-hidden="true" /><span>{xLabel}</span></a>}
+                {xiaohongshu && xiaohongshuLabel && <a href={xiaohongshu} target="_blank" rel="noreferrer" aria-label={`小红书: ${xiaohongshuLabel}`}><SiXiaohongshu aria-hidden="true" /><span>{xiaohongshuLabel}</span></a>}
               </div>
 
               <div className={styles.commitHead}>
@@ -277,11 +251,11 @@ export default function OzzyHome({ data }: OzzyHomeProps) {
           <section className={styles.flowSection}>
             <h2 className={styles.sectionTitle}><Lightbulb aria-hidden="true" /> Research Interests</h2>
             <div className={styles.interestList}>
-              {(about?.items ?? []).map((item, index) => (
-                <div className={styles.interestRow} key={item.id}>
+              {researchInterests.map((item, index) => (
+                <div className={styles.interestRow} key={`${item.title}-${index}`}>
                   <span>{String(index + 1).padStart(2, '0')}</span>
                   <h3>{item.title}</h3>
-                  <p>{INTEREST_DETAILS[index] ?? 'Exploring unified multimodal intelligence.'}</p>
+                  <p>{item.description}</p>
                 </div>
               ))}
             </div>
@@ -290,7 +264,7 @@ export default function OzzyHome({ data }: OzzyHomeProps) {
           <section className={styles.flowSection}>
             <h2 className={styles.sectionTitle}><BookOpen aria-hidden="true" /> Publications</h2>
             <div className={styles.workList}>
-              {(publications?.items ?? []).slice(0, 2).map((item) => (
+              {(publications?.items ?? []).slice(0, limits.publications).map((item) => (
                 <article className={styles.publicationEntry} key={item.id}>
                   <Link className={styles.workRow} href={item.href}>
                     {item.image && <img src={item.image} alt="" />}
@@ -309,7 +283,7 @@ export default function OzzyHome({ data }: OzzyHomeProps) {
           <section className={`${styles.flowSection} ${styles.projectsSection}`}>
             <h2 className={styles.sectionTitle}><Code2 aria-hidden="true" /> Open Source Projects</h2>
             <div className={styles.projectGrid}>
-              {(openSource?.items ?? []).slice(0, 4).map((item, index) => {
+              {(openSource?.items ?? []).slice(0, limits.projects).map((item, index) => {
                 const meta = repoStars[item.id] === undefined ? item.meta : item.meta?.replace(/^★\s*\d+/, `★ ${repoStars[item.id]}`);
                 const [stars, language] = meta?.split(/\s*·\s*/) ?? [];
                 const theme = PROJECT_THEMES[index % PROJECT_THEMES.length];
@@ -344,13 +318,11 @@ export default function OzzyHome({ data }: OzzyHomeProps) {
           <section className={styles.flowSection}>
             <h2 className={styles.sectionTitle}>Blogs</h2>
             <div className={styles.workList}>
-              {[LLAMA_BLOG_ITEM].map((item) => (
-                <Link className={styles.workRow} href={item.href} key={item.id}>
-                  <img src={item.image} alt="" />
-                  <span className={styles.workCopy}><strong>{item.title}</strong><small>{item.meta}</small></span>
-                  <ArrowRight aria-hidden="true" />
-                </Link>
-              ))}
+              <Link className={styles.workRow} href={featuredBlog.href}>
+                <img src={featuredBlog.image} alt="" />
+                <span className={styles.workCopy}><strong>{featuredBlog.title}</strong><small>{featuredBlog.meta}</small></span>
+                <ArrowRight aria-hidden="true" />
+              </Link>
               <Link className={styles.viewAll} href={blogs?.href || '/blog'}>View all notes <ArrowRight aria-hidden="true" /></Link>
             </div>
           </section>

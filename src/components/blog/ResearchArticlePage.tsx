@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import type { BlogPost } from '@/types/blog';
 import { extractMarkdownHeadings } from '@/lib/heading';
-import FionaMarkdown from '@/components/fiona/FionaMarkdown';
+import EditorialMarkdown from '@/components/editorial/EditorialMarkdown';
 import ArticleScale from './ArticleScale';
 import styles from './ResearchBlog.module.css';
 
@@ -52,7 +52,7 @@ export default function ResearchArticlePage({ post }: ResearchArticlePageProps) 
           </div>
         </header>
 
-        <FionaMarkdown content={post.content} className={styles.articleBody} />
+        <EditorialMarkdown content={post.content} className={styles.articleBody} />
 
         <footer className={styles.articleFooter}>
           <span>thanks for reading.</span>

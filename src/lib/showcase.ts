@@ -10,7 +10,7 @@ import { parseBibTeX } from '@/lib/bibtexParser';
 import type { BlogPostMeta } from '@/types/blog';
 import type { CardItem, CardPageConfig, PublicationPageConfig } from '@/types/page';
 import type { Publication } from '@/types/publication';
-import type { ShowcaseHomeLocaleData, ShowcaseItem, ShowcaseKind, ShowcaseSection } from '@/types/showcase';
+import type { HomeContentConfig, ShowcaseHomeLocaleData, ShowcaseItem, ShowcaseKind, ShowcaseSection } from '@/types/showcase';
 
 interface NewsItem {
   date: string;
@@ -288,6 +288,8 @@ function buildHomeSection(target: HomeSectionTarget, locale?: string): ShowcaseS
 
 export function getShowcaseHomeData(locale?: string): ShowcaseHomeLocaleData {
   const config = getConfig(locale);
+  const home = getTomlContent<HomeContentConfig>('home.toml', locale);
+  if (!home) throw new Error('Failed to load content/home.toml');
   const sections = HOME_SECTION_ORDER
     .map((target) => buildHomeSection(target, locale))
     .filter((item): item is ShowcaseSection => Boolean(item));
@@ -295,6 +297,7 @@ export function getShowcaseHomeData(locale?: string): ShowcaseHomeLocaleData {
   return {
     author: config.author,
     social: config.social,
+    home,
     sections,
   };
 }

@@ -74,7 +74,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="fiona-body antialiased">
+      <body className="editorial-body antialiased">
         <main>{children}</main>
       </body>
     </html>

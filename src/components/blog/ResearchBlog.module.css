@@ -172,16 +172,16 @@
   font-size: 1.03em;
 }
 
-.articleBody :global(.fiona-markdown-figure) {
+.articleBody :global(.editorial-markdown-figure) {
   margin: 2.4em 0;
 }
 
-.articleBody :global(.fiona-markdown-figure img) {
+.articleBody :global(.editorial-markdown-figure img) {
   border-radius: 12px;
   background: #f6f6f4;
 }
 
-.articleBody :global(.fiona-markdown-figure figcaption) {
+.articleBody :global(.editorial-markdown-figure figcaption) {
   padding-top: 9px;
   color: var(--muted);
   font-size: 13px;

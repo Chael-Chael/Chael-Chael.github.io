@@ -1,13 +1,6 @@
 type = "about"
 title = "About"
 
-[profile]
-research_interests = [
-  "Unified Multimodal Models",
-  "MLLMs & Agentic AI",
-  "World Models & Diffusion Post-Training",
-]
-
 [[sections]]
 id = "about"
 type = "markdown"

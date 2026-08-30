@@ -1,7 +1,7 @@
 'use client';
 
-import FionaIndexPage from '@/components/fiona/FionaIndexPage';
-import OzzyIndexPage from '@/components/ozzy/OzzyIndexPage';
+import EditorialIndexPage from '@/components/editorial/EditorialIndexPage';
+import PortfolioIndexPage from '@/components/portfolio/PortfolioIndexPage';
 import { Publication } from '@/types/publication';
 import { BlogPostMeta } from '@/types/blog';
 import {
@@ -26,7 +26,7 @@ export default function DynamicPageClient({ data: pageData }: DynamicPageClientP
 
   if (pageData.type === 'publication') {
     return (
-      <OzzyIndexPage
+      <PortfolioIndexPage
         title={pageData.config.title}
         variant="publications"
         items={pageData.publications.map(publicationToShowcaseItem)}
@@ -36,7 +36,7 @@ export default function DynamicPageClient({ data: pageData }: DynamicPageClientP
 
   if (pageData.type === 'text') {
     return (
-      <FionaIndexPage
+      <EditorialIndexPage
         title={pageData.config.title}
         description={pageData.config.description}
         items={markdownHeadingsToItems(pageData.content, `/${slugFromTitle(pageData.config.title)}`)}
@@ -48,7 +48,7 @@ export default function DynamicPageClient({ data: pageData }: DynamicPageClientP
   if (pageData.type === 'card') {
     if (pageData.config.title === 'Open Source') {
       return (
-        <OzzyIndexPage
+        <PortfolioIndexPage
           title="Projects"
           variant="projects"
           items={pageData.config.items.map((item, index) => cardToShowcaseItem(item, index))}
@@ -57,7 +57,7 @@ export default function DynamicPageClient({ data: pageData }: DynamicPageClientP
     }
 
     return (
-      <FionaIndexPage
+      <EditorialIndexPage
         title={pageData.config.title}
         description={pageData.config.description}
         items={pageData.config.items.map((item, index) => cardToShowcaseItem(item, index))}
@@ -66,7 +66,7 @@ export default function DynamicPageClient({ data: pageData }: DynamicPageClientP
   }
 
   return (
-    <OzzyIndexPage
+    <PortfolioIndexPage
       title={pageData.config.title}
       variant="blog"
       items={pageData.posts.map(blogToShowcaseItem)}

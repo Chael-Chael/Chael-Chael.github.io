@@ -24,6 +24,10 @@ google_scholar = "https://scholar.google.com/citations?user=k_GGXCkAAAAJ"
 orcid = ""
 github = "https://github.com/Chael-Chael"
 linkedin = ""
+x = "https://x.com/ChaelChaelAGI"
+x_label = "@ChaelChaelAGI"
+xiaohongshu = "https://www.xiaohongshu.com/user/profile/5fe0725d000000000100aa2c"
+xiaohongshu_label = "新世纪 AGI 战士"
 
 [features]
 # Show a like button on the about page

@@ -1,0 +1,60 @@
+# 首页首段。链接样式和排版由组件负责，这里只改文字与目标地址。
+[hero]
+before_university = "hello, i'm chenyu zhu. a third-year undergraduate at"
+university = "huazhong university of science and technology"
+university_url = "https://www.hust.edu.cn/"
+before_lab = ", and a member of"
+lab_prefix = "mair"
+lab_mark = "[.]"
+lab_suffix = "lab"
+lab_url = "https://github.com/MAIR-Lab-HUST"
+before_shimmer = ". i work on unified multimodal models"
+shimmer = "that see, reason, imagine, and create."
+after_shimmer = "my research spans mllms, diffusion post-training, and world models. i keep my work in"
+publications_label = "publications"
+after_publications = ", think out loud in"
+blog_label = "blog"
+after_blog = ", and live on"
+github_label = "github"
+connector = "or"
+email_label = "email"
+
+# 个人详情卡片。
+[profile]
+institution_short = "HUST"
+bio = "I explore unified multimodal intelligence across perception, reasoning, generation, and interaction, with a focus on MLLMs, diffusion post-training, and world models."
+
+# 首页各区块展示数量。
+[limits]
+publications = 2
+projects = 4
+
+# 研究方向，可自由增删并调整顺序。
+[[research_interests]]
+title = "Unified Multimodal Models"
+description = "Joint perception, reasoning, generation, and creation in one multimodal system."
+
+[[research_interests]]
+title = "MLLMs & Agentic AI"
+description = "Agents that understand visual structure and turn language into grounded actions."
+
+[[research_interests]]
+title = "World Models & Diffusion Post-Training"
+description = "Learning visual dynamics and aligning diffusion trajectories while preserving diversity."
+
+# 首页 Blog 区块和右侧画廊共同使用的精选文章。
+[featured_blog]
+id = "llama3-tech-report"
+title = "Notes on the Llama 3 Technical Report"
+href = "/blog"
+image = "/images/blog/llama3-tech-report/banner.png"
+meta = "2025.09 / Llama 3"
+external = false
+
+# 右侧画廊的固定内容；论文和开源项目会自动追加在后面。
+[[gallery]]
+id = "mair"
+title = "MAIR Lab"
+href = "https://github.com/MAIR-Lab-HUST"
+image = "/ascii-logo/MAIR_logo.png"
+external = true

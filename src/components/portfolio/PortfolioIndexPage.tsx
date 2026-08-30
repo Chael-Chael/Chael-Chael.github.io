@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import type { CSSProperties } from 'react';
 import type { ShowcaseItem } from '@/types/showcase';
-import homeStyles from './OzzyHome.module.css';
-import styles from './OzzyIndexPage.module.css';
+import homeStyles from './PortfolioHome.module.css';
+import styles from './PortfolioIndexPage.module.css';
 
 type IndexVariant = 'projects' | 'publications' | 'blog';
 
-interface OzzyIndexPageProps {
+interface PortfolioIndexPageProps {
   title: string;
   variant: IndexVariant;
   items: ShowcaseItem[];
@@ -23,7 +23,7 @@ const PROJECT_THEMES = [
   { background: 'radial-gradient(circle at 72% 18%, #fff 0 12%, transparent 40%), linear-gradient(135deg, #cbdcff, #78a4ff)', label: '#164eaf' },
 ] as const;
 
-export default function OzzyIndexPage({ title, variant, items }: OzzyIndexPageProps) {
+export default function PortfolioIndexPage({ title, variant, items }: PortfolioIndexPageProps) {
   const [repoStars, setRepoStars] = useState<Record<string, number>>({});
 
   useEffect(() => {
