@@ -46,7 +46,7 @@ export default function EditorialMarkdown({ content, className = '', compact = f
           ),
           img: ({ src, alt }) => {
             if (alt === 'HUST') {
-              return <img src="/HUST_night.png" alt={alt} className="editorial-inline-logo" />;
+              return <img src="/ascii-logo/HUST.png" alt={alt} className="editorial-inline-logo" />;
             }
 
             return (

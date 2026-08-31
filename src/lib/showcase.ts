@@ -92,15 +92,15 @@ export function getPublicationById(id: string, locale?: string): Publication | n
 }
 
 function publicationToItem(publication: Publication): ShowcaseItem {
-  const venue = getPublicationVenue(publication);
-
   return {
     id: publication.id,
     title: publication.title,
     href: `/publications/${publication.id}`,
     kind: 'publication',
     image: getPublicationPreview(publication),
-    meta: [venue, publication.year].filter(Boolean).join(' / '),
+    meta: [publication.journal || publication.venue, publication.year].filter(Boolean).join(' / '),
+    badge: publication.conference,
+    date: publication.publishedDate ? formatDate(publication.publishedDate) : publication.month ? `${publication.year}.${String(publication.month).padStart(2, '0')}` : String(publication.year),
     authors: publication.authors,
     description: stripMarkup(publication.description || publication.summary || publication.abstract),
     links: [

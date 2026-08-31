@@ -18,6 +18,8 @@ export interface ShowcaseItem {
   kind: ShowcaseKind;
   image?: string;
   meta?: string;
+  badge?: string;
+  date?: string;
   description?: string;
   authors?: Author[];
   external?: boolean;
@@ -51,7 +53,6 @@ export interface HomeContentConfig {
     university_url: string;
     before_lab: string;
     lab_prefix: string;
-    lab_mark: string;
     lab_suffix: string;
     lab_url: string;
     before_shimmer: string;
@@ -68,7 +69,18 @@ export interface HomeContentConfig {
   profile: {
     institution_short: string;
     bio: string;
+    collaboration: string;
   };
+  experiences: Array<{
+    organization: string;
+    role: string;
+    period: string;
+    location: string;
+    image: string;
+    href: string;
+    details: string[];
+    tags: string[];
+  }>;
   limits: {
     publications: number;
     projects: number;

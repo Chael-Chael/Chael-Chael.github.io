@@ -1,21 +1,20 @@
 # 首页首段。链接样式和排版由组件负责，这里只改文字与目标地址。
 [hero]
-before_university = "hello, i'm chenyu zhu. a third-year undergraduate at"
-university = "huazhong university of science and technology"
+before_university = "Hello, I'm Chenyu Zhu. A third-year undergraduate at"
+university = "Huazhong University of Science and Technology"
 university_url = "https://www.hust.edu.cn/"
 before_lab = ", and a member of"
-lab_prefix = "mair"
-lab_mark = "[.]"
-lab_suffix = "lab"
+lab_prefix = "MAIR"
+lab_suffix = "Lab"
 lab_url = "https://github.com/MAIR-Lab-HUST"
-before_shimmer = ". i work on unified multimodal models"
+before_shimmer = ". I work on unified multimodal models"
 shimmer = "that see, reason, imagine, and create."
-after_shimmer = "my research spans mllms, diffusion post-training, and world models. i keep my work in"
+after_shimmer = "My research spans MLLMs, diffusion post-training, and world models. I keep my work in"
 publications_label = "publications"
 after_publications = ", think out loud in"
 blog_label = "blog"
 after_blog = ", and live on"
-github_label = "github"
+github_label = "GitHub"
 connector = "or"
 email_label = "email"
 
@@ -23,6 +22,34 @@ email_label = "email"
 [profile]
 institution_short = "HUST"
 bio = "I explore unified multimodal intelligence across perception, reasoning, generation, and interaction, with a focus on MLLMs, diffusion post-training, and world models."
+collaboration = "I am seeking research collaborations and internship opportunities in unified multimodal models, MLLMs and agentic AI, diffusion post-training, and world models. If you have a collaboration or internship opportunity, feel free to email me."
+
+[[experiences]]
+organization = "MAIR Lab"
+role = "Undergraduate Researcher"
+period = "Present"
+location = "Wuhan, China"
+image = "/ascii-logo/MAIR_logo.png"
+href = "https://mair-lab-hust.github.io/"
+details = [
+  "Researching unified multimodal models, MLLMs, diffusion post-training, and world models.",
+  "Co-authored I2E for text-guided image editing and TMPO for diffusion alignment.",
+  "Advised by Prof. Zhiyuan Ma at the School of Computer Science and Technology."
+]
+tags = ["MLLMs", "Diffusion", "World Models", "Image Editing"]
+
+[[experiences]]
+organization = "Huazhong University of Science and Technology"
+role = "Undergraduate Student"
+period = "Sep 2023 - Jun 2027"
+location = "Wuhan, China"
+image = "/ascii-logo/HUST.png"
+href = "https://www.hust.edu.cn/"
+details = [
+  "Pursuing undergraduate studies at the School of Electronic Information and Communications.",
+  "Expected graduation in June 2027."
+]
+tags = ["Undergraduate", "EIC"]
 
 # 首页各区块展示数量。
 [limits]
@@ -56,5 +83,5 @@ external = false
 id = "mair"
 title = "MAIR Lab"
 href = "https://github.com/MAIR-Lab-HUST"
-image = "/ascii-logo/MAIR_logo.png"
+image = "/images/mair-lab-home.png"
 external = true

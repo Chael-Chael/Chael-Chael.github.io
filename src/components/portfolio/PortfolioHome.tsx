@@ -7,7 +7,7 @@ import { GitHubCalendar } from 'react-github-calendar';
 import { Tooltip } from 'react-tooltip';
 import { FaEnvelope, FaGithub, FaGraduationCap, FaXTwitter } from 'react-icons/fa6';
 import { SiXiaohongshu } from 'react-icons/si';
-import { ArrowRight, ArrowUpRight, BookOpen, Camera, Code2, Lightbulb, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Camera, ChevronDown, Code2, Lightbulb, NotebookPen, X } from 'lucide-react';
 import type { CSSProperties } from 'react';
 import type { HomeFeaturedItem, ShowcaseHomeLocaleData, ShowcaseItem } from '@/types/showcase';
 import styles from './PortfolioHome.module.css';
@@ -32,13 +32,6 @@ const CARD_OFFSETS = [
   { x: '-28px', r: '1.2deg' },
   { x: '-8px', r: '-1.8deg' },
 ];
-
-const PROJECT_THEMES = [
-  { background: 'radial-gradient(circle at 18% 18%, #93a4ff 0 16%, transparent 44%), linear-gradient(135deg, #344df4, #6d7dff)', label: '#fff' },
-  { background: 'radial-gradient(circle at 78% 22%, #f3d4e7 0 14%, transparent 42%), linear-gradient(135deg, #c5b8ef, #eee8fa)', label: '#49396f' },
-  { background: 'radial-gradient(circle at 22% 28%, #df4d1e 0 10%, transparent 42%), linear-gradient(135deg, #080504, #351108)', label: '#ff713d' },
-  { background: 'radial-gradient(circle at 72% 18%, #fff 0 12%, transparent 40%), linear-gradient(135deg, #cbdcff, #78a4ff)', label: '#164eaf' },
-] as const;
 
 function isExternal(href: string) {
   return /^https?:\/\//.test(href) || href.startsWith('mailto:');
@@ -110,6 +103,7 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
   const [selected, setSelected] = useState<GalleryItem | null>(null);
   const [repoStars, setRepoStars] = useState<Record<string, number>>({});
   const [mounted, setMounted] = useState(false);
+  const [expandedExperience, setExpandedExperience] = useState<string | null>(data.home.experiences[0]?.organization ?? null);
 
   const galleryItems = useMemo(() => {
     const selectedSections = data.sections.filter((section) => ['publications', 'open-source'].includes(section.id));
@@ -124,7 +118,7 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
   const publications = data.sections.find((section) => section.id === 'publications');
   const openSource = data.sections.find((section) => section.id === 'open-source');
   const blogs = data.sections.find((section) => section.id === 'blog');
-  const { hero, profile, limits, research_interests: researchInterests, featured_blog: featuredBlog } = data.home;
+  const { hero, profile, experiences, limits, research_interests: researchInterests, featured_blog: featuredBlog } = data.home;
 
   useEffect(() => setMounted(true), []);
 
@@ -178,11 +172,13 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
             <span className={styles.introCopy}>
               {hero.before_university}{' '}
               <a className={styles.brand} href={hero.university_url} target="_blank" rel="noreferrer">
+                <span className={styles.brandLogo} aria-hidden="true" />
                 {hero.university}
               </a>
               {hero.before_lab}{' '}
               <a className={styles.mair} href={hero.lab_url} target="_blank" rel="noreferrer">
-                {hero.lab_prefix}<span>{hero.lab_mark}</span>{hero.lab_suffix}
+                <img src="/ascii-logo/MAIR_logo.png" alt="" aria-hidden="true" />
+                {hero.lab_prefix} {hero.lab_suffix}
               </a>
               {hero.before_shimmer}{' '}
               <span className={`${styles.muted} ${styles.shimmer}`}>{hero.shimmer}</span>{' '}
@@ -210,6 +206,7 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
 
             <div className={styles.profileBody}>
               <p className={styles.profileBio}>{profile.bio}</p>
+              <p className={styles.profileCollaboration}>{profile.collaboration.replace(/email me\.$/, '')}<a href={email}>email me</a>.</p>
 
               <div className={styles.socialPills}>
                 <a href={github} target="_blank" rel="noreferrer" aria-label={`GitHub: ${githubHandle}`}><FaGithub aria-hidden="true" /><span>{githubHandle}</span></a>
@@ -249,12 +246,36 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
           </section>
 
           <section className={styles.flowSection}>
+            <h2 className={styles.sectionTitle}><BriefcaseBusiness aria-hidden="true" /> Experiences</h2>
+            <div className={styles.experienceList}>
+              {experiences.map((item) => {
+                const expanded = expandedExperience === item.organization;
+                return <article className={styles.experienceItem} data-open={expanded} key={item.organization}>
+                  <button className={styles.experienceRow} type="button" aria-expanded={expanded} onClick={() => setExpandedExperience(expanded ? null : item.organization)}>
+                    <span className={styles.experienceLogo}><img src={item.image} alt="" /></span>
+                    <span className={styles.experienceMain}><strong>{item.organization}</strong><small>{item.role}</small></span>
+                    <span className={styles.experienceMeta}><strong>{item.period}</strong><small>{item.location}</small></span>
+                    <ChevronDown aria-hidden="true" />
+                  </button>
+                  <div className={styles.experienceDetailsClip} aria-hidden={!expanded}>
+                    <div className={styles.experienceDetailsInner} inert={!expanded}>
+                      <div className={styles.experienceDetails}>
+                        <ul>{item.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
+                        <div className={styles.experienceTags}>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}<a href={item.href} target="_blank" rel="noreferrer">Visit <ArrowUpRight aria-hidden="true" /></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </article>;
+              })}
+            </div>
+          </section>
+
+          <section className={styles.flowSection}>
             <h2 className={styles.sectionTitle}><Lightbulb aria-hidden="true" /> Research Interests</h2>
             <div className={styles.interestList}>
               {researchInterests.map((item, index) => (
-                <div className={styles.interestRow} key={`${item.title}-${index}`}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  <h3>{item.title}</h3>
+                <div className={styles.interestRow} key={item.title}>
+                  <h3><span>{String(index + 1).padStart(2, '0')}</span>{item.title}</h3>
                   <p>{item.description}</p>
                 </div>
               ))}
@@ -267,11 +288,11 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
               {(publications?.items ?? []).slice(0, limits.publications).map((item) => (
                 <article className={styles.publicationEntry} key={item.id}>
                   <Link className={styles.workRow} href={item.href}>
-                    {item.image && <img src={item.image} alt="" />}
+                    {item.image && <span className={styles.publicationPreview}><img src={item.image} alt="" /><small>{item.date}</small></span>}
                     <span className={styles.workCopy}>
                       <strong>{item.title}</strong>
-                      <small className={styles.publicationAuthors}>{item.authors?.map((author, index) => <span key={`${author.name}-${index}`}>{author.isHighlighted ? <strong>{author.name}</strong> : author.name}{index < item.authors!.length - 1 && ', '}</span>)}</small>
-                      <small>{item.meta}</small>
+                      <small className={styles.publicationAuthors}>{item.authors?.map((author, index) => <span key={`${author.name}-${index}`}>{author.isHighlighted ? <strong>{author.name}</strong> : author.name}{author.superscript?.includes('*') && <sup>*</sup>}{index < item.authors!.length - 1 && ', '}</span>)}</small>
+                      <small className={styles.publicationMeta}>{item.badge && <span>{item.badge}</span>}{item.meta}</small>
                     </span>
                     <ArrowRight aria-hidden="true" />
                   </Link>
@@ -287,14 +308,13 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
           <section className={`${styles.flowSection} ${styles.projectsSection}`}>
             <h2 className={styles.sectionTitle}><Code2 aria-hidden="true" /> Open Source Projects</h2>
             <div className={styles.projectGrid}>
-              {(openSource?.items ?? []).slice(0, limits.projects).map((item, index) => {
+              {(openSource?.items ?? []).slice(0, limits.projects).map((item) => {
                 const meta = repoStars[item.id] === undefined ? item.meta : item.meta?.replace(/^★\s*\d+/, `★ ${repoStars[item.id]}`);
                 const [stars, language] = meta?.split(/\s*·\s*/) ?? [];
-                const theme = PROJECT_THEMES[index % PROJECT_THEMES.length];
                 return <div className={styles.projectCell} key={item.id}>
                   <a className={styles.projectCard} href={item.href} target="_blank" rel="noreferrer">
                     <span className={styles.projectFrame}>
-                      <span className={styles.projectStage} style={{ '--project-hover-bg': theme.background, '--project-hover-label': theme.label } as CSSProperties}>
+                      <span className={styles.projectStage}>
                         <span className={styles.projectLabel}>{item.id === 'tmpo' ? 'Paper & Code' : 'GitHub Repository'}</span>
                         <span className={styles.projectScreenshot}>{item.image && <img src={item.image} alt="" />}</span>
                       </span>
@@ -315,12 +335,12 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
               })}
             </div>
             <div className={styles.projectViewAll}>
-              <Link href={openSource?.href || '/open-source'}>View All <ArrowUpRight aria-hidden="true" /></Link>
+              <Link href={openSource?.href || '/open-source'}>View all projects <ArrowRight aria-hidden="true" /></Link>
             </div>
           </section>
 
           <section className={styles.flowSection}>
-            <h2 className={styles.sectionTitle}>Blogs</h2>
+            <h2 className={styles.sectionTitle}><NotebookPen aria-hidden="true" /> Blogs</h2>
             <div className={styles.workList}>
               <Link className={styles.workRow} href={featuredBlog.href}>
                 <img src={featuredBlog.image} alt="" />
@@ -346,16 +366,17 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
             className={styles.lightbox}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            exit={{ opacity: 0, transition: { duration: 0.15 } }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             onClick={() => setSelected(null)}
             role="presentation"
           >
             <motion.figure
               className={styles.lightboxCard}
-              initial={reduceMotion ? false : { opacity: 0, scale: 0.94, y: 18 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 12 }}
-              transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+              initial={reduceMotion ? false : { opacity: 0, scale: 0.96, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, scale: 0.96, filter: 'blur(4px)', transition: { duration: 0.15 } }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
               onClick={(event) => event.stopPropagation()}
             >
               <img src={selected.image} alt={selected.title} />

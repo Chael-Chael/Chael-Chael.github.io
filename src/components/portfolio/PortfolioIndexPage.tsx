@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
-import type { CSSProperties } from 'react';
 import type { ShowcaseItem } from '@/types/showcase';
 import homeStyles from './PortfolioHome.module.css';
 import styles from './PortfolioIndexPage.module.css';
@@ -15,13 +14,6 @@ interface PortfolioIndexPageProps {
   variant: IndexVariant;
   items: ShowcaseItem[];
 }
-
-const PROJECT_THEMES = [
-  { background: 'radial-gradient(circle at 18% 18%, #93a4ff 0 16%, transparent 44%), linear-gradient(135deg, #344df4, #6d7dff)', label: '#fff' },
-  { background: 'radial-gradient(circle at 78% 22%, #f3d4e7 0 14%, transparent 42%), linear-gradient(135deg, #c5b8ef, #eee8fa)', label: '#49396f' },
-  { background: 'radial-gradient(circle at 22% 28%, #df4d1e 0 10%, transparent 42%), linear-gradient(135deg, #080504, #351108)', label: '#ff713d' },
-  { background: 'radial-gradient(circle at 72% 18%, #fff 0 12%, transparent 40%), linear-gradient(135deg, #cbdcff, #78a4ff)', label: '#164eaf' },
-] as const;
 
 export default function PortfolioIndexPage({ title, variant, items }: PortfolioIndexPageProps) {
   const [repoStars, setRepoStars] = useState<Record<string, number>>({});
@@ -62,16 +54,14 @@ export default function PortfolioIndexPage({ title, variant, items }: PortfolioI
       <section className={`${styles.content} ${variant === 'projects' ? styles.projectContent : ''}`}>
         {variant === 'projects' ? (
           <div className={homeStyles.projectGrid}>
-            {items.map((item, index) => {
+            {items.map((item) => {
               const meta = repoStars[item.id] === undefined ? item.meta : item.meta?.replace(/^★\s*\d+/, `★ ${repoStars[item.id]}`);
               const [stars, language] = meta?.split(/\s*·\s*/) ?? [];
-              const theme = PROJECT_THEMES[index % PROJECT_THEMES.length];
-
               return (
                 <div className={homeStyles.projectCell} key={item.id}>
                   <a className={homeStyles.projectCard} href={item.href} target="_blank" rel="noreferrer">
                     <span className={homeStyles.projectFrame}>
-                      <span className={homeStyles.projectStage} style={{ '--project-hover-bg': theme.background, '--project-hover-label': theme.label } as CSSProperties}>
+                      <span className={homeStyles.projectStage}>
                         <span className={homeStyles.projectLabel}>{item.id === 'tmpo' ? 'Paper & Code' : 'GitHub Repository'}</span>
                         <span className={homeStyles.projectScreenshot}>{item.image && <img src={item.image} alt="" />}</span>
                       </span>
@@ -97,11 +87,11 @@ export default function PortfolioIndexPage({ title, variant, items }: PortfolioI
             {items.map((item) => (
               <article className={variant === 'publications' ? homeStyles.publicationEntry : undefined} key={item.id}>
                 <Link className={homeStyles.workRow} href={item.href}>
-                  {item.image && <img src={item.image} alt="" />}
+                  {item.image && variant === 'publications' ? <span className={homeStyles.publicationPreview}><img src={item.image} alt="" /><small>{item.date}</small></span> : item.image && <img src={item.image} alt="" />}
                   <span className={homeStyles.workCopy}>
                     <strong>{item.title}</strong>
-                    {variant === 'publications' && <small className={homeStyles.publicationAuthors}>{item.authors?.map((author, index) => <span key={`${author.name}-${index}`}>{author.isHighlighted ? <strong>{author.name}</strong> : author.name}{index < item.authors!.length - 1 && ', '}</span>)}</small>}
-                    <small>{item.meta || item.description}</small>
+                    {variant === 'publications' && <small className={homeStyles.publicationAuthors}>{item.authors?.map((author, index) => <span key={`${author.name}-${index}`}>{author.isHighlighted ? <strong>{author.name}</strong> : author.name}{author.superscript?.includes('*') && <sup>*</sup>}{index < item.authors!.length - 1 && ', '}</span>)}</small>}
+                    <small className={variant === 'publications' ? homeStyles.publicationMeta : undefined}>{variant === 'publications' && item.badge && <span>{item.badge}</span>}{item.meta || item.description}</small>
                   </span>
                   <ArrowRight aria-hidden="true" />
                 </Link>

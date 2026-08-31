@@ -126,7 +126,7 @@ export default function SelectedPublications({
                                                     if (props.alt === 'HUST') {
                                                         return (
                                                             <span className="inline-block align-middle mx-1">
-                                                                <img src="/HUST_night.png" alt={props.alt} className="h-5 w-auto" />
+                                                                <img src="/ascii-logo/HUST.png" alt={props.alt} className="h-5 w-auto" />
                                                             </span>
                                                         );
                                                     }

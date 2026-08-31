@@ -99,15 +99,15 @@ function slugFromTitle(value: string): string {
 }
 
 function publicationToShowcaseItem(publication: Publication): ShowcaseItem {
-  const venue = publication.journal || publication.conference || publication.venue;
-
   return {
     id: publication.id,
     title: publication.title,
     href: `/publications/${publication.id}`,
     kind: 'publication',
     image: publication.preview ? `/papers/${publication.preview}` : undefined,
-    meta: [venue, publication.year].filter(Boolean).join(' / '),
+    meta: [publication.journal || publication.venue, publication.year].filter(Boolean).join(' / '),
+    badge: publication.conference,
+    date: publication.publishedDate || (publication.month ? `${publication.year}.${String(publication.month).padStart(2, '0')}` : String(publication.year)),
     authors: publication.authors,
     description: stripMarkup(publication.description || publication.summary || publication.abstract),
     links: [
