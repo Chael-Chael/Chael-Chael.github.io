@@ -1,4 +1,5 @@
 import type { SiteConfig } from '@/lib/config';
+import type { Author } from '@/types/publication';
 
 export type ShowcaseKind =
   | 'about'
@@ -18,6 +19,7 @@ export interface ShowcaseItem {
   image?: string;
   meta?: string;
   description?: string;
+  authors?: Author[];
   external?: boolean;
   links?: DetailLink[];
 }

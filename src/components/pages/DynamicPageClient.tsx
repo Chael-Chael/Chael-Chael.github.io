@@ -108,6 +108,7 @@ function publicationToShowcaseItem(publication: Publication): ShowcaseItem {
     kind: 'publication',
     image: publication.preview ? `/papers/${publication.preview}` : undefined,
     meta: [venue, publication.year].filter(Boolean).join(' / '),
+    authors: publication.authors,
     description: stripMarkup(publication.description || publication.summary || publication.abstract),
     links: [
       publication.url && { label: 'Paper', href: publication.url },

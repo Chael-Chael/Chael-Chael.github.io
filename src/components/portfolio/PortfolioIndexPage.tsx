@@ -100,6 +100,7 @@ export default function PortfolioIndexPage({ title, variant, items }: PortfolioI
                   {item.image && <img src={item.image} alt="" />}
                   <span className={homeStyles.workCopy}>
                     <strong>{item.title}</strong>
+                    {variant === 'publications' && <small className={homeStyles.publicationAuthors}>{item.authors?.map((author, index) => <span key={`${author.name}-${index}`}>{author.isHighlighted ? <strong>{author.name}</strong> : author.name}{index < item.authors!.length - 1 && ', '}</span>)}</small>}
                     <small>{item.meta || item.description}</small>
                   </span>
                   <ArrowRight aria-hidden="true" />

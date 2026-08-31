@@ -268,7 +268,11 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
                 <article className={styles.publicationEntry} key={item.id}>
                   <Link className={styles.workRow} href={item.href}>
                     {item.image && <img src={item.image} alt="" />}
-                    <span className={styles.workCopy}><strong>{item.title}</strong><small>{item.meta}</small></span>
+                    <span className={styles.workCopy}>
+                      <strong>{item.title}</strong>
+                      <small className={styles.publicationAuthors}>{item.authors?.map((author, index) => <span key={`${author.name}-${index}`}>{author.isHighlighted ? <strong>{author.name}</strong> : author.name}{index < item.authors!.length - 1 && ', '}</span>)}</small>
+                      <small>{item.meta}</small>
+                    </span>
                     <ArrowRight aria-hidden="true" />
                   </Link>
                   <div className={styles.publicationActions}>
