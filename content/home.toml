@@ -1,42 +1,28 @@
-# 首页首段。链接样式和排版由组件负责，这里只改文字与目标地址。
+# 首页首段：普通 Markdown；==文字== 使用 shimmer。
+# 链接 title 可选 brand、mair、butter、sky、mint、lilac，例如 [文字](/url "butter")。
+# {github} 和 {email} 会自动替换为站点配置中的地址。
 [hero]
-before_university = "Hello, I'm Chenyu Zhu. A third-year undergraduate at"
-university = "Huazhong University of Science and Technology"
-university_url = "https://www.hust.edu.cn/"
-before_lab = ", and a member of"
-lab_prefix = "MAIR"
-lab_suffix = "Lab"
-lab_url = "https://github.com/MAIR-Lab-HUST"
-before_shimmer = ". I work on unified multimodal models"
-shimmer = "that see, reason, imagine, and create."
-after_shimmer = "My research spans MLLMs, diffusion post-training, and world models. I keep my work in"
-publications_label = "publications"
-after_publications = ", think out loud in"
-blog_label = "blog"
-after_blog = ", and live on"
-github_label = "GitHub"
-connector = "or"
-email_label = "email"
+markdown = """Hi👋, I'm Chenyu Zhu, a 2027 fall undergraduate at [Huazhong University of Science and Technology](https://www.hust.edu.cn/ "brand") and currently a member of [MAIR Lab](https://github.com/MAIR-Lab-HUST "mair"). I build models and agentic tools ==that continually learn and recursively improve their own capabilities.== My research spans foundation model post-training, diffusion models, and AI agents. You can find my work in [publications](/publications "butter"), read my thoughts on the [blog](/blog "sky"), find me on [GitHub]({github} "mint"), or reach me by [email]({email} "lilac")."""
 
 # 个人详情卡片。
 [profile]
 institution_short = "HUST"
-bio = "I explore unified multimodal intelligence across perception, reasoning, generation, and interaction, with a focus on MLLMs, diffusion post-training, and world models."
-collaboration = "I am seeking research collaborations and internship opportunities in unified multimodal models, MLLMs and agentic AI, diffusion post-training, and world models. If you have a collaboration or internship opportunity, feel free to email me."
+bio = "I explore continual learning and recursive self-improvement in foundation models and AI agents, spanning post-training, diffusion models, and adaptive agentic systems."
+collaboration = "I am seeking research collaborations and internship opportunities in Agentic AI and Foundation model training. If you have a collaboration or internship opportunity, feel free to "
 
 [[experiences]]
 organization = "MAIR Lab"
-role = "Undergraduate Researcher"
+role = "Researcher"
 period = "Present"
 location = "Wuhan, China"
 image = "/ascii-logo/MAIR_logo.png"
 href = "https://mair-lab-hust.github.io/"
 details = [
-  "Researching unified multimodal models, MLLMs, diffusion post-training, and world models.",
-  "Co-authored I2E for text-guided image editing and TMPO for diffusion alignment.",
-  "Advised by Prof. Zhiyuan Ma at the School of Computer Science and Technology."
+  "Advised by Prof. Zhiyuan Ma at the School of Computer Science and Technology.",
+  "Researching improved RL post-training technics and diffusion models.",
+  "Co-authored I2E for agentic image editing and TMPO for novel diffusion RL."
 ]
-tags = ["MLLMs", "Diffusion", "World Models", "Image Editing"]
+tags = ["RL Post-training", "Diffusion", "Agentic Image Editing"]
 
 [[experiences]]
 organization = "Huazhong University of Science and Technology"
@@ -58,16 +44,16 @@ projects = 4
 
 # 研究方向，可自由增删并调整顺序。
 [[research_interests]]
-title = "Unified Multimodal Models"
-description = "Joint perception, reasoning, generation, and creation in one multimodal system."
+title = "Continual Learning & RSI"
+description = "Systems that learn from ongoing experience and recursively improve their own capabilities."
 
 [[research_interests]]
-title = "MLLMs & Agentic AI"
-description = "Agents that understand visual structure and turn language into grounded actions."
+title = "Foundation Model Post-Training"
+description = "Improving reasoning, alignment, and adaptability beyond pre-training."
 
 [[research_interests]]
-title = "World Models & Diffusion Post-Training"
-description = "Learning visual dynamics and aligning diffusion trajectories while preserving diversity."
+title = "Diffusion Models & AI Agents"
+description = "Combining generative models with agents that perceive, reason, and act."
 
 # 首页 Blog 区块和右侧画廊共同使用的精选文章。
 [featured_blog]

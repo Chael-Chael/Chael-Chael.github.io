@@ -48,23 +48,7 @@ export interface HomeFeaturedItem {
 
 export interface HomeContentConfig {
   hero: {
-    before_university: string;
-    university: string;
-    university_url: string;
-    before_lab: string;
-    lab_prefix: string;
-    lab_suffix: string;
-    lab_url: string;
-    before_shimmer: string;
-    shimmer: string;
-    after_shimmer: string;
-    publications_label: string;
-    after_publications: string;
-    blog_label: string;
-    after_blog: string;
-    github_label: string;
-    connector: string;
-    email_label: string;
+    markdown: string;
   };
   profile: {
     institution_short: string;

@@ -8,6 +8,7 @@ import { Tooltip } from 'react-tooltip';
 import { FaEnvelope, FaGithub, FaGraduationCap, FaXTwitter } from 'react-icons/fa6';
 import { SiXiaohongshu } from 'react-icons/si';
 import { ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Camera, ChevronDown, Code2, Lightbulb, NotebookPen, X } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import type { CSSProperties } from 'react';
 import type { HomeFeaturedItem, ShowcaseHomeLocaleData, ShowcaseItem } from '@/types/showcase';
 import styles from './PortfolioHome.module.css';
@@ -157,6 +158,10 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
 
   const email = data.social.email ? `mailto:${data.social.email}` : '/';
   const github = data.social.github || 'https://github.com/Chael-Chael';
+  const heroMarkdown = hero.markdown
+    .replace(/==(.+?)==/g, '[$1](# "shimmer")')
+    .replaceAll('{github}', github)
+    .replaceAll('{email}', email);
   const githubHandle = github.split('/').filter(Boolean).pop() || 'Chael-Chael';
   const githubAvatar = `${github.replace(/\/$/, '')}.png`;
   const scholar = typeof data.social.google_scholar === 'string' ? data.social.google_scholar : undefined;
@@ -168,30 +173,24 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
   return (
     <div className={styles.root}>
       <section className={styles.left} aria-label="Portfolio feed">
-        <p className={styles.introHero}>
-            <span className={styles.introCopy}>
-              {hero.before_university}{' '}
-              <a className={styles.brand} href={hero.university_url} target="_blank" rel="noreferrer">
-                <span className={styles.brandLogo} aria-hidden="true" />
-                {hero.university}
-              </a>
-              {hero.before_lab}{' '}
-              <a className={styles.mair} href={hero.lab_url} target="_blank" rel="noreferrer">
-                <img src="/ascii-logo/MAIR_logo.png" alt="" aria-hidden="true" />
-                {hero.lab_prefix} {hero.lab_suffix}
-              </a>
-              {hero.before_shimmer}{' '}
-              <span className={`${styles.muted} ${styles.shimmer}`}>{hero.shimmer}</span>{' '}
-              {hero.after_shimmer}{' '}
-              <Link className={`${styles.pastelLink} ${styles.butter}`} href="/publications">{hero.publications_label}</Link>
-              {hero.after_publications}{' '}
-              <Link className={`${styles.pastelLink} ${styles.sky}`} href="/blog">{hero.blog_label}</Link>
-              {hero.after_blog}{' '}
-              <a className={`${styles.pastelLink} ${styles.mint}`} href={github} target="_blank" rel="noreferrer">{hero.github_label}</a>{' '}
-              <span className={styles.muted}>{hero.connector}</span>{' '}
-              <a className={`${styles.pastelLink} ${styles.lilac}`} href={email}>{hero.email_label}</a>.
-            </span>
-        </p>
+        <div className={styles.introHero}>
+          <ReactMarkdown
+            components={{
+              p: ({ children }) => <span className={styles.introCopy}>{children}</span>,
+              a: ({ href = '', title, children }) => {
+                const effect = title && ['shimmer', 'brand', 'mair', 'butter', 'sky', 'mint', 'lilac'].includes(title) ? title : '';
+                if (effect === 'shimmer') return <span className={`${styles.muted} ${styles.shimmer}`}>{children}</span>;
+                const className = effect === 'brand' || effect === 'mair'
+                  ? styles[effect]
+                  : effect ? `${styles.pastelLink} ${styles[effect]}` : undefined;
+                const content = <>{effect === 'brand' && <span className={styles.brandLogo} aria-hidden="true" />}{effect === 'mair' && <img src="/ascii-logo/MAIR_logo.png" alt="" aria-hidden="true" />}{children}</>;
+                return isExternal(href)
+                  ? <a className={className} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noreferrer' : undefined}>{content}</a>
+                  : <Link className={className} href={href}>{content}</Link>;
+              },
+            }}
+          >{heroMarkdown}</ReactMarkdown>
+        </div>
 
         <div className={styles.flow}>
 
