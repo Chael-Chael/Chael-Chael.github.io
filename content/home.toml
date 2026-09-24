@@ -17,7 +17,7 @@ organization = "USTC Ren Lab"
 role = "Member"
 period = "Sep 2027 - Jun 2030 (expected)"
 location = "Hefei & Shanghai, China"
-image = "/ascii-logo/USTC-mark.png"
+image = "/ascii-logo/USTC-wiki.svg"
 href = "https://www.ustc.edu.cn/"
 details = [
   "Advised by Prof. Shaoqing Ren and Prof. Xiaobo Xia at the Artificial General Intelligence Institute.",
@@ -30,7 +30,7 @@ organization = "University of Science and Technology of China"
 role = "Master's Student"
 period = "Sep 2027 - Jun 2030 (expected)"
 location = "Hefei & Shanghai, China"
-image = "/ascii-logo/USTC-mark.png"
+image = "/ascii-logo/USTC-wiki.svg"
 href = "https://www.ustc.edu.cn/"
 details = [
   "Incoming Master at AGI Institute, USTC, advised by Prof. Shaoqing Ren and Prof. Xiaobo Xia",
@@ -99,3 +99,4 @@ title = "MAIR Lab"
 href = "https://github.com/MAIR-Lab-HUST"
 image = "/images/mair-lab-home.png"
 external = true
+
