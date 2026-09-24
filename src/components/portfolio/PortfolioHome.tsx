@@ -7,7 +7,7 @@ import { GitHubCalendar } from 'react-github-calendar';
 import { Tooltip } from 'react-tooltip';
 import { FaEnvelope, FaGithub, FaGraduationCap, FaXTwitter } from 'react-icons/fa6';
 import { SiXiaohongshu } from 'react-icons/si';
-import { ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Camera, ChevronDown, Code2, Lightbulb, NotebookPen, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Camera, ChevronDown, Code2, Lightbulb, Newspaper, NotebookPen, X } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import type { CSSProperties } from 'react';
 import type { HomeFeaturedItem, ShowcaseHomeLocaleData, ShowcaseItem } from '@/types/showcase';
@@ -119,6 +119,7 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
   const publications = data.sections.find((section) => section.id === 'publications');
   const openSource = data.sections.find((section) => section.id === 'open-source');
   const blogs = data.sections.find((section) => section.id === 'blog');
+  const news = data.sections.find((section) => section.id === 'news');
   const { hero, profile, experiences, limits, research_interests: researchInterests, featured_blog: featuredBlog } = data.home;
 
   useEffect(() => setMounted(true), []);
@@ -278,6 +279,16 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
                   <p>{item.description}</p>
                 </div>
               ))}
+            </div>
+          </section>
+
+          <section className={styles.flowSection}>
+            <h2 className={styles.sectionTitle}><Newspaper aria-hidden="true" /> News</h2>
+            <div className={styles.newsList}>
+              {(news?.items ?? []).map((item) => <article className={styles.newsItem} id={item.id} key={item.id}>
+                <time dateTime={item.meta}>{item.meta}</time>
+                <p>{item.description || item.title}</p>
+              </article>)}
             </div>
           </section>
 

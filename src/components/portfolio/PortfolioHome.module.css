@@ -715,3 +715,9 @@
 @keyframes galleryLoopMobile {
   to { transform: translateX(-50%); }
 }
+
+.newsList { display: grid; }
+.newsItem { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 18px; padding: 13px 0; border-bottom: 1px dashed rgba(27, 27, 25, 0.16); }
+.newsItem:last-child { border-bottom: 0; }
+.newsItem time { color: #777772; font-size: var(--type-caption); font-variant-numeric: tabular-nums; }
+.newsItem p { margin: 0; color: #454542; font-size: var(--type-body); line-height: 1.5; }
