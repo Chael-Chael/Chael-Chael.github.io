@@ -2,11 +2,13 @@
 # 链接 title 可选 brand、mair、butter、sky、mint、lilac，例如 [文字](/url "butter")。
 # {github} 和 {email} 会自动替换为站点配置中的地址。
 [hero]
-markdown = """Hi👋, I'm Chenyu Zhu, an undergraduate at [Huazhong University of Science and Technology](https://www.hust.edu.cn/ "brand") and an incoming master's student at [USTC](https://www.ustc.edu.cn/). I work with [MAIR Lab](https://github.com/MAIR-Lab-HUST "mair") on models and agentic tools ==that learn from experience and improve their own capabilities.== My research spans foundation model post-training, diffusion models, and AI agents. Explore my [publications](/publications "butter"), [blog](/blog "sky"), [GitHub]({github} "mint"), or [email]({email} "lilac")."""
+markdown = """Hi👋, I'm Chenyu Zhu, an undergraduate at [Huazhong University of Science and Technology](https://www.hust.edu.cn/ "brand") and an incoming master's student at [AGI Institute, University of Science and Technology of China](https://www.ustc.edu.cn/). I work with [MAIR Lab](https://github.com/MAIR-Lab-HUST "mair") on models and agentic tools ==that learn from experience and improve their own capabilities.== My research spans foundation model post-training, diffusion models, and AI agents. Explore my [publications](/publications "butter"), [blog](/blog "sky"), [GitHub]({github} "mint"), or [email]({email} "lilac")."""
 
 # 个人详情卡片。
 [profile]
 institution_short = "HUST"
+profile_line_1 = "Undergraduate Student"
+profile_line_2 = "Incoming"
 bio = "I explore continual learning and recursive self-improvement in foundation models and AI agents, spanning post-training, diffusion models, and adaptive agentic systems."
 collaboration = "I am seeking research collaborations and internship opportunities in Agentic AI and Foundation model training. If you have a collaboration or internship opportunity, feel free to "
 
@@ -25,7 +27,7 @@ tags = ["Agents", "World Models"]
 
 [[experiences]]
 organization = "University of Science and Technology of China"
-role = "Master Student"
+role = "Master's Student"
 period = "Sep 2027 - Jun 2030 (expected)"
 location = "Hefei & Shanghai, China"
 image = "/ascii-logo/USTC-mark.png"
@@ -97,4 +99,3 @@ title = "MAIR Lab"
 href = "https://github.com/MAIR-Lab-HUST"
 image = "/images/mair-lab-home.png"
 external = true
-

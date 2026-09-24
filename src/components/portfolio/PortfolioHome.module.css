@@ -151,6 +151,7 @@
   font-size: var(--type-caption);
 }
 
+.profileStatus { display: grid; gap: 2px; }
 .profileBody { padding: 15px 12px 18px; }
 
 .profileBio {

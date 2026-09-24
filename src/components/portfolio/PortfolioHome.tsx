@@ -200,7 +200,7 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
               <img className={styles.avatar} src={githubAvatar} alt={`${data.author.name} on GitHub`} />
               <div>
                 <h1>{data.author.name}</h1>
-                <p>{data.author.title} · {profile.institution_short}</p>
+                <p className={styles.profileStatus}><span>{profile.profile_line_1}</span><span>{profile.profile_line_2}</span></p>
               </div>
             </header>
 

@@ -52,6 +52,8 @@ export interface HomeContentConfig {
   };
   profile: {
     institution_short: string;
+    profile_line_1: string;
+    profile_line_2: string;
     bio: string;
     collaboration: string;
   };
