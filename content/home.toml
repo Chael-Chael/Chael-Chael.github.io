@@ -2,7 +2,7 @@
 # 链接 title 可选 brand、mair、butter、sky、mint、lilac，例如 [文字](/url "butter")。
 # {github} 和 {email} 会自动替换为站点配置中的地址。
 [hero]
-markdown = """Hi👋, I'm Chenyu Zhu, an undergraduate at [Huazhong University of Science and Technology](https://www.hust.edu.cn/ "brand") and an incoming master's student at [AGI Institute, University of Science and Technology of China](https://www.ustc.edu.cn/). I work with [MAIR Lab](https://github.com/MAIR-Lab-HUST "mair") on models and agentic tools ==that learn from experience and improve their own capabilities.== My research spans foundation model post-training, diffusion models, and AI agents. Explore my [publications](/publications "butter"), [blog](/blog "sky"), [GitHub]({github} "mint"), or [email]({email} "lilac")."""
+markdown = """**Hi👋, I'm Chenyu Zhu**, an undergraduate at [**HUST**](https://www.hust.edu.cn/ "brand") and an incoming master's student at [**AGI Institute, USTC**](https://www.ustc.edu.cn/). I work with [**MAIR Lab**](https://github.com/MAIR-Lab-HUST "mair") on models and agentic tools ==that learn from experience and improve their own capabilities.== My research spans **foundation model post-training, diffusion models, and AI agents.** Explore my [**publications**](/publications "butter"), [**blog**](/blog "sky"), [**GitHub**]({github} "mint"), or [**email**]({email} "lilac")."""
 
 # 个人详情卡片。
 [profile]

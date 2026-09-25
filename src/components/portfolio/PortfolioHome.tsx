@@ -1,16 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { cloneElement, useEffect, useMemo, useState } from 'react';
+import { cloneElement, useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { GitHubCalendar } from 'react-github-calendar';
 import { Tooltip } from 'react-tooltip';
 import { FaEnvelope, FaGithub, FaGraduationCap, FaXTwitter } from 'react-icons/fa6';
 import { SiXiaohongshu } from 'react-icons/si';
-import { ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Camera, ChevronDown, Code2, Lightbulb, Newspaper, NotebookPen, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, ChevronDown, Code2, Lightbulb, Newspaper, NotebookPen, X } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import type { CSSProperties } from 'react';
-import type { HomeFeaturedItem, ShowcaseHomeLocaleData, ShowcaseItem } from '@/types/showcase';
+import type { HomeFeaturedItem, ShowcaseHomeLocaleData } from '@/types/showcase';
 import styles from './PortfolioHome.module.css';
 
 interface PortfolioHomeProps {
@@ -23,80 +22,8 @@ const CALENDAR_THEME = {
   light: ['#f4f4f5', '#d4d4d8', '#a1a1aa', '#52525b', '#18181b'],
 };
 
-const CARD_OFFSETS = [
-  { x: '-18px', r: '-2.8deg' },
-  { x: '7px', r: '1.5deg' },
-  { x: '18px', r: '2.4deg' },
-  { x: '2px', r: '-1.2deg' },
-  { x: '-22px', r: '2.6deg' },
-  { x: '-36px', r: '-2.1deg' },
-  { x: '-28px', r: '1.2deg' },
-  { x: '-8px', r: '-1.8deg' },
-];
-
 function isExternal(href: string) {
   return /^https?:\/\//.test(href) || href.startsWith('mailto:');
-}
-
-function toGalleryItem(item: ShowcaseItem): GalleryItem | null {
-  if (!item.image) return null;
-  return {
-    id: item.id,
-    title: item.title,
-    href: item.href,
-    image: item.image,
-    description: item.description,
-    external: item.external,
-  };
-}
-
-function GalleryCard({
-  item,
-  index,
-  onOpen,
-}: {
-  item: GalleryItem;
-  index: number;
-  onOpen: (item: GalleryItem) => void;
-}) {
-  const offset = CARD_OFFSETS[index % CARD_OFFSETS.length];
-  const style = {
-    '--offset-x': offset.x,
-    '--rotation': offset.r,
-    '--reveal-delay': `${Math.min(index, 8) * 55}ms`,
-  } as CSSProperties;
-
-  return (
-    <figure className={styles.clip} style={style}>
-      <button
-        type="button"
-        className={styles.clipButton}
-        onClick={() => onOpen(item)}
-        aria-label={`Open ${item.title}`}
-      >
-        <span className={styles.clipTab}>
-          <img src={item.image} alt="" aria-hidden="true" />
-          <span>{item.title}</span>
-        </span>
-        <span className={styles.clipMedia}>
-          <img className={styles.clipImage} src={item.image} alt="" loading={index < 5 ? 'eager' : 'lazy'} />
-          <span className={styles.camera} aria-hidden="true">
-            <Camera />
-          </span>
-        </span>
-      </button>
-    </figure>
-  );
-}
-
-function GallerySet({ items, onOpen }: { items: GalleryItem[]; onOpen: (item: GalleryItem) => void }) {
-  return (
-    <div className={styles.gallerySet}>
-      {items.map((item, index) => (
-        <GalleryCard key={`${item.id}-${index}`} item={item} index={index} onOpen={onOpen} />
-      ))}
-    </div>
-  );
 }
 
 export default function PortfolioHome({ data }: PortfolioHomeProps) {
@@ -105,16 +32,6 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
   const [repoStars, setRepoStars] = useState<Record<string, number>>({});
   const [mounted, setMounted] = useState(false);
   const [expandedExperience, setExpandedExperience] = useState<string | null>(data.home.experiences[0]?.organization ?? null);
-
-  const galleryItems = useMemo(() => {
-    const selectedSections = data.sections.filter((section) => ['publications', 'open-source'].includes(section.id));
-    const contentItems = selectedSections
-      .flatMap((section) => section.items)
-      .map(toGalleryItem)
-      .filter((item): item is GalleryItem => Boolean(item));
-
-    return [...data.home.gallery, data.home.featured_blog, ...contentItems];
-  }, [data.home.featured_blog, data.home.gallery, data.sections]);
 
   const publications = data.sections.find((section) => section.id === 'publications');
   const openSource = data.sections.find((section) => section.id === 'open-source');
@@ -161,6 +78,8 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
   const github = data.social.github || 'https://github.com/Chael-Chael';
   const heroMarkdown = hero.markdown
     .replace(/==(.+?)==/g, '[$1](# "shimmer")')
+    .replace(/\[\[(.+?)\]\]/g, '[$1](# "normal")')
+    .replace(/!!(.+?)!!/g, '[$1](# "emphasis")')
     .replaceAll('{github}', github)
     .replaceAll('{email}', email);
   const githubHandle = github.split('/').filter(Boolean).pop() || 'Chael-Chael';
@@ -179,8 +98,9 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
             components={{
               p: ({ children }) => <span className={styles.introCopy}>{children}</span>,
               a: ({ href = '', title, children }) => {
-                const effect = title && ['shimmer', 'brand', 'mair', 'butter', 'sky', 'mint', 'lilac'].includes(title) ? title : '';
+                const effect = title && ['shimmer', 'normal', 'emphasis', 'brand', 'mair', 'butter', 'sky', 'mint', 'lilac'].includes(title) ? title : '';
                 if (effect === 'shimmer') return <span className={`${styles.muted} ${styles.shimmer}`}>{children}</span>;
+                if (effect === 'emphasis') return <strong className={styles.emphasis}>{children}</strong>;
                 const className = effect === 'brand' || effect === 'mair'
                   ? styles[effect]
                   : effect ? `${styles.pastelLink} ${styles[effect]}` : undefined;
@@ -189,6 +109,8 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
                   ? <a className={className} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noreferrer' : undefined}>{content}</a>
                   : <Link className={className} href={href}>{content}</Link>;
               },
+              em: ({ children }) => <em className={styles.normal}>{children}</em>,
+              strong: ({ children }) => <strong className={styles.emphasis}>{children}</strong>,
             }}
           >{heroMarkdown}</ReactMarkdown>
         </div>
@@ -360,12 +282,6 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
               <Link className={styles.viewAll} href={blogs?.href || '/blog'}>View all notes <ArrowRight aria-hidden="true" /></Link>
             </div>
           </section>
-        </div>
-      </section>
-
-      <section className={styles.gallery} aria-label="Selected work">
-        <div className={styles.track}>
-          <GallerySet items={galleryItems} onOpen={setSelected} />
         </div>
       </section>
 

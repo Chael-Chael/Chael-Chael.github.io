@@ -65,9 +65,12 @@
   line-height: 1.42;
   letter-spacing: -0.025em;
   text-wrap: pretty;
+  color: #a6a6a0;
 }
 
 .introCopy { display: block; }
+.emphasis { color: var(--ink); font-weight: 650; }
+.normal { color: var(--ink); }
 
 .muted { color: var(--muted); font-weight: 400; }
 .shimmer {
