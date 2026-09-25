@@ -1,14 +1,14 @@
 # 首页首段：普通 Markdown；==文字== 使用 shimmer。
-# 链接 title 可选 brand、mair、butter、sky、mint、lilac，例如 [文字](/url "butter")。
+# 链接 title 可选 hust、ustc、mair、butter、sky、mint、lilac，例如 [文字](/url "butter")。
 # {github} 和 {email} 会自动替换为站点配置中的地址。
 [hero]
-markdown = """**Hi👋, I'm Chenyu Zhu**, an undergraduate at [**HUST**](https://www.hust.edu.cn/ "brand") and an incoming master's student at [**AGI Institute, USTC**](https://www.ustc.edu.cn/). I work with [**MAIR Lab**](https://github.com/MAIR-Lab-HUST "mair") on models and agentic tools ==that learn from experience and improve their own capabilities.== My research spans **foundation model post-training, diffusion models, and AI agents.** Explore my [**publications**](/publications "butter"), [**blog**](/blog "sky"), [**GitHub**]({github} "mint"), or [**email**]({email} "lilac")."""
+markdown = """**Hi👋, I'm Chenyu Zhu**, a 27 fall undergraduate at [**MAIR Lab**](https://github.com/MAIR-Lab-HUST "mair") of [**HUST**](https://www.hust.edu.cn/ "hust") and an incoming master's student at [**USTC Ren Lab**](https://www.ustc.edu.cn/ "ustc") of [**AGI Institute, USTC**](https://www.ustc.edu.cn/ "ustc"). I work on ==pushing the limits of machine intelligence and exploring simple paths toward AGI.== My research spans **Post-Training, World Models, and AI Agents.** Feel free to explore my [**publications**](/publications "butter"), [**blog**](/blog "sky"), [**GitHub**]({github} "mint"). Collaborations & discussions are welcome via [**email**]({email} "lilac")."""
 
 # 个人详情卡片。
 [profile]
 institution_short = "HUST"
-profile_line_1 = "Undergraduate Student"
-profile_line_2 = "Incoming"
+profile_line_1 = "Undergraduate Student, HUST"
+profile_line_2 = "Incoming Master's Student, USTC"
 bio = "I explore continual learning and recursive self-improvement in foundation models and AI agents, spanning post-training, diffusion models, and adaptive agentic systems."
 collaboration = "I am seeking research collaborations and internship opportunities in Agentic AI and Foundation model training. If you have a collaboration or internship opportunity, feel free to "
 
@@ -41,7 +41,7 @@ tags = ["Master", "AGI Institute"]
 [[experiences]]
 organization = "MAIR Lab"
 role = "Research Intern"
-period = "Oct 2025 - Jun 2027 (expected)"
+period = "Oct 2025 - Oct 2026"
 location = "Wuhan, China"
 image = "/ascii-logo/MAIR_logo.png"
 href = "https://mair-lab-hust.github.io/"

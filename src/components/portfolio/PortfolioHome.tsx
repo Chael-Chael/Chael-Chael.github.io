@@ -98,13 +98,13 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
             components={{
               p: ({ children }) => <span className={styles.introCopy}>{children}</span>,
               a: ({ href = '', title, children }) => {
-                const effect = title && ['shimmer', 'normal', 'emphasis', 'brand', 'mair', 'butter', 'sky', 'mint', 'lilac'].includes(title) ? title : '';
+                const effect = title && ['shimmer', 'normal', 'emphasis', 'brand', 'hust', 'ustc', 'mair', 'butter', 'sky', 'mint', 'lilac'].includes(title) ? title : '';
                 if (effect === 'shimmer') return <span className={`${styles.muted} ${styles.shimmer}`}>{children}</span>;
                 if (effect === 'emphasis') return <strong className={styles.emphasis}>{children}</strong>;
-                const className = effect === 'brand' || effect === 'mair'
+                const className = ['brand', 'hust', 'ustc', 'mair'].includes(effect)
                   ? styles[effect]
                   : effect ? `${styles.pastelLink} ${styles[effect]}` : undefined;
-                const content = <>{effect === 'brand' && <span className={styles.brandLogo} aria-hidden="true" />}{effect === 'mair' && <img src="/ascii-logo/MAIR_logo.png" alt="" aria-hidden="true" />}{children}</>;
+                const content = <>{['brand', 'hust', 'ustc'].includes(effect) && <span className={`${styles.brandLogo} ${styles[`${effect}Logo`]}`} aria-hidden="true" />}{effect === 'mair' && <img src="/ascii-logo/MAIR_logo.png" alt="" aria-hidden="true" />}{children}</>;
                 return isExternal(href)
                   ? <a className={className} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noreferrer' : undefined}>{content}</a>
                   : <Link className={className} href={href}>{content}</Link>;

@@ -74,13 +74,14 @@
 
 .muted { color: var(--muted); font-weight: 400; }
 .shimmer {
-  background: linear-gradient(90deg, #aaa9a4 0%, #aaa9a4 40%, #f3f3f1 50%, #aaa9a4 60%, #aaa9a4 100%);
+  background: linear-gradient(90deg, #141413 0%, #141413 44%, #d8d6cf 50%, #141413 56%, #141413 100%);
   background-size: 400% 100%;
   background-clip: text;
   color: transparent;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmerText 2s linear infinite;
+  font-weight: 650;
+  animation: shimmerText 3s linear infinite;
 }
 
 .brand,
@@ -94,6 +95,8 @@
 .mair:hover { opacity: 0.58; }
 .brand { display: inline; overflow: visible; white-space: normal; }
 .brandLogo { display: inline-block; width: 1.32em; height: 1em; margin-right: 0.18em; background: url('/ascii-logo/HUST.png') center / contain no-repeat; vertical-align: -0.18em; }
+.hustLogo { background-image: url('/ascii-logo/HUST.png'); }
+.ustcLogo { background-image: url('/ascii-logo/USTC-mark.png'); }
 .mair { white-space: nowrap; font-weight: 600; }
 .mair img { display: inline-block; width: 1em; height: 1em; margin-right: 0.2em; object-fit: contain; vertical-align: -0.18em; }
 
