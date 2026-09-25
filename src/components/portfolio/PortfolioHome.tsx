@@ -366,7 +366,6 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
       <section className={styles.gallery} aria-label="Selected work">
         <div className={styles.track}>
           <GallerySet items={galleryItems} onOpen={setSelected} />
-          <GallerySet items={galleryItems} onOpen={setSelected} />
         </div>
       </section>
 

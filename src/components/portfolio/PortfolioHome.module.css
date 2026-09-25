@@ -383,9 +383,12 @@
   flex: none;
   width: clamp(300px, 30vw, 460px);
   height: 100svh;
-  overflow: hidden;
+  overflow: auto;
+  scrollbar-width: none;
   overscroll-behavior: contain;
 }
+
+.gallery::-webkit-scrollbar { display: none; }
 
 .track {
   width: 100%;
@@ -393,12 +396,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  will-change: transform;
-  animation: galleryLoop 46s linear infinite;
-  animation-delay: -19s;
 }
-
-.gallery:hover .track { animation-play-state: paused; }
 
 .gallerySet {
   width: 100%;
@@ -606,10 +604,6 @@
 .close:hover { transform: rotate(6deg) scale(1.06); }
 .close svg { width: 19px; height: 19px; }
 
-@keyframes galleryLoop {
-  to { transform: translateY(-50%); }
-}
-
 @keyframes cardReveal {
   from { opacity: 0; translate: 0 14px; scale: 0.98; }
   to { opacity: 1; translate: 0; scale: 1; }
@@ -628,16 +622,13 @@
   .gallery {
     width: 100%;
     height: auto;
-    overflow: hidden;
+    overflow: auto;
   }
 
   .track {
     width: max-content;
     height: auto;
     flex-direction: row;
-    animation-name: galleryLoopMobile;
-    animation-duration: 34s;
-    animation-delay: -10s;
   }
 
   .gallerySet {
@@ -697,7 +688,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .track { animation-play-state: paused; }
   .clip { opacity: 1; animation: none; }
   .flow,
   .clip,
@@ -711,10 +701,6 @@
   .publicationActions svg,
   .experienceTags svg { transition: none; }
   .shimmer { animation: none; }
-}
-
-@keyframes galleryLoopMobile {
-  to { transform: translateX(-50%); }
 }
 
 .newsList { display: grid; }
