@@ -2,7 +2,7 @@
 # 链接 title 可选 hust、ustc、mair、butter、sky、mint、lilac，例如 [文字](/url "butter")。
 # {github} 和 {email} 会自动替换为站点配置中的地址。
 [hero]
-markdown = """**Hi👋, I'm Chenyu Zhu**, a 27 fall undergraduate at [**MAIR Lab**](https://github.com/MAIR-Lab-HUST "mair") of [**HUST**](https://www.hust.edu.cn/ "hust") and an incoming master's student at [**USTC Ren Lab**](https://www.ustc.edu.cn/ "ustc") of [**AGI Institute, USTC**](https://www.ustc.edu.cn/ "ustc"). I work on ==pushing the limits of machine intelligence and exploring simple paths toward AGI.== My research spans **Post-Training, World Models, and AI Agents.** Feel free to explore my [**publications**](/publications "butter"), [**blog**](/blog "sky"), [**GitHub**]({github} "mint"). Collaborations & discussions are welcome via [**email**]({email} "lilac")."""
+markdown = """**Hi👋, I'm Chenyu Zhu**, a 27 fall undergraduate at [**MAIR Lab**](https://github.com/MAIR-Lab-HUST "mair") of [**HUST**](https://www.hust.edu.cn/ "hust") and an incoming master's student at [**USTC Ren Lab**](https://www.ustc.edu.cn/ "ustc") of [**AGI Institute, USTC**](https://www.ustc.edu.cn/ "ustc"). I work on ==pushing the limits of machine intelligence and exploring simple paths toward AGI.== My research spans **Foundation Model Training, World Models, and AI Agents.** Feel free to explore my [**publications**](/publications "butter"), [**blog**](/blog "sky"), [**GitHub**]({github} "mint"). Collaborations & discussions are welcome via [**email**]({email} "lilac")."""
 
 # 个人详情卡片。
 [profile]
