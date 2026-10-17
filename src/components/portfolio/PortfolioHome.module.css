@@ -47,6 +47,9 @@
 
 .left::-webkit-scrollbar { display: none; }
 
+.visitorCounter { display: flex; justify-content: center; padding: 32px 16px; border-top: 1px solid var(--line); }
+.visitorCounter img { display: block; max-width: 100%; height: auto; }
+
 .flow {
   width: min(720px, calc(100% - 32px));
   min-height: 100%;

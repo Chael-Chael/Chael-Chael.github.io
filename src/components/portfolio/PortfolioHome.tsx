@@ -282,6 +282,14 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
               <Link className={styles.viewAll} href={blogs?.href || '/blog'}>View all notes <ArrowRight aria-hidden="true" /></Link>
             </div>
           </section>
+          <footer className={styles.visitorCounter}>
+            <img
+              src="https://eva-counter.2792357190.workers.dev/@profile"
+              alt="Profile and website views"
+              width={336}
+              height={64}
+            />
+          </footer>
         </div>
       </section>
 
