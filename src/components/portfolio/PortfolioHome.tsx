@@ -1,16 +1,18 @@
 'use client';
 
 import Link from 'next/link';
-import { cloneElement, useEffect, useState } from 'react';
+import { cloneElement, useEffect, useMemo, useState, type ComponentProps } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { GitHubCalendar } from 'react-github-calendar';
 import { Tooltip } from 'react-tooltip';
 import { FaEnvelope, FaGithub, FaGraduationCap, FaXTwitter } from 'react-icons/fa6';
 import { SiXiaohongshu } from 'react-icons/si';
 import { ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, ChevronDown, Code2, Lightbulb, Newspaper, NotebookPen, X } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { type Components, type ExtraProps } from 'react-markdown';
+import type { Element, ElementContent, Root } from 'hast';
 import type { HomeFeaturedItem, ShowcaseHomeLocaleData } from '@/types/showcase';
 import styles from './PortfolioHome.module.css';
+import { VerseText, VerseWord, useVerseWaiting } from './VerseText';
 
 interface PortfolioHomeProps {
   data: ShowcaseHomeLocaleData;
@@ -25,6 +27,69 @@ const CALENDAR_THEME = {
 function isExternal(href: string) {
   return /^https?:\/\//.test(href) || href.startsWith('mailto:');
 }
+
+/**
+ * Splits every text node into one span per word, numbered in reading order, so the
+ * hero can print word by word; a link learns the number of its first word.
+ */
+function rehypeVerseWords(words: string[]) {
+  return () => (tree: Root) => {
+    const walk = (node: Root | Element) => {
+      const next: ElementContent[] = [];
+      for (const child of node.children) {
+        if (child.type === 'text') {
+          for (const part of child.value.split(/(\s+)/)) {
+            if (!part) continue;
+            if (/^\s+$/.test(part)) {
+              next.push({ type: 'text', value: part });
+            } else {
+              next.push({ type: 'element', tagName: 'span', properties: { dataVt: words.length }, children: [{ type: 'text', value: part }] });
+              words.push(part);
+            }
+          }
+          continue;
+        }
+        if (child.type === 'element') {
+          const first = words.length;
+          walk(child);
+          if (child.tagName === 'a' && words.length > first) child.properties.dataVtFirst = first;
+        }
+        if (child.type !== 'doctype') next.push(child);
+      }
+      node.children = next;
+    };
+    walk(tree);
+  };
+}
+
+const HERO_EFFECTS = ['shimmer', 'normal', 'emphasis', 'brand', 'hust', 'ustc', 'mair', 'butter', 'sky', 'mint', 'lilac'];
+
+/** A hero link, kept hidden (pill, logo and all) until its first word prints. */
+function HeroLink({ node, href = '', title, children }: ComponentProps<'a'> & ExtraProps) {
+  const first = node?.properties?.dataVtFirst;
+  const wait = useVerseWaiting(typeof first === 'number' ? first : undefined);
+  const effect = title && HERO_EFFECTS.includes(title) ? title : '';
+  if (effect === 'shimmer') return <span className={`${styles.muted} ${styles.shimmer}`} data-vt-wait={wait}>{children}</span>;
+  if (effect === 'emphasis') return <strong className={styles.emphasis}>{children}</strong>;
+  const className = ['brand', 'hust', 'ustc', 'mair'].includes(effect)
+    ? styles[effect]
+    : effect ? `${styles.pastelLink} ${styles[effect]}` : undefined;
+  const content = <>{['brand', 'hust', 'ustc'].includes(effect) && <span className={`${styles.brandLogo} ${styles[`${effect}Logo`]}`} aria-hidden="true" />}{effect === 'mair' && <img src="/ascii-logo/MAIR_logo.png" alt="" aria-hidden="true" />}{children}</>;
+  return isExternal(href)
+    ? <a className={className} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noreferrer' : undefined} data-vt-wait={wait}>{content}</a>
+    : <Link className={className} href={href} data-vt-wait={wait}>{content}</Link>;
+}
+
+const HERO_COMPONENTS: Components = {
+  p: ({ children }) => <span className={styles.introCopy}>{children}</span>,
+  a: HeroLink,
+  span: ({ node, children }) => {
+    const index = node?.properties?.dataVt;
+    return typeof index === 'number' ? <VerseWord index={index}>{String(children)}</VerseWord> : <span>{children}</span>;
+  },
+  em: ({ children }) => <em className={styles.normal}>{children}</em>,
+  strong: ({ children }) => <strong className={styles.emphasis}>{children}</strong>,
+};
 
 export default function PortfolioHome({ data }: PortfolioHomeProps) {
   const reduceMotion = useReducedMotion();
@@ -82,6 +147,12 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
     .replace(/!!(.+?)!!/g, '[$1](# "emphasis")')
     .replaceAll('{github}', github)
     .replaceAll('{email}', email);
+  // parsed once; the words then print one by one as the press reads them from context
+  const heroPress = useMemo(() => {
+    const words: string[] = [];
+    const content = ReactMarkdown({ children: heroMarkdown, rehypePlugins: [rehypeVerseWords(words)], components: HERO_COMPONENTS });
+    return { content, words };
+  }, [heroMarkdown]);
   const githubHandle = github.split('/').filter(Boolean).pop() || 'Chael-Chael';
   const githubAvatar = `${github.replace(/\/$/, '')}.png`;
   const scholar = typeof data.social.google_scholar === 'string' ? data.social.google_scholar : undefined;
@@ -93,27 +164,9 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
   return (
     <div className={styles.root}>
       <section className={styles.left} aria-label="Portfolio feed">
-        <div className={styles.introHero}>
-          <ReactMarkdown
-            components={{
-              p: ({ children }) => <span className={styles.introCopy}>{children}</span>,
-              a: ({ href = '', title, children }) => {
-                const effect = title && ['shimmer', 'normal', 'emphasis', 'brand', 'hust', 'ustc', 'mair', 'butter', 'sky', 'mint', 'lilac'].includes(title) ? title : '';
-                if (effect === 'shimmer') return <span className={`${styles.muted} ${styles.shimmer}`}>{children}</span>;
-                if (effect === 'emphasis') return <strong className={styles.emphasis}>{children}</strong>;
-                const className = ['brand', 'hust', 'ustc', 'mair'].includes(effect)
-                  ? styles[effect]
-                  : effect ? `${styles.pastelLink} ${styles[effect]}` : undefined;
-                const content = <>{['brand', 'hust', 'ustc'].includes(effect) && <span className={`${styles.brandLogo} ${styles[`${effect}Logo`]}`} aria-hidden="true" />}{effect === 'mair' && <img src="/ascii-logo/MAIR_logo.png" alt="" aria-hidden="true" />}{children}</>;
-                return isExternal(href)
-                  ? <a className={className} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noreferrer' : undefined}>{content}</a>
-                  : <Link className={className} href={href}>{content}</Link>;
-              },
-              em: ({ children }) => <em className={styles.normal}>{children}</em>,
-              strong: ({ children }) => <strong className={styles.emphasis}>{children}</strong>,
-            }}
-          >{heroMarkdown}</ReactMarkdown>
-        </div>
+        <VerseText className={styles.introHero} words={heroPress.words} speed={2}>
+          {heroPress.content}
+        </VerseText>
 
         <div className={styles.flow}>
 
