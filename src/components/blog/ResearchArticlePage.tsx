@@ -1,12 +1,11 @@
 'use client';
 
-import Link from 'next/link';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { NotebookPen } from 'lucide-react';
 import type { BlogPost } from '@/types/blog';
 import { extractMarkdownHeadings } from '@/lib/heading';
-import EditorialMarkdown from '@/components/editorial/EditorialMarkdown';
+import FlowShell, { FlowFooter, FlowSection, MarkdownSections } from '@/components/flow/FlowShell';
+import flow from '@/components/flow/Flow.module.css';
 import ArticleScale from './ArticleScale';
-import styles from './ResearchBlog.module.css';
 
 interface ResearchArticlePageProps {
   post: BlogPost;
@@ -18,47 +17,44 @@ function formatDate(value: string) {
   return new Intl.DateTimeFormat('en', { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
 }
 
+function shortDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+}
+
 export default function ResearchArticlePage({ post }: ResearchArticlePageProps) {
-  const headings = extractMarkdownHeadings(post.content);
+  const headings = extractMarkdownHeadings(post.content).filter((heading) => heading.level === 2);
 
   return (
-    <div className={styles.blogShell}>
-      <Link href="/" className={styles.homeLink}>
-        <ArrowLeft aria-hidden="true" />
-        <span>chenyu zhu</span>
-      </Link>
-      <Link href="/blog" className={styles.blogLink}>
-        all notes <ArrowUpRight aria-hidden="true" />
-      </Link>
-
+    <>
       <ArticleScale headings={headings} />
-
-      <article
-        className={styles.article}
+      <FlowShell
+        lead={`${post.title}.`}
+        intro={post.excerpt}
+        title="Blogs"
+        icon={NotebookPen}
+        back={{ href: '/blog', label: 'All notes' }}
+        aside={shortDate(post.date)}
+        barKey="blog"
       >
-        <header className={styles.articleHeader}>
-          <h1>{post.title}</h1>
-          {post.excerpt && <p className={styles.subtitle}>{post.excerpt}</p>}
-          {post.image && (
-            <figure className={styles.cover}>
-              <img src={post.image} alt={post.title} />
-            </figure>
-          )}
-          <div className={styles.byline}>
-            <img src="/avatar.png" alt="" />
-            <strong>{post.author || 'Chenyu Zhu'}</strong>
-            <span>·</span>
-            <time dateTime={post.date}>{formatDate(post.date)}</time>
+        <FlowSection>
+          <div className={flow.detailHead}>
+            {post.image && <img className={flow.cover} src={post.image} alt={post.title} data-vt={`blog:${post.slug}`} />}
+            <div className={flow.byline}>
+              <img src="/avatar.png" alt="" />
+              <strong>{post.author || 'Chenyu Zhu'}</strong>
+              <span>·</span>
+              <time dateTime={post.date}>{formatDate(post.date)}</time>
+            </div>
+            {post.tags && post.tags.length > 0 && <div className={flow.tagList}>{post.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}
           </div>
-        </header>
+        </FlowSection>
 
-        <EditorialMarkdown content={post.content} className={styles.articleBody} />
+        <MarkdownSections content={post.content} />
 
-        <footer className={styles.articleFooter}>
-          <span>thanks for reading.</span>
-          <Link href="/blog">more research notes <ArrowUpRight /></Link>
-        </footer>
-      </article>
-    </div>
+        <FlowFooter note="Thanks for reading." href="/blog" label="More research notes" />
+      </FlowShell>
+    </>
   );
 }

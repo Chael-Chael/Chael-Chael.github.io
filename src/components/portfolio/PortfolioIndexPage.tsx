@@ -1,22 +1,55 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { ArrowRight, ArrowUpRight, BookOpen, CalendarDays, Code2, NotebookPen } from 'lucide-react';
 import type { ShowcaseItem } from '@/types/showcase';
+import FlowShell, { FlowFooter, FlowSection, vtAttr } from '@/components/flow/FlowShell';
+import flow from '@/components/flow/Flow.module.css';
 import homeStyles from './PortfolioHome.module.css';
-import styles from './PortfolioIndexPage.module.css';
 
 type IndexVariant = 'projects' | 'publications' | 'blog';
 
 interface PortfolioIndexPageProps {
   title: string;
+  description?: string;
   variant: IndexVariant;
   items: ShowcaseItem[];
 }
 
-export default function PortfolioIndexPage({ title, variant, items }: PortfolioIndexPageProps) {
+/** Bar titles and icons match the homepage section each page grows out of. */
+const VARIANTS: Record<IndexVariant, { bar: string; icon: typeof BookOpen; key: string; noun: [string, string] }> = {
+  publications: { bar: 'Publications', icon: BookOpen, key: 'publications', noun: ['paper', 'papers'] },
+  projects: { bar: 'Open Source Projects', icon: Code2, key: 'open-source', noun: ['project', 'projects'] },
+  blog: { bar: 'Blogs', icon: NotebookPen, key: 'blog', noun: ['note', 'notes'] },
+};
+
+function PublicationRow({ item }: { item: ShowcaseItem }) {
+  return (
+    <article className={homeStyles.publicationEntry}>
+      <Link className={homeStyles.workRow} href={item.href}>
+        {item.image && <span className={homeStyles.publicationPreview}><img src={item.image} alt="" {...vtAttr(item.href)} /><small>{item.date}</small></span>}
+        <span className={homeStyles.workCopy}>
+          <strong>{item.title}</strong>
+          <small className={homeStyles.publicationAuthors}>{item.authors?.map((author, index) => <span key={`${author.name}-${index}`}>{author.isHighlighted ? <strong>{author.name}</strong> : author.name}{author.superscript?.includes('*') && <sup>*</sup>}{index < item.authors!.length - 1 && ', '}</span>)}</small>
+          <small className={homeStyles.publicationMeta}>{item.badge && <span>{item.badge}</span>}{item.meta}</small>
+        </span>
+        <ArrowRight aria-hidden="true" />
+      </Link>
+      {item.links && item.links.length > 0 && (
+        <div className={homeStyles.publicationActions}>
+          {item.links.map((link) => (
+            <a href={link.href} target="_blank" rel="noreferrer" key={link.label}>{link.label} <ArrowUpRight aria-hidden="true" /></a>
+          ))}
+        </div>
+      )}
+    </article>
+  );
+}
+
+export default function PortfolioIndexPage({ title, description, variant, items }: PortfolioIndexPageProps) {
   const [repoStars, setRepoStars] = useState<Record<string, number>>({});
+  const config = VARIANTS[variant];
 
   useEffect(() => {
     if (variant !== 'projects') return;
@@ -43,16 +76,23 @@ export default function PortfolioIndexPage({ title, variant, items }: PortfolioI
     return () => controller.abort();
   }, [items, variant]);
 
-  return (
-    <div className={styles.root}>
-      <div className={styles.sky} aria-hidden="true" />
-      <header className={styles.header}>
-        <Link href="/" aria-label="Back to home"><ArrowLeft aria-hidden="true" /></Link>
-        <h1>{title}</h1>
-      </header>
+  // publications fall into one band per year, newest first
+  const years = useMemo(() => {
+    if (variant !== 'publications') return [];
+    const groups = new Map<string, ShowcaseItem[]>();
+    for (const item of items) {
+      const year = (item.date || item.meta || '').match(/\d{4}/)?.[0] ?? 'Other';
+      groups.set(year, [...(groups.get(year) ?? []), item]);
+    }
+    return Array.from(groups.entries()).sort(([a], [b]) => b.localeCompare(a));
+  }, [items, variant]);
 
-      <section className={`${styles.content} ${variant === 'projects' ? styles.projectContent : ''}`}>
-        {variant === 'projects' ? (
+  const count = `${items.length} ${items.length === 1 ? config.noun[0] : config.noun[1]}`;
+
+  return (
+    <FlowShell lead={`${title}.`} intro={description} title={config.bar} icon={config.icon} aside={count} barKey={config.key}>
+      {variant === 'projects' && (
+        <section className={`${homeStyles.flowSection} ${homeStyles.projectsSection}`}>
           <div className={homeStyles.projectGrid}>
             {items.map((item) => {
               const meta = repoStars[item.id] === undefined ? item.meta : item.meta?.replace(/^★\s*\d+/, `★ ${repoStars[item.id]}`);
@@ -82,32 +122,40 @@ export default function PortfolioIndexPage({ title, variant, items }: PortfolioI
               );
             })}
           </div>
-        ) : (
+        </section>
+      )}
+
+      {variant === 'publications' && years.map(([year, group]) => (
+        <FlowSection key={year} title={year} icon={CalendarDays} count={group.length}>
           <div className={homeStyles.workList}>
-            {items.map((item) => (
-              <article className={variant === 'publications' ? homeStyles.publicationEntry : undefined} key={item.id}>
-                <Link className={homeStyles.workRow} href={item.href}>
-                  {item.image && variant === 'publications' ? <span className={homeStyles.publicationPreview}><img src={item.image} alt="" /><small>{item.date}</small></span> : item.image && <img src={item.image} alt="" />}
+            {group.map((item) => <PublicationRow item={item} key={item.id} />)}
+          </div>
+        </FlowSection>
+      ))}
+
+      {variant === 'blog' && (
+        <FlowSection>
+          {items.length > 0 ? (
+            <div className={homeStyles.workList}>
+              {items.map((item) => (
+                <Link className={homeStyles.workRow} href={item.href} key={item.id}>
+                  {item.image ? <img src={item.image} alt="" {...vtAttr(item.href)} /> : <span />}
                   <span className={homeStyles.workCopy}>
                     <strong>{item.title}</strong>
-                    {variant === 'publications' && <small className={homeStyles.publicationAuthors}>{item.authors?.map((author, index) => <span key={`${author.name}-${index}`}>{author.isHighlighted ? <strong>{author.name}</strong> : author.name}{author.superscript?.includes('*') && <sup>*</sup>}{index < item.authors!.length - 1 && ', '}</span>)}</small>}
-                    <small className={variant === 'publications' ? homeStyles.publicationMeta : undefined}>{variant === 'publications' && item.badge && <span>{item.badge}</span>}{item.meta || item.description}</small>
+                    {item.description && <small>{item.description}</small>}
+                    {item.meta && <small>{item.meta}</small>}
                   </span>
                   <ArrowRight aria-hidden="true" />
                 </Link>
-                {variant === 'publications' && item.links && (
-                  <div className={homeStyles.publicationActions}>
-                    {item.links.map((link) => (
-                      <a href={link.href} target="_blank" rel="noreferrer" key={link.label}>{link.label} <ArrowUpRight aria-hidden="true" /></a>
-                    ))}
-                  </div>
-                )}
-              </article>
-            ))}
-          </div>
-        )}
-      </section>
-      <div className={styles.floor} aria-hidden="true" />
-    </div>
+              ))}
+            </div>
+          ) : (
+            <p className={flow.empty}>Research notes are being prepared. The first one will live here soon.</p>
+          )}
+        </FlowSection>
+      )}
+
+      <FlowFooter note={count} href="/" label="Back to home" />
+    </FlowShell>
   );
 }

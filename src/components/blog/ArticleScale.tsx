@@ -28,10 +28,14 @@ export default function ArticleScale({ headings }: ArticleScaleProps) {
       setActiveId(current);
     };
 
+    // the page scrolls inside the column's stage on wide screens, and the window on narrow ones
+    const stage = document.querySelector('[data-scroll-root]');
     updateActiveHeading();
+    stage?.addEventListener('scroll', updateActiveHeading, { passive: true });
     window.addEventListener('scroll', updateActiveHeading, { passive: true });
     window.addEventListener('resize', updateActiveHeading);
     return () => {
+      stage?.removeEventListener('scroll', updateActiveHeading);
       window.removeEventListener('scroll', updateActiveHeading);
       window.removeEventListener('resize', updateActiveHeading);
     };
@@ -50,7 +54,7 @@ export default function ArticleScale({ headings }: ArticleScaleProps) {
   if (headings.length === 0) return null;
 
   return (
-    <>
+    <div className={styles.scaleHost}>
       <aside className={styles.desktopScale} aria-label="Table of contents">
         <nav className={styles.scaleNav}>
           {headings.map((heading) => {
@@ -99,6 +103,6 @@ export default function ArticleScale({ headings }: ArticleScaleProps) {
           ))}
         </div>
       </aside>
-    </>
+    </div>
   );
 }

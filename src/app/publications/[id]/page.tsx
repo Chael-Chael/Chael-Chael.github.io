@@ -1,41 +1,13 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import EditorialDetailPage from '@/components/editorial/EditorialDetailPage';
+import PublicationDetail from '@/components/flow/PublicationDetailPage';
 import { getAllPublications, getPublicationById, getPublicationPreview, getPublicationVenue } from '@/lib/showcase';
 import type { DetailLink, DetailPair } from '@/types/showcase';
-import type { Author, Publication } from '@/types/publication';
-
-function formatAuthors(authors: Author[]): string {
-  return authors
-    .map((author) => {
-      const markers = [
-        author.superscript,
-        author.isCoAuthor ? '#' : '',
-        author.isCorresponding ? '†' : '',
-      ].filter(Boolean).join('');
-      return `${author.name}${markers ? ` ${markers}` : ''}`;
-    })
-    .join(', ');
-}
-
-function buildPublicationContent(publication: Publication): string {
-  const lines = [
-    publication.description || publication.summary || publication.abstract || '',
-  ];
-
-  if (publication.bibtex) {
-    lines.push('\n## BibTeX\n');
-    lines.push(`\`\`\`bibtex\n${publication.bibtex}\n\`\`\``);
-  }
-
-  return lines.filter(Boolean).join('\n\n');
-}
+import type { Publication } from '@/types/publication';
 
 function buildDetails(publication: Publication): DetailPair[] {
   const venue = getPublicationVenue(publication);
-  const details: DetailPair[] = [
-    { label: 'Authors', value: formatAuthors(publication.authors) },
-  ];
+  const details: DetailPair[] = [];
 
   if (venue) details.push({ label: 'Venue', value: venue });
   if (publication.year) details.push({ label: 'Year', value: String(publication.year) });
@@ -88,14 +60,13 @@ export default async function PublicationDetailPage({ params }: { params: Promis
   }
 
   return (
-    <EditorialDetailPage
-      title={publication.title}
-      content={buildPublicationContent(publication)}
-      coverImage={getPublicationPreview(publication)}
-      coverAlt={publication.badge || publication.title}
+    <PublicationDetail
+      publication={publication}
+      coverKey={`publications:${publication.id}`}
+      venue={getPublicationVenue(publication)}
+      cover={getPublicationPreview(publication)}
       details={buildDetails(publication)}
       links={buildLinks(publication)}
-      footer="Chenyu Zhu / Research notes and publications"
     />
   );
 }

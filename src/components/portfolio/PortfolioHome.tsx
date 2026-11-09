@@ -11,6 +11,7 @@ import { ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, ChevronDown, Cod
 import ReactMarkdown, { type Components, type ExtraProps } from 'react-markdown';
 import type { Element, ElementContent, Root } from 'hast';
 import type { HomeFeaturedItem, ShowcaseHomeLocaleData } from '@/types/showcase';
+import { vtKey } from '@/lib/viewTransition';
 import styles from './PortfolioHome.module.css';
 import { VerseText, VerseWord, useVerseWaiting } from './VerseText';
 
@@ -96,6 +97,8 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
   const [selected, setSelected] = useState<GalleryItem | null>(null);
   const [repoStars, setRepoStars] = useState<Record<string, number>>({});
   const [mounted, setMounted] = useState(false);
+  // back from a subpage the hero has already been read: show it printed rather than print again
+  const [printHero] = useState(() => typeof document === 'undefined' || !document.documentElement.dataset.vtNav);
   const [expandedExperience, setExpandedExperience] = useState<string | null>(data.home.experiences[0]?.organization ?? null);
 
   const publications = data.sections.find((section) => section.id === 'publications');
@@ -163,8 +166,8 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
 
   return (
     <div className={styles.root}>
-      <section className={styles.left} aria-label="Portfolio feed">
-        <VerseText className={styles.introHero} words={heroPress.words} speed={2}>
+      <section className={styles.left} aria-label="Portfolio feed" data-scroll-root>
+        <VerseText className={styles.introHero} words={heroPress.words} speed={2} autoplay={printHero}>
           {heroPress.content}
         </VerseText>
 
@@ -268,12 +271,12 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
           </section>
 
           <section className={styles.flowSection}>
-            <h2 className={styles.sectionTitle}><BookOpen aria-hidden="true" /> Publications</h2>
+            <h2 className={styles.sectionTitle} data-vt="publications"><BookOpen aria-hidden="true" /> Publications</h2>
             <div className={styles.workList}>
               {(publications?.items ?? []).slice(0, limits.publications).map((item) => (
                 <article className={styles.publicationEntry} key={item.id}>
                   <Link className={styles.workRow} href={item.href}>
-                    {item.image && <span className={styles.publicationPreview}><img src={item.image} alt="" /><small>{item.date}</small></span>}
+                    {item.image && <span className={styles.publicationPreview}><img src={item.image} alt="" data-vt={vtKey(item.href)} /><small>{item.date}</small></span>}
                     <span className={styles.workCopy}>
                       <strong>{item.title}</strong>
                       <small className={styles.publicationAuthors}>{item.authors?.map((author, index) => <span key={`${author.name}-${index}`}>{author.isHighlighted ? <strong>{author.name}</strong> : author.name}{author.superscript?.includes('*') && <sup>*</sup>}{index < item.authors!.length - 1 && ', '}</span>)}</small>
@@ -291,7 +294,7 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
           </section>
 
           <section className={`${styles.flowSection} ${styles.projectsSection}`}>
-            <h2 className={styles.sectionTitle}><Code2 aria-hidden="true" /> Open Source Projects</h2>
+            <h2 className={styles.sectionTitle} data-vt="open-source"><Code2 aria-hidden="true" /> Open Source Projects</h2>
             <div className={styles.projectGrid}>
               {(openSource?.items ?? []).slice(0, limits.projects).map((item) => {
                 const meta = repoStars[item.id] === undefined ? item.meta : item.meta?.replace(/^★\s*\d+/, `★ ${repoStars[item.id]}`);
@@ -325,10 +328,10 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
           </section>
 
           <section className={styles.flowSection}>
-            <h2 className={styles.sectionTitle}><NotebookPen aria-hidden="true" /> Blogs</h2>
+            <h2 className={styles.sectionTitle} data-vt="blog"><NotebookPen aria-hidden="true" /> Blogs</h2>
             <div className={styles.workList}>
               <Link className={styles.workRow} href={featuredBlog.href}>
-                <img src={featuredBlog.image} alt="" />
+                <img src={featuredBlog.image} alt="" data-vt={featuredBlog.href.startsWith('/blog/') ? vtKey(featuredBlog.href) : undefined} />
                 <span className={styles.workCopy}><strong>{featuredBlog.title}</strong><small>{featuredBlog.meta}</small></span>
                 <ArrowRight aria-hidden="true" />
               </Link>

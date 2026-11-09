@@ -1,7 +1,7 @@
 'use client';
 
-import EditorialIndexPage from '@/components/editorial/EditorialIndexPage';
 import PortfolioIndexPage from '@/components/portfolio/PortfolioIndexPage';
+import { CardListPage, TextFlowPage } from '@/components/flow/FlowListPages';
 import { Publication } from '@/types/publication';
 import { BlogPostMeta } from '@/types/blog';
 import {
@@ -20,14 +20,16 @@ export type DynamicPageLocaleData =
 
 interface DynamicPageClientProps {
   data: DynamicPageLocaleData;
+  slug: string;
 }
 
-export default function DynamicPageClient({ data: pageData }: DynamicPageClientProps) {
+export default function DynamicPageClient({ data: pageData, slug }: DynamicPageClientProps) {
 
   if (pageData.type === 'publication') {
     return (
       <PortfolioIndexPage
         title={pageData.config.title}
+        description={pageData.config.description}
         variant="publications"
         items={pageData.publications.map(publicationToShowcaseItem)}
       />
@@ -36,20 +38,21 @@ export default function DynamicPageClient({ data: pageData }: DynamicPageClientP
 
   if (pageData.type === 'text') {
     return (
-      <EditorialIndexPage
+      <TextFlowPage
         title={pageData.config.title}
         description={pageData.config.description}
-        items={markdownHeadingsToItems(pageData.content, `/${slugFromTitle(pageData.config.title)}`)}
         content={pageData.content}
+        barKey={slug}
       />
     );
   }
 
   if (pageData.type === 'card') {
-    if (pageData.config.title === 'Open Source') {
+    if (slug === 'open-source') {
       return (
         <PortfolioIndexPage
-          title="Projects"
+          title={pageData.config.title}
+          description={pageData.config.description}
           variant="projects"
           items={pageData.config.items.map((item, index) => cardToShowcaseItem(item, index))}
         />
@@ -57,10 +60,11 @@ export default function DynamicPageClient({ data: pageData }: DynamicPageClientP
     }
 
     return (
-      <EditorialIndexPage
+      <CardListPage
         title={pageData.config.title}
         description={pageData.config.description}
-        items={pageData.config.items.map((item, index) => cardToShowcaseItem(item, index))}
+        items={pageData.config.items}
+        barKey={slug}
       />
     );
   }
@@ -68,6 +72,7 @@ export default function DynamicPageClient({ data: pageData }: DynamicPageClientP
   return (
     <PortfolioIndexPage
       title={pageData.config.title}
+      description={pageData.config.description}
       variant="blog"
       items={pageData.posts.map(blogToShowcaseItem)}
     />
@@ -143,22 +148,4 @@ function cardToShowcaseItem(item: CardPageConfig['items'][number], index: number
     description: stripMarkup(item.content),
     external: Boolean(item.link?.startsWith('http')),
   };
-}
-
-function markdownHeadingsToItems(content: string, fallbackHref: string): ShowcaseItem[] {
-  const headings = Array.from(content.matchAll(/^##\s+(.+)$/gm)).map((match) => match[1].trim());
-
-  if (headings.length === 0) {
-    return [];
-  }
-
-  return headings.map((heading) => {
-    const id = slugFromTitle(heading);
-    return {
-      id,
-      title: heading,
-      href: `${fallbackHref}#${id}`,
-      kind: 'text',
-    };
-  });
 }

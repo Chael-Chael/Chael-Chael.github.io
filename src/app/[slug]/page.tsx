@@ -89,5 +89,5 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
     notFound();
   }
 
-  return <DynamicPageClient data={data} />;
+  return <DynamicPageClient data={data} slug={slug} />;
 }

@@ -1544,3 +1544,38 @@ figcaption {
     animation: none !important;
   }
 }
+
+/* ------------------------------------------------------------------ page transitions
+ * The "one take" between pages (ViewTransitionProvider): the two page snapshots are driven
+ * from script so they pan in step with the shared element; that element morphs here.
+ */
+::view-transition-group(*) {
+  animation-duration: 760ms;
+  animation-timing-function: cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-group(vt-shared) {
+  z-index: 10;
+}
+
+::view-transition-old(vt-shared),
+::view-transition-new(vt-shared) {
+  height: 100%;
+  object-fit: contain;
+  animation-duration: 760ms;
+  animation-timing-function: cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

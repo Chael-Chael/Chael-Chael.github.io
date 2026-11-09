@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import '@/lib/serverStorageShim';
 import './globals.css';
 import { getConfig } from '@/lib/config';
+import ViewTransitionProvider from '@/components/transition/ViewTransitionProvider';
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = getConfig();
@@ -75,7 +76,9 @@ export default function RootLayout({
         />
       </head>
       <body className="editorial-body antialiased">
-        <main>{children}</main>
+        <ViewTransitionProvider>
+          <main>{children}</main>
+        </ViewTransitionProvider>
       </body>
     </html>
   );

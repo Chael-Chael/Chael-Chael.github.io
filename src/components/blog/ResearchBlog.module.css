@@ -458,3 +458,18 @@
   .postRow > img,
   .postArrow { transition: none; }
 }
+
+/* the article's scale, set beside the homepage-style column */
+.scaleHost {
+  --ink: #101010;
+  --muted: #a6a6a0;
+  --line: rgba(16, 16, 16, 0.11);
+  color: var(--ink);
+  font-family: 'Space Grotesk Local', 'Space Grotesk', system-ui, sans-serif;
+}
+
+.scaleHost .mobileScale { display: none; }
+
+@media (max-width: 1180px) {
+  .scaleHost .desktopScale { display: none; }
+}
