@@ -1,5 +1,5 @@
 title = "Llama 3 技术报告精读"
-date = "2026-11-09"
+date = "2025-09-03"
 excerpt = "按 Abstract → Results → Introduction → Methods 的顺序精读 Llama 3 技术报告：从模型效果、预训练数据与架构、并行训练，到 SFT / DPO 后训练与多模态（视觉、视频、语音）扩展。"
 image = "/images/blog/llama3-tech-report/banner.png"
 tags = ["LLM", "Paper Reading", "Llama 3"]
