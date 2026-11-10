@@ -1,5 +1,5 @@
-我在这里按照Abstract-Results-Conclusion-Introduction-Methods-Experiments的方式展开这个阅读报告
-，先把握模型的大概效果，然后再深入技术细节。
+很久以前写的了，创建了此个人Blog就先搬上来，希望有些帮助🙏
+我在这里按照Abstract-Results-Conclusion-Introduction-Methods-Experiments的方式展开这个阅读报告，先把握模型的大概效果，然后再深入技术细节。
 ## Abstract
 **Why:** 现代的AI系统往往由基座模型驱动，Llama3就是最新推出的基座模型。
 **How:** 推出了一系列原生支持多语言、编码、推理和工具使用的LLM，最大的是一个具有405B参数的稠密Transformer，上下文窗口最多可达128K token。这个工作同时还推出了用于输入和输出安全的Llama Guard 3模型，并且介绍了将图像、视频和语音能力通过组合方法集成到Llama 3中的实验结果。
