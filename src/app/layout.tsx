@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@/lib/serverStorageShim';
 import './globals.css';
+import 'katex/dist/katex.min.css';
 import { getConfig } from '@/lib/config';
 import ViewTransitionProvider from '@/components/transition/ViewTransitionProvider';
 

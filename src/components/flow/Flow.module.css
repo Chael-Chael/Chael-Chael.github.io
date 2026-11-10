@@ -223,6 +223,8 @@
 
 .prose ul,
 .prose ol { display: grid; gap: 6px; margin: 0 0 14px; padding-left: 18px; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
 .prose li { padding-left: 3px; line-height: 1.5; }
 .prose li::marker { color: #aaa9a4; }
 .prose li > p { margin: 0; }

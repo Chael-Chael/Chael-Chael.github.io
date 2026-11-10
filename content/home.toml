@@ -87,7 +87,7 @@ description = "Combining generative models with agents that perceive, reason, an
 [featured_blog]
 id = "llama3-tech-report"
 title = "Notes on the Llama 3 Technical Report"
-href = "/blog"
+href = "/blog/llama3-tech-report"
 image = "/images/blog/llama3-tech-report/banner.png"
 meta = "2025.09 / Llama 3"
 external = false
