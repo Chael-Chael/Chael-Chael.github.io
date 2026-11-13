@@ -6,6 +6,11 @@ import { BlogPost, BlogPostMeta } from '@/types/blog';
 const BLOG_CONTENT_DIR = 'content/blog';
 const CONTENT_DIR = 'content';
 
+/** A post with a [cover] table uses the generated cover from scripts/gen-covers.mjs. */
+function withCover<T extends BlogPostMeta>(meta: T): T {
+  return meta.cover ? { ...meta, image: `/images/blog/${meta.slug}/cover.svg` } : meta;
+}
+
 function normalizeLocale(locale: string): string {
   return locale.trim().replace('_', '-').toLowerCase();
 }
@@ -31,10 +36,10 @@ export function getAllPosts(locale?: string): BlogPostMeta[] {
     const tomlContent = fs.readFileSync(path.join(contentDir, file), 'utf-8');
     const meta = parse(tomlContent) as unknown as BlogPostMeta;
     
-    return {
+    return withCover({
       ...meta,
       slug,
-    };
+    });
   });
 
   // Sort by date descending
@@ -58,11 +63,11 @@ export function getPostBySlug(slug: string, locale?: string): BlogPost | null {
       const mdContent = fs.readFileSync(mdPath, 'utf-8');
       const meta = parse(tomlContent) as unknown as BlogPostMeta;
 
-      return {
+      return withCover({
         ...meta,
         slug,
         content: mdContent,
-      };
+      });
     }
   }
 

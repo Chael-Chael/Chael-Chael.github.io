@@ -1,3 +1,7 @@
+type = "card"
+title = "News"
+description = "Updates on papers, projects and research."
+
 [[news]]
 date = "2026-09"
 content = "🎉🎉 TMPO, has been accepted to NeurIPS 2026! Huge thanks to Kuaishou Technology for the computing support!"

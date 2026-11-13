@@ -3,7 +3,7 @@
 import { Award, FileText, HandHeart, LayoutList, type LucideIcon } from 'lucide-react';
 import type { CardItem } from '@/types/page';
 import home from '@/components/portfolio/PortfolioHome.module.css';
-import FlowShell, { FlowFooter, FlowSection, MarkdownSections, vtAttr } from './FlowShell';
+import FlowShell, { FlowSection, MarkdownSections, vtAttr } from './FlowShell';
 import styles from './Flow.module.css';
 
 const PAGE_ICONS: Array<[RegExp, LucideIcon]> = [
@@ -47,11 +47,11 @@ export function CardListPage({ title, description, items, barKey }: CardListPage
               <article className={home.newsItem} key={`${item.title}-${index}`} id={item.slug}>
                 <time>{item.date}</time>
                 <div className={styles.cardCopy}>
-                  <strong>
+                  {item.title && <strong>
                     {item.link
                       ? <a href={item.link} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined} {...(external ? {} : vtAttr(item.link))}>{item.title}</a>
                       : item.title}
-                  </strong>
+                  </strong>}
                   {item.subtitle && <small>{item.subtitle}</small>}
                   {item.content && <p>{plain(item.content)}</p>}
                   {item.tags && item.tags.length > 0 && <div className={styles.tagList}>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}
@@ -61,7 +61,6 @@ export function CardListPage({ title, description, items, barKey }: CardListPage
           })}
         </div>
       </FlowSection>
-      <FlowFooter note={count} href="/" label="Back to home" />
     </FlowShell>
   );
 }
@@ -78,7 +77,6 @@ export function TextFlowPage({ title, description, content, barKey }: TextFlowPa
   return (
     <FlowShell lead={`${title}.`} intro={description} title={title} icon={iconFor(title)} barKey={barKey}>
       <MarkdownSections content={content} />
-      <FlowFooter href="/" label="Back to home" />
     </FlowShell>
   );
 }

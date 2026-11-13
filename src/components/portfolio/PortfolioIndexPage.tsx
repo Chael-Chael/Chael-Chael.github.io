@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, ArrowUpRight, BookOpen, CalendarDays, Code2, NotebookPen } from 'lucide-react';
 import type { ShowcaseItem } from '@/types/showcase';
-import FlowShell, { FlowFooter, FlowSection, vtAttr } from '@/components/flow/FlowShell';
+import FlowShell, { FlowSection, vtAttr } from '@/components/flow/FlowShell';
 import flow from '@/components/flow/Flow.module.css';
 import homeStyles from './PortfolioHome.module.css';
 
@@ -138,7 +138,7 @@ export default function PortfolioIndexPage({ title, description, variant, items 
           {items.length > 0 ? (
             <div className={homeStyles.workList}>
               {items.map((item) => (
-                <Link className={homeStyles.workRow} href={item.href} key={item.id}>
+                <Link className={`${homeStyles.workRow} ${homeStyles.coverRow}`} href={item.href} key={item.id}>
                   {item.image ? <img src={item.image} alt="" {...vtAttr(item.href)} /> : <span />}
                   <span className={homeStyles.workCopy}>
                     <strong>{item.title}</strong>
@@ -155,7 +155,6 @@ export default function PortfolioIndexPage({ title, description, variant, items 
         </FlowSection>
       )}
 
-      <FlowFooter note={count} href="/" label="Back to home" />
     </FlowShell>
   );
 }

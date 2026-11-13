@@ -3,7 +3,10 @@
   "version": "1.3.2",
   "private": true,
   "scripts": {
+    "covers": "node scripts/gen-covers.mjs",
+    "predev": "node scripts/gen-covers.mjs",
     "dev": "next dev --turbopack",
+    "prebuild": "node scripts/gen-covers.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

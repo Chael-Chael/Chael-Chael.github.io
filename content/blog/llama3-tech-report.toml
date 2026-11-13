@@ -5,3 +5,7 @@ image = "/images/blog/llama3-tech-report/banner.png"
 tags = ["LLM", "Paper Reading", "Llama 3"]
 author = "Chenyu Zhu"
 language = "zh"
+
+# Generated cover. shape: beam | trails | flare | horizon. Remove this table to use `image` again.
+[cover]
+shape = "flare"

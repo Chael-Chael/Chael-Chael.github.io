@@ -7,13 +7,14 @@ import { GitHubCalendar } from 'react-github-calendar';
 import { Tooltip } from 'react-tooltip';
 import { FaEnvelope, FaGithub, FaGraduationCap, FaXTwitter } from 'react-icons/fa6';
 import { SiXiaohongshu } from 'react-icons/si';
-import { ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, ChevronDown, Code2, Lightbulb, Newspaper, NotebookPen, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, ChevronDown, X } from 'lucide-react';
 import ReactMarkdown, { type Components, type ExtraProps } from 'react-markdown';
 import type { Element, ElementContent, Root } from 'hast';
 import type { HomeFeaturedItem, ShowcaseHomeLocaleData } from '@/types/showcase';
 import { vtKey } from '@/lib/viewTransition';
 import styles from './PortfolioHome.module.css';
 import { VerseText, VerseWord, useVerseWaiting } from './VerseText';
+import SchemeToggle, { type Scheme } from './SchemeToggle';
 
 interface PortfolioHomeProps {
   data: ShowcaseHomeLocaleData;
@@ -23,6 +24,7 @@ type GalleryItem = HomeFeaturedItem;
 
 const CALENDAR_THEME = {
   light: ['#f4f4f5', '#d4d4d8', '#a1a1aa', '#52525b', '#18181b'],
+  dark: ['#1f1f22', '#3f3f46', '#71717a', '#a1a1aa', '#f4f4f5'],
 };
 
 function isExternal(href: string) {
@@ -105,7 +107,9 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
   const openSource = data.sections.find((section) => section.id === 'open-source');
   const blogs = data.sections.find((section) => section.id === 'blog');
   const news = data.sections.find((section) => section.id === 'news');
-  const { hero, profile, experiences, limits, research_interests: researchInterests, featured_blog: featuredBlog } = data.home;
+  const { hero, profile, experiences, limits, featured_blog: featuredBlog } = data.home;
+
+  const [scheme, setScheme] = useState<Scheme>('light');
 
   useEffect(() => setMounted(true), []);
 
@@ -166,6 +170,7 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
 
   return (
     <div className={styles.root}>
+      <SchemeToggle onChange={setScheme} />
       <section className={styles.left} aria-label="Portfolio feed" data-scroll-root>
         <VerseText className={styles.introHero} words={heroPress.words} speed={2} autoplay={printHero}>
           {heroPress.content}
@@ -202,7 +207,7 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
                 {mounted && <GitHubCalendar
                   username={githubHandle}
                   year="last"
-                  colorScheme="light"
+                  colorScheme={scheme}
                   theme={CALENDAR_THEME}
                   blockSize={10}
                   blockMargin={2.5}
@@ -215,7 +220,7 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
                     'data-tooltip-id': 'github-contribution-tooltip',
                     'data-tooltip-content': `${activity.count} contribution${activity.count === 1 ? '' : 's'} on ${activity.date}`,
                     className: styles.contributionBlock,
-                    style: { ...block.props.style, stroke: 'rgba(0, 0, 0, 0.08)', cursor: 'pointer' },
+                    style: { ...block.props.style, stroke: scheme === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.08)', cursor: 'pointer' },
                   })}
                 />}
                 {mounted && <Tooltip id="github-contribution-tooltip" className={styles.contributionTooltip} place="top" opacity={1} />}
@@ -223,8 +228,33 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
             </div>
           </section>
 
+
+
+
           <section className={styles.flowSection}>
-            <h2 className={styles.sectionTitle}><BriefcaseBusiness aria-hidden="true" /> Experiences</h2>
+            <h2 className={styles.sectionTitle} data-vt="publications">Publications</h2>
+            <div className={styles.workList}>
+              {(publications?.items ?? []).slice(0, limits.publications).map((item) => (
+                <article className={styles.publicationEntry} key={item.id}>
+                  <Link className={styles.workRow} href={item.href}>
+                    {item.image && <span className={styles.publicationPreview}><img src={item.image} alt="" data-vt={vtKey(item.href)} /><small>{item.date}</small></span>}
+                    <span className={styles.workCopy}>
+                      <strong>{item.title}</strong>
+                      <small className={styles.publicationAuthors}>{item.authors?.map((author, index) => <span key={`${author.name}-${index}`}>{author.isHighlighted ? <strong>{author.name}</strong> : author.name}{author.superscript?.includes('*') && <sup>*</sup>}{index < item.authors!.length - 1 && ', '}</span>)}</small>
+                      <small className={styles.publicationMeta}>{item.badge && <span>{item.badge}</span>}{item.meta}</small>
+                    </span>
+                    <ArrowRight aria-hidden="true" />
+                  </Link>
+                  <div className={styles.publicationActions}>
+                    {item.links?.map((link) => <a href={link.href} target="_blank" rel="noreferrer" key={link.label}>{link.label} <ArrowUpRight aria-hidden="true" /></a>)}
+                  </div>
+                </article>
+              ))}
+              <Link className={styles.viewAll} href={publications?.href || '/publications'}>View all publications <ArrowRight aria-hidden="true" /></Link>
+            </div>
+          </section>
+          <section className={styles.flowSection}>
+            <h2 className={styles.sectionTitle}>Experiences</h2>
             <div className={styles.experienceList}>
               {experiences.map((item) => {
                 const expanded = expandedExperience === item.organization;
@@ -248,53 +278,8 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
             </div>
           </section>
 
-          <section className={styles.flowSection}>
-            <h2 className={styles.sectionTitle}><Lightbulb aria-hidden="true" /> Research Interests</h2>
-            <div className={styles.interestList}>
-              {researchInterests.map((item, index) => (
-                <div className={styles.interestRow} key={item.title}>
-                  <h3><span>{String(index + 1).padStart(2, '0')}</span>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className={styles.flowSection}>
-            <h2 className={styles.sectionTitle}><Newspaper aria-hidden="true" /> News</h2>
-            <div className={styles.newsList}>
-              {(news?.items ?? []).map((item) => <article className={styles.newsItem} id={item.id} key={item.id}>
-                <time dateTime={item.meta}>{item.meta}</time>
-                <p>{item.description || item.title}</p>
-              </article>)}
-            </div>
-          </section>
-
-          <section className={styles.flowSection}>
-            <h2 className={styles.sectionTitle} data-vt="publications"><BookOpen aria-hidden="true" /> Publications</h2>
-            <div className={styles.workList}>
-              {(publications?.items ?? []).slice(0, limits.publications).map((item) => (
-                <article className={styles.publicationEntry} key={item.id}>
-                  <Link className={styles.workRow} href={item.href}>
-                    {item.image && <span className={styles.publicationPreview}><img src={item.image} alt="" data-vt={vtKey(item.href)} /><small>{item.date}</small></span>}
-                    <span className={styles.workCopy}>
-                      <strong>{item.title}</strong>
-                      <small className={styles.publicationAuthors}>{item.authors?.map((author, index) => <span key={`${author.name}-${index}`}>{author.isHighlighted ? <strong>{author.name}</strong> : author.name}{author.superscript?.includes('*') && <sup>*</sup>}{index < item.authors!.length - 1 && ', '}</span>)}</small>
-                      <small className={styles.publicationMeta}>{item.badge && <span>{item.badge}</span>}{item.meta}</small>
-                    </span>
-                    <ArrowRight aria-hidden="true" />
-                  </Link>
-                  <div className={styles.publicationActions}>
-                    {item.links?.map((link) => <a href={link.href} target="_blank" rel="noreferrer" key={link.label}>{link.label} <ArrowUpRight aria-hidden="true" /></a>)}
-                  </div>
-                </article>
-              ))}
-              <Link className={styles.viewAll} href={publications?.href || '/publications'}>View all publications <ArrowRight aria-hidden="true" /></Link>
-            </div>
-          </section>
-
           <section className={`${styles.flowSection} ${styles.projectsSection}`}>
-            <h2 className={styles.sectionTitle} data-vt="open-source"><Code2 aria-hidden="true" /> Open Source Projects</h2>
+            <h2 className={styles.sectionTitle} data-vt="open-source">Open Source Projects</h2>
             <div className={styles.projectGrid}>
               {(openSource?.items ?? []).slice(0, limits.projects).map((item) => {
                 const meta = repoStars[item.id] === undefined ? item.meta : item.meta?.replace(/^★\s*\d+/, `★ ${repoStars[item.id]}`);
@@ -326,16 +311,26 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
               <Link href={openSource?.href || '/open-source'}>View all projects <ArrowRight aria-hidden="true" /></Link>
             </div>
           </section>
+          <section className={styles.flowSection}>
+            <h2 className={styles.sectionTitle}>News</h2>
+            <div className={styles.newsList}>
+              {(news?.items ?? []).slice(0, 3).map((item) => <article className={styles.newsItem} id={item.id} key={item.id}>
+                <time dateTime={item.meta}>{item.meta}</time>
+                <p>{item.description || item.title}</p>
+              </article>)}
+              <Link className={styles.viewAll} href={news?.href || '/news'}>View all news <ArrowRight aria-hidden="true" /></Link>
+            </div>
+          </section>
 
           <section className={styles.flowSection}>
-            <h2 className={styles.sectionTitle} data-vt="blog"><NotebookPen aria-hidden="true" /> Blogs</h2>
+            <h2 className={styles.sectionTitle} data-vt="blog">Blogs</h2>
             <div className={styles.workList}>
-              <Link className={styles.workRow} href={featuredBlog.href}>
+              <Link className={`${styles.workRow} ${styles.coverRow}`} href={featuredBlog.href}>
                 <img src={featuredBlog.image} alt="" data-vt={featuredBlog.href.startsWith('/blog/') ? vtKey(featuredBlog.href) : undefined} />
                 <span className={styles.workCopy}><strong>{featuredBlog.title}</strong><small>{featuredBlog.meta}</small></span>
                 <ArrowRight aria-hidden="true" />
               </Link>
-              <Link className={styles.viewAll} href={blogs?.href || '/blog'}>View all notes <ArrowRight aria-hidden="true" /></Link>
+              <Link className={styles.viewAll} href={blogs?.href || '/blog'}>View all blogs <ArrowRight aria-hidden="true" /></Link>
             </div>
           </section>
           <footer className={styles.visitorCounter}>

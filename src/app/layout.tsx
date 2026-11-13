@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Hanken_Grotesk } from 'next/font/google';
 import '@/lib/serverStorageShim';
 import './globals.css';
 import 'katex/dist/katex.min.css';
@@ -30,6 +31,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+const hanken = Hanken_Grotesk({ subsets: ['latin'], weight: 'variable', variable: '--font-hanken', display: 'swap' });
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,7 +40,7 @@ export default function RootLayout({
 }>) {
   const config = getConfig();
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className={`scroll-smooth ${hanken.variable}`} suppressHydrationWarning>
       <head>
         <link rel="icon" href={config.site.favicon} type="image/svg+xml" />
         <link
@@ -64,6 +67,7 @@ export default function RootLayout({
                 root.setAttribute('data-theme', 'light');
                 root.style.colorScheme = 'light';
                 root.style.backgroundColor = '#ffffff';
+                var pref = localStorage.getItem('home-scheme'); if (pref === 'dark' || (pref !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)) root.dataset.scheme = 'dark';
               } catch (e) {
                 const root = document.documentElement;
                 root.classList.remove('dark');

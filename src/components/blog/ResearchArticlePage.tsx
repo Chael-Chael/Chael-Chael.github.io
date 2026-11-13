@@ -5,7 +5,26 @@ import type { BlogPost } from '@/types/blog';
 import { extractMarkdownHeadings } from '@/lib/heading';
 import FlowShell, { FlowFooter, FlowSection, MarkdownSections } from '@/components/flow/FlowShell';
 import flow from '@/components/flow/Flow.module.css';
+import { CopyBlock } from '@/components/flow/PublicationDetailPage';
 import ArticleScale from './ArticleScale';
+
+const SITE_URL = 'https://chael-chael.github.io';
+
+function bibtex(post: BlogPost) {
+  const date = new Date(post.date);
+  const year = Number.isNaN(date.getTime()) ? '' : String(date.getFullYear());
+  const author = post.author || 'Chenyu Zhu';
+  const key = `${author.split(' ').pop()?.toLowerCase() ?? 'blog'}${year}${post.slug.replace(/[^a-z0-9]/gi, '').slice(0, 16)}`;
+  return [
+    `@misc{${key},`,
+    `  title  = {${post.title}},`,
+    `  author = {${author}},`,
+    `  year   = {${year}},`,
+    `  url    = {${SITE_URL}/blog/${post.slug}},`,
+    `  note   = {Blog post}`,
+    '}',
+  ].join('\n');
+}
 
 interface ResearchArticlePageProps {
   post: BlogPost;
@@ -51,9 +70,19 @@ export default function ResearchArticlePage({ post }: ResearchArticlePageProps) 
           </div>
         </FlowSection>
 
+        {post.takeaways && post.takeaways.length > 0 && (
+          <FlowSection title={post.language === 'zh' ? '要点' : 'Takeaways'} id="takeaways">
+            <ol className={flow.takeaways}>{post.takeaways.map((item) => <li key={item}>{item}</li>)}</ol>
+          </FlowSection>
+        )}
+
         <MarkdownSections content={post.content} />
 
-        <FlowFooter note="Thanks for reading." href="/blog" label="More research notes" />
+        <FlowSection title={post.language === 'zh' ? '引用' : 'Cite'} id="cite">
+          <CopyBlock text={bibtex(post)} />
+        </FlowSection>
+
+        <FlowFooter note="Thanks for reading." />
       </FlowShell>
     </>
   );

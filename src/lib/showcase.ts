@@ -30,7 +30,7 @@ const HOME_SECTION_ORDER: HomeSectionTarget[] = [
 
 const HOME_SECTION_FALLBACKS: Record<HomeSectionTarget, { title: string; href: string }> = {
   about: { title: 'Chenyu Zhu', href: '/' },
-  news: { title: 'News', href: '/#news' },
+  news: { title: 'News', href: '/news' },
   publications: { title: 'Publications', href: '/publications' },
   blog: { title: 'Research Blog', href: '/blog' },
   'open-source': { title: 'Open Source', href: '/open-source' },
@@ -166,7 +166,7 @@ function newsToItems(locale?: string): ShowcaseItem[] {
   return (newsData?.news || []).map((item, index) => ({
     id: `news-${index}`,
     title: stripMarkup(item.content) || item.content,
-    href: `/#news-${index}`,
+    href: `/news#news-${index}`,
     kind: 'news',
     meta: item.date,
     description: stripMarkup(item.content),
@@ -294,6 +294,13 @@ export function getShowcaseHomeData(locale?: string): ShowcaseHomeLocaleData {
   const sections = HOME_SECTION_ORDER
     .map((target) => buildHomeSection(target, locale))
     .filter((item): item is ShowcaseSection => Boolean(item));
+
+  // featured_blog only names the post; title, cover and meta come from the post itself so they never drift.
+  const featuredPost = home.featured_blog && getAllPosts(locale).find((post) => post.slug === home.featured_blog.id);
+  if (featuredPost) {
+    const item = blogToItem(featuredPost);
+    home.featured_blog = { ...home.featured_blog, title: item.title, href: item.href, image: item.image ?? home.featured_blog.image, meta: item.meta };
+  }
 
   return {
     author: config.author,

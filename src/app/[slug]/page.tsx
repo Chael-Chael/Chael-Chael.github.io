@@ -49,9 +49,17 @@ function loadDynamicPageData(slug: string, locale?: string): DynamicPageLocaleDa
   }
 
   if (pageConfig.type === 'card') {
+    const cardConfig = pageConfig as CardPageConfig & { news?: Array<{ date: string; content: string }> };
+    // news.toml keeps its [[news]] entries; show them as untitled cards
+    const items = cardConfig.items ?? (cardConfig.news ?? []).map((entry, index) => ({
+      title: '',
+      date: entry.date,
+      content: entry.content,
+      slug: `news-${index}`,
+    }));
     return {
       type: 'card',
-      config: pageConfig as CardPageConfig,
+      config: { ...cardConfig, items },
     };
   }
 

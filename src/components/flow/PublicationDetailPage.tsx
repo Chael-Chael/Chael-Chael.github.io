@@ -5,7 +5,7 @@ import { ArrowUpRight, BookOpen, Check, Copy, FileText, Info, Quote } from 'luci
 import type { Publication } from '@/types/publication';
 import type { DetailLink, DetailPair } from '@/types/showcase';
 import home from '@/components/portfolio/PortfolioHome.module.css';
-import FlowShell, { FlowFooter, FlowMarkdown, FlowSection } from './FlowShell';
+import FlowShell, { FlowMarkdown, FlowSection } from './FlowShell';
 import styles from './Flow.module.css';
 
 interface PublicationDetailPageProps {
@@ -18,7 +18,7 @@ interface PublicationDetailPageProps {
   links: DetailLink[];
 }
 
-function CopyBlock({ text }: { text: string }) {
+export function CopyBlock({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     try {
@@ -105,7 +105,6 @@ export default function PublicationDetailPage({ publication, coverKey, venue, co
         </FlowSection>
       )}
 
-      <FlowFooter note="Chenyu Zhu / Research notes and publications" href="/publications" label="All publications" />
     </FlowShell>
   );
 }

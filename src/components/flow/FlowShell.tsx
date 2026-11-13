@@ -10,7 +10,6 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import {
   ArrowLeft,
-  ArrowRight,
   Award,
   BookOpen,
   BriefcaseBusiness,
@@ -25,6 +24,7 @@ import { slugifyHeading } from '@/lib/heading';
 import { vtKey } from '@/lib/viewTransition';
 import home from '@/components/portfolio/PortfolioHome.module.css';
 import styles from './Flow.module.css';
+import SchemeToggle from '@/components/portfolio/SchemeToggle';
 
 /* ------------------------------------------------------------ shell */
 
@@ -46,9 +46,10 @@ interface FlowShellProps {
  * A subpage laid out as the homepage feed: the same scroll stage, the same 720px dashed column and
  * the same hero type above it. The bar on top is what the homepage section title becomes.
  */
-export default function FlowShell({ lead, intro, title, icon: Icon, back = { href: '/', label: 'Back to home' }, aside, barKey, children }: FlowShellProps) {
+export default function FlowShell({ lead, intro, title, back = { href: '/', label: 'Back to home' }, aside, barKey, children }: FlowShellProps) {
   return (
     <div className={home.root}>
+      <SchemeToggle />
       <section className={home.left} data-scroll-root>
         <div className={home.introHero}>
           <span className={home.introCopy}>
@@ -62,7 +63,7 @@ export default function FlowShell({ lead, intro, title, icon: Icon, back = { hre
             <Link className={styles.back} href={back.href} aria-label={back.label} title={back.label}>
               <ArrowLeft aria-hidden="true" />
             </Link>
-            <h1 className={styles.pageTitle}><Icon aria-hidden="true" /><span>{title}</span></h1>
+            <h1 className={styles.pageTitle}><span>{title}</span></h1>
             {aside && <span className={styles.barAside}>{aside}</span>}
           </header>
           {children}
@@ -84,12 +85,11 @@ interface FlowSectionProps {
 }
 
 /** One dashed band of the column, titled the way the homepage titles its sections. */
-export function FlowSection({ title, icon: Icon, id, count, flush, children }: FlowSectionProps) {
+export function FlowSection({ title, id, count, flush, children }: FlowSectionProps) {
   return (
     <section className={`${home.flowSection} ${flush ? home.projectsSection : ''}`}>
       {title && (
-        <h2 className={home.sectionTitle} id={id}>
-          {Icon && <Icon aria-hidden="true" />}
+        <h2 className={`${home.sectionTitle} ${styles.titled}`} id={id}>
           {title}
           {count !== undefined && <span className={styles.sectionCount}>{count}</span>}
         </h2>
@@ -99,18 +99,11 @@ export function FlowSection({ title, icon: Icon, id, count, flush, children }: F
   );
 }
 
-/** The closing band: a quiet line on the left, the way onward on the right. */
-export function FlowFooter({ note, href, label, direction = 'back' }: { note?: ReactNode; href: string; label: string; direction?: 'back' | 'next' }) {
+/** The closing band: a quiet line at the end of the column (the way back lives in the top bar). */
+export function FlowFooter({ note }: { note: ReactNode }) {
   return (
     <section className={home.flowSection}>
-      <div className={styles.footerNav}>
-        <span>{note}</span>
-        <Link href={href}>
-          {direction === 'back' && <ArrowLeft aria-hidden="true" data-dir="back" />}
-          {label}
-          {direction === 'next' && <ArrowRight aria-hidden="true" data-dir="next" />}
-        </Link>
-      </div>
+      <div className={styles.footerNav}><span>{note}</span></div>
     </section>
   );
 }
@@ -137,12 +130,19 @@ export function FlowMarkdown({ content }: { content: string }) {
             }
             return <Link href={href}>{children}</Link>;
           },
-          img: ({ src, alt }) => {
+          img: ({ src, alt, title }) => {
             if (alt === 'HUST') return <img src="/ascii-logo/HUST.png" alt={alt} className={styles.inlineLogo} />;
+            // Obsidian paste names ("Pasted image 2025…") are not captions.
+            const caption = alt && !/^pasted image/i.test(alt) ? alt : '';
             return (
               <figure>
-                <img src={typeof src === 'string' ? src : undefined} alt={alt || ''} loading="lazy" />
-                {alt && <figcaption>{alt}</figcaption>}
+                <img src={typeof src === 'string' ? src : undefined} alt={caption} loading="lazy" />
+                {(caption || title) && (
+                  <figcaption>
+                    {caption && <span>{caption}</span>}
+                    {title && <span className={styles.figNote}>{title}</span>}
+                  </figcaption>
+                )}
               </figure>
             );
           },

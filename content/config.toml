@@ -67,6 +67,12 @@ target = "cv"
 href = "/cv"
 
 [[navigation]]
+title = "News"
+type = "page"
+target = "news"
+href = "/news"
+
+[[navigation]]
 title = "Blog"
 type = "page"
 target = "blog"
