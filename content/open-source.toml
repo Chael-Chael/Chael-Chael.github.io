@@ -8,6 +8,7 @@ subtitle = "★ 11 · TypeScript"
 slug = "dsh-reference-anything"
 link = "https://github.com/Chael-Chael/dsh-reference-anything"
 image = "https://raw.githubusercontent.com/Chael-Chael/dsh-reference-anything/main/images/banner.png"
+accent = "#5865f2"
 content = "An enhanced DeepSeek Harness @ menu for referencing commands, skills, files, agent sessions, cloud drives, and chatbot conversations."
 
 [[items]]
@@ -16,4 +17,5 @@ subtitle = "★ 17 · Python"
 slug = "tmpo"
 link = "https://github.com/MAIR-Lab-HUST/TMPO"
 image = "https://raw.githubusercontent.com/MAIR-Lab-HUST/TMPO/17c144b4a5a73dc3a140dd1ca2fb102a9d271f5d/assets/readme/tmpo_banner_A_4x3.png"
+accent = "#e0703a"
 content = "Official implementation of TMPO: Trajectory Matching Policy Optimization for Diverse and Efficient Diffusion Alignment."

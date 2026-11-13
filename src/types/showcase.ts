@@ -17,6 +17,7 @@ export interface ShowcaseItem {
   href: string;
   kind: ShowcaseKind;
   image?: string;
+  accent?: string;
   meta?: string;
   badge?: string;
   date?: string;

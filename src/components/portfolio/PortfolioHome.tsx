@@ -213,7 +213,6 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
                   blockMargin={2.5}
                   blockRadius={2}
                   fontSize={12}
-                  showWeekdayLabels={['mon', 'wed', 'fri']}
                   labels={{ totalCount: '{{count}} activities in {{year}}' }}
                   className={styles.githubCalendar}
                   renderBlock={(block, activity) => cloneElement(block, {
@@ -287,7 +286,7 @@ export default function PortfolioHome({ data }: PortfolioHomeProps) {
                 return <div className={styles.projectCell} key={item.id}>
                   <a className={styles.projectCard} href={item.href} target="_blank" rel="noreferrer">
                     <span className={styles.projectFrame}>
-                      <span className={styles.projectStage}>
+                      <span className={styles.projectStage} style={item.accent ? { ['--accent' as string]: item.accent } : undefined}>
                         <span className={styles.projectLabel}>{item.id === 'tmpo' ? 'Paper & Code' : 'GitHub Repository'}</span>
                         <span className={styles.projectScreenshot}>{item.image && <img src={item.image} alt="" />}</span>
                       </span>

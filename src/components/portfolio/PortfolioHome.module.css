@@ -232,8 +232,9 @@
 
 .contributionScroll { max-width: 100%; margin-top: 8px; }
 .githubCalendar { width: 100% !important; color: #72726d; font-variant-numeric: tabular-nums; }
-.contributionScroll :global(.react-activity-calendar__scroll-container) { width: 100%; overflow: hidden !important; }
-.contributionScroll :global(.react-activity-calendar__calendar) { width: calc(100% - 39px) !important; height: auto !important; }
+.contributionScroll :global(.react-activity-calendar__scroll-container) { display: flex; justify-content: flex-end; width: 100%; overflow: hidden !important; }
+/* fixed height (natural block size); on narrow screens the oldest weeks are cropped on the left */
+.contributionScroll :global(.react-activity-calendar__calendar) { flex: none; width: auto !important; height: auto !important; }
 .contributionScroll :global(.react-activity-calendar__footer) { color: #72726d; font-size: var(--type-caption); }
 .contributionBlock { outline: none; transition: opacity 180ms ease; }
 .contributionBlock:hover,
@@ -317,9 +318,10 @@
 /* Blog rows: generated 16:10 covers shown large, cropped to fill */
 .workRow.coverRow { grid-template-columns: 176px minmax(0, 1fr) 18px; gap: 22px; }
 .workRow.coverRow > img { width: 176px; height: 110px; object-fit: cover; border-radius: 9px; }
-@media (max-width: 640px) {
-  .workRow.coverRow { grid-template-columns: 112px minmax(0, 1fr) 16px; gap: 14px; }
-  .workRow.coverRow > img { width: 112px; height: 70px; }
+/* portrait / narrow: cover on top, text below */
+@media (max-width: 640px), (orientation: portrait) and (max-width: 900px) {
+  .workRow.coverRow { grid-template-columns: minmax(0, 1fr) 16px; gap: 12px 10px; align-items: start; }
+  .workRow.coverRow > img { grid-column: 1 / -1; width: 100%; height: auto; aspect-ratio: 16 / 10; }
 }
 .publicationPreview { display: flex; flex-direction: column; gap: 4px; align-items: center; }
 .publicationPreview img { display: block; width: 94px; height: 68px; object-fit: contain; border: 1px solid var(--line); border-radius: 7px; background: var(--well); }
@@ -755,8 +757,8 @@
 .flowSection { position: relative; padding: 12px; border-top: 0; }
 .flowSection::before,
 .projectGrid::before,
-.projectViewAll::before,
-.visitorCounter::before {
+.visitorCounter::before,
+.profileHeader::after {
   content: '';
   position: absolute;
   top: 0;
@@ -767,7 +769,8 @@
   pointer-events: none;
 }
 .profileSection { padding: 0; }
-.profileHeader { border-bottom: 0; background: var(--dash-h) left bottom / 100% 1px no-repeat; }
+.profileHeader { position: relative; border-bottom: 0; }
+.profileHeader::after { top: auto; bottom: 0; }
 
 .sectionTitle,
 .projectsSection .sectionTitle {
@@ -1056,3 +1059,33 @@
 .experienceList,
 .workList,
 .newsList { margin-inline: -11px; }
+
+/* project card hover: dither wash in the project's accent colour */
+.projectStage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle, var(--accent, #71717b) 0.9px, transparent 1.1px) 0 0 / 4px 4px,
+    radial-gradient(circle, var(--accent, #71717b) 0.9px, transparent 1.1px) 2px 2px / 4px 4px;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.15), #000);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.15), #000);
+  opacity: 0;
+  transition: opacity var(--motion-link) var(--motion-ease);
+  pointer-events: none;
+}
+.projectCard:hover .projectStage::before,
+.projectCard:focus-visible .projectStage::before { opacity: 0.55; }
+
+/* publication previews: larger thumbnail; stacked like blog covers on portrait / narrow */
+.publicationEntry .workRow { grid-template-columns: 105px minmax(0, 1fr) 18px; }
+.publicationPreview img { width: 105px; height: 140px; }
+.publicationActions { padding-left: 135px; }
+@media (max-width: 640px), (orientation: portrait) and (max-width: 900px) {
+  .publicationEntry .workRow { grid-template-columns: minmax(0, 1fr) 16px; gap: 12px 10px; }
+  .publicationEntry .workRow > svg { align-self: start; }
+  .publicationPreview { grid-column: 1 / -1; align-items: center; }
+  .publicationPreview img { width: min(100%, 300px); height: auto; aspect-ratio: 3 / 4; }
+  .publicationActions { padding-left: 12px; }
+}

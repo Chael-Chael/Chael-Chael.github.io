@@ -132,6 +132,7 @@ function cardToItem(item: CardItem, index: number, pageHref: string, kind: Showc
     href: item.link || `${pageHref}#${itemSlug}`,
     kind,
     image: item.image,
+    accent: item.accent,
     meta: [item.date, item.subtitle].filter(Boolean).join(' / '),
     description: stripMarkup(item.content),
     external: Boolean(item.link && /^https?:\/\//.test(item.link)),
