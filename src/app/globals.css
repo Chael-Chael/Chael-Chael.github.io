@@ -1579,3 +1579,6 @@ figcaption {
     animation: none !important;
   }
 }
+
+/* Dark scheme page ground (moved out of PortfolioHome.module.css: CSS Modules forbid pure global selectors). */
+html[data-scheme='dark'] { color-scheme: dark; background-color: #0e0e0f !important; }

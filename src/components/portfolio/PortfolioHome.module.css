@@ -977,7 +977,6 @@
 .schemeToggle svg { width: 16px; height: 16px; }
 
 /* ───────────── dark mode (html[data-scheme='dark']) ───────────── */
-:global(html[data-scheme='dark']) { color-scheme: dark; background-color: #0e0e0f !important; }
 
 :global(html[data-scheme='dark']) .root {
   --ink: #ededed;
