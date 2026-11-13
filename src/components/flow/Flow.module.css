@@ -31,7 +31,7 @@
   bottom: 0;
   left: calc(50% - 50vw);
   width: 100vw;
-  height: 1px;
+  height: var(--hair, 1px);
   background: var(--dash-h);
   pointer-events: none;
 }
@@ -42,7 +42,7 @@
   top: 0;
   left: calc(50% - 50vw);
   width: 100vw;
-  height: 1px;
+  height: var(--hair, 1px);
   background: var(--dash-h);
   pointer-events: none;
 }
@@ -203,7 +203,7 @@
 
 .pairList { display: grid; }
 .pair { position: relative; display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 18px; padding: 11px 0; }
-.pair + .pair::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--dash-h); }
+.pair + .pair::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: var(--hair, 1px); background: var(--dash-h); }
 .pair:first-child { padding-top: 0; }
 .pair:last-child { padding-bottom: 0; }
 .pair dt { color: var(--title); font-size: 14px; font-weight: 500; line-height: 1.5; }
@@ -289,7 +289,7 @@
 .prose pre { margin: 0 0 14px; padding: 14px 16px; overflow-x: auto; border: 1px solid var(--dash); border-radius: 9px; background: var(--muted-bg); font-size: var(--type-caption); line-height: 1.65; }
 .prose pre code { padding: 0; border: 0; background: none; font-size: inherit; }
 
-.prose hr { height: 1px; margin: 20px 0; border: 0; background: var(--dash-h); }
+.prose hr { height: var(--hair, 1px); margin: 20px 0; border: 0; background: var(--dash-h); }
 
 .prose figure { margin: 4px 0 16px; }
 .prose figure img { display: block; width: 100%; height: auto; border: 1px solid var(--dash); border-radius: 9px; background: var(--muted-bg); }

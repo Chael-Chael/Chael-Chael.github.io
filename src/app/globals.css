@@ -1582,3 +1582,11 @@ figcaption {
 
 /* Dark scheme page ground (moved out of PortfolioHome.module.css: CSS Modules forbid pure global selectors). */
 html[data-scheme='dark'] { color-scheme: dark; background-color: #0e0e0f !important; }
+
+/* Hairline = exactly one device pixel, so dashed rules render the same thickness everywhere.
+   At fractional scaling (125% / 150% / 175%) a 1px CSS line would snap to 1 or 2 device pixels
+   depending on its position, making some rules look thicker than others. */
+:root { --hair: 1px; }
+@media (min-resolution: 1.2dppx) and (max-resolution: 1.3dppx) { :root { --hair: 0.8px; } }
+@media (min-resolution: 1.45dppx) and (max-resolution: 1.55dppx) { :root { --hair: 0.6667px; } }
+@media (min-resolution: 1.7dppx) and (max-resolution: 1.8dppx) { :root { --hair: 0.5715px; } }

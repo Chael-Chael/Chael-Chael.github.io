@@ -748,7 +748,7 @@
   border-inline: 0;
   background-color: #fff;
   background-image: var(--dash-v), var(--dash-v);
-  background-size: 1px 100%;
+  background-size: var(--hair, 1px) 100%;
   background-position: left top, right top;
   background-repeat: no-repeat;
 }
@@ -764,7 +764,7 @@
   top: 0;
   left: calc(50% - 50vw);
   width: 100vw;
-  height: 1px;
+  height: var(--hair, 1px);
   background: var(--dash-h);
   pointer-events: none;
 }
@@ -818,7 +818,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
+  height: var(--hair, 1px);
   background: var(--dash-h);
 }
 
@@ -880,7 +880,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: 1px;
+  width: var(--hair, 1px);
   background: var(--dash-v);
 }
 .projectFrame { border-color: var(--dash); }
@@ -935,7 +935,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 1px;
+    height: var(--hair, 1px);
     background: var(--dash-h);
   }
   .publicationActions { padding-left: 94px; }
@@ -951,7 +951,7 @@
   bottom: 0;
   left: calc(50% - 50vw);
   width: 100vw;
-  height: 1px;
+  height: var(--hair, 1px);
   background: var(--dash-h);
   pointer-events: none;
 }
