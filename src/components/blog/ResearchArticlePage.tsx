@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { NotebookPen } from 'lucide-react';
 import type { BlogPost } from '@/types/blog';
 import { extractMarkdownHeadings } from '@/lib/heading';
@@ -9,6 +10,8 @@ import { CopyBlock } from '@/components/flow/PublicationDetailPage';
 import ArticleScale from './ArticleScale';
 
 const SITE_URL = 'https://chael-chael.github.io';
+const LANG_KEY = 'blog-lang';
+const LANG_LABEL: Record<string, string> = { en: 'EN', zh: '中文' };
 
 function bibtex(post: BlogPost) {
   const date = new Date(post.date);
@@ -42,12 +45,33 @@ function shortDate(value: string) {
   return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
 }
 
-export default function ResearchArticlePage({ post }: ResearchArticlePageProps) {
+export default function ResearchArticlePage({ post: base }: ResearchArticlePageProps) {
+  const versions = base.versions ?? [];
+  const [lang, setLang] = useState(versions[0]?.lang ?? base.language ?? 'en');
+
+  // ?lang=zh wins, then the reader's last choice; the static render is always the default (English).
+  useEffect(() => {
+    let wanted: string | null = new URLSearchParams(window.location.search).get('lang');
+    if (!wanted) { try { wanted = localStorage.getItem(LANG_KEY); } catch { /* storage blocked */ } }
+    if (wanted && wanted !== lang && versions.some((v) => v.lang === wanted)) setLang(wanted);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const choose = (next: string) => {
+    setLang(next);
+    try { localStorage.setItem(LANG_KEY, next); } catch { /* storage blocked */ }
+    const url = new URL(window.location.href);
+    if (next === versions[0]?.lang) url.searchParams.delete('lang'); else url.searchParams.set('lang', next);
+    window.history.replaceState(window.history.state, '', url);
+  };
+
+  const version = versions.find((v) => v.lang === lang);
+  const post = version ? { ...base, ...version, language: version.lang } : base;
   const headings = extractMarkdownHeadings(post.content).filter((heading) => heading.level === 2);
 
   return (
     <>
-      <ArticleScale headings={headings} />
+      <ArticleScale key={lang} headings={headings} />
       <FlowShell
         lead={`${post.title}.`}
         intro={post.excerpt}
@@ -66,6 +90,15 @@ export default function ResearchArticlePage({ post }: ResearchArticlePageProps) 
               <span>·</span>
               <time dateTime={post.date}>{formatDate(post.date)}</time>
             </div>
+            {versions.length > 1 && (
+              <div className={flow.langSwitch} role="group" aria-label="Language">
+                {versions.map((v) => (
+                  <button key={v.lang} type="button" aria-pressed={v.lang === lang} onClick={() => choose(v.lang)}>
+                    {LANG_LABEL[v.lang] ?? v.lang}
+                  </button>
+                ))}
+              </div>
+            )}
             {post.tags && post.tags.length > 0 && <div className={flow.tagList}>{post.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}
           </div>
         </FlowSection>
@@ -76,7 +109,7 @@ export default function ResearchArticlePage({ post }: ResearchArticlePageProps) 
           </FlowSection>
         )}
 
-        <MarkdownSections content={post.content} />
+        <MarkdownSections key={lang} content={post.content} />
 
         <FlowSection title={post.language === 'zh' ? '引用' : 'Cite'} id="cite">
           <CopyBlock text={bibtex(post)} />

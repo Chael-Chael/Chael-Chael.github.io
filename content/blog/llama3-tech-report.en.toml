@@ -1,0 +1,2 @@
+title = "A Close Reading of the Llama 3 Tech Report"
+excerpt = "A close reading of the Llama 3 technical report in Abstract → Results → Introduction → Methods order: model results, pre-training data and architecture, parallel training, SFT / DPO post-training, and the multimodal (vision, video, speech) extensions."

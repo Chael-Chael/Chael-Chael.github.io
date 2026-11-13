@@ -25,6 +25,17 @@ export interface BlogCover {
   caption?: string;
 }
 
+/** One language of a post: `<slug>.<lang>.md` (+ optional `<slug>.<lang>.toml` overriding title/excerpt/takeaways). */
+export interface BlogPostVersion {
+  lang: string;
+  title: string;
+  excerpt: string;
+  takeaways?: string[];
+  content: string;
+}
+
 export interface BlogPost extends BlogPostMeta {
   content: string;
+  /** All available languages, English first when present. */
+  versions: BlogPostVersion[];
 }
