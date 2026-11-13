@@ -15,21 +15,5 @@ title = "MAIR-Lab-HUST / TMPO"
 subtitle = "★ 17 · Python"
 slug = "tmpo"
 link = "https://github.com/MAIR-Lab-HUST/TMPO"
-image = "/papers/TMPO.png"
+image = "https://raw.githubusercontent.com/MAIR-Lab-HUST/TMPO/blob/main/assets/readme/tmpo_banner_A_4x3.png"
 content = "Official implementation of TMPO: Trajectory Matching Policy Optimization for Diverse and Efficient Diffusion Alignment."
-
-[[items]]
-title = "awesome-hermes-eva-skins"
-subtitle = "★ 25 · Python"
-slug = "awesome-hermes-eva-skins"
-link = "https://github.com/Chael-Chael/awesome-hermes-eva-skins"
-image = "https://raw.githubusercontent.com/Chael-Chael/awesome-hermes-eva-skins/main/assets/eva-nerv.png"
-content = "A curated collection of EVA-style retro themes for Hermes CLI Agent, designed for the Windows Terminal retro effect."
-
-[[items]]
-title = "zotero-translate-skill"
-subtitle = "★ 1 · Python"
-slug = "zotero-translate-skill"
-link = "https://github.com/Chael-Chael/zotero-translate-skill"
-image = "https://raw.githubusercontent.com/Chael-Chael/zotero-translate-skill/main/assets/zotero-translate-hero.png"
-content = "An agent-native Zotero PDF translation skill powered by pdf2zh and BabelDOC."
